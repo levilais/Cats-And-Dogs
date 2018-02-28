@@ -55,6 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseButton?.name = "pauseButton"
         pauseButton?.zPosition = .infinity
         
+        scene?.childNode(withName: "playButton")?.isHidden = true
+        scene?.childNode(withName: "quitButton")?.isHidden = true
+        scene?.childNode(withName: "settingsButton")?.isHidden = true
+        scene?.childNode(withName: "pauseLabel")?.isHidden = true
+        
         setGameState()
         startDropTimer()
     }
@@ -76,11 +81,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                     }
                 case "pauseButton":
-                    if (scene?.isPaused)! {
-                        resumeGame()
-                    } else {
-                        pauseGame()
-                    }
+                    pauseGame()
+                case "playButton":
+                    resumeGame()
                 default:
                     print("no button touched")
                 }
@@ -271,7 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     switch name {
                     case "drop":
                         child.removeFromParent()
-                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel":
+                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel":
                         child.isHidden = true
                     default:
                         print("do nothing")
@@ -285,10 +288,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dropTimer?.invalidate()
         if let sceneCheck = scene {
             sceneCheck.isPaused = true
-            for drop in sceneCheck.children {
-                if let name = drop.name {
-                    if name == "drop" {
-                        drop.isHidden = true
+            for child in sceneCheck.children {
+                if let name = child.name {
+                    switch name {
+                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel","drop":
+                        child.isHidden = true
+                    case "pauseLabel","playButton","settingsButton","quitButton":
+                        child.isHidden = false
+                    default:
+                        print("do nothing")
                     }
                 }
             }
@@ -298,10 +306,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resumeGame() {
         if let sceneCheck = scene {
             sceneCheck.isPaused = false
-            for drop in sceneCheck.children {
-                if let name = drop.name {
-                    if name == "drop" {
-                        drop.isHidden = false
+            for child in sceneCheck.children {
+                if let name = child.name {
+                    switch name {
+                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel","drop":
+                        child.isHidden = false
+                    case "pauseLabel","playButton","settingsButton","quitButton":
+                        child.isHidden = true
+                    default:
+                        print("do nothing")
                     }
                 }
             }

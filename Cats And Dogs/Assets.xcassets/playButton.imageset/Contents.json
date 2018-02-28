@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "gauge.pdf",
+      "filename" : "playButton.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "gauge@2x.pdf",
+      "filename" : "playButton@2x.pdf",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "gauge@3x.pdf",
+      "filename" : "playButton@3x.pdf",
       "scale" : "3x"
     }
   ],
