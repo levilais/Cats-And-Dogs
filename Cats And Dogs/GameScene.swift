@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bgImage: SKSpriteNode?
     var gauge: SKSpriteNode?
     var gaugeFill: SKSpriteNode?
+    var pauseButton: SKSpriteNode?
     
     // Game Variables
     var dropTimer: Timer?
@@ -50,32 +51,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground?.physicsBody?.categoryBitMask = groundCategory
         ground?.physicsBody?.contactTestBitMask = dropCategory
         
+        pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
+        pauseButton?.name = "pauseButton"
+        pauseButton?.zPosition = .infinity
+        
         setGameState()
-        
-        dropTimer = Timer.scheduledTimer(withTimeInterval: GameControls.dropFrequency, repeats: true, block: { (timer) in
-            self.createDrop()
-        })
-    }
-    
-    func setGameState() {
-        GameVariables.score = 0
-        GameVariables.missMeterValue = GameControls.missMeterLimit
-        
-        self.scoreLabel?.text = String(GameVariables.score)
-        self.missLabel?.text = String(GameVariables.missMeterValue)
+        startDropTimer()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let positionInScene = touch.location(in: self)
-            if let touchedNode = self.atPoint(positionInScene) as? Drop {
-                if let dropLetter = touchedNode.type {
-                    self.determineStreak(dropLetter: dropLetter)
-                    self.computeScore()
+            let touchedNode = self.atPoint(positionInScene)
+            
+            if let name = touchedNode.name {
+                switch name {
+                case "drop":
+                    print("drop touched")
+                    if let drop = touchedNode as? Drop {
+                        if let dropLetter = drop.type {
+                            self.determineStreak(dropLetter: dropLetter)
+                            self.computeScore()
+                            drop.removeFromParent()
+                        }
+                    }
+                case "pauseButton":
+                    if (scene?.isPaused)! {
+                        resumeGame()
+                    } else {
+                        pauseGame()
+                    }
+                default:
+                    print("no button touched")
                 }
-                touchedNode.removeFromParent()
             }
         }
+    }
+    
+    func setGameState() {
+        GameVariables.score = 0
+        GameVariables.missesLeft = GameControls.missMeterLimit
+        
+        self.scoreLabel?.text = String(GameVariables.score)
+        self.missLabel?.text = String(GameVariables.missesLeft)
     }
     
     func determineStreak(dropLetter: String) {
@@ -167,6 +185,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createDrop() {
         let drop = Drop()
+        drop.name = "drop"
+        
         drop.physicsBody = SKPhysicsBody(rectangleOf: drop.size)
         drop.physicsBody?.affectedByGravity = false
         
@@ -174,7 +194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.physicsBody?.contactTestBitMask = groundCategory
         addChild(drop)
         
-        let maxStartingX = size.width / 2 - drop.size.width / 2
+        let maxStartingX = size.width / 2 - drop.size.width / 2 - 40
         let minStartingX = -size.width / 2 + drop.size.width / 2
         let startingXRange = maxStartingX - minStartingX
         
@@ -201,57 +221,103 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.dropSpeed)
         drop.run(moveDown)
         
-//        let removeDrop = SKAction.removeFromParent()
         let dropThenPopAction = SKAction.sequence([moveDown])
         drop.run(dropThenPopAction)
     }
     
     func updateMissMeter(changeValue: Int) {
         var valueToChange = changeValue
-        switch GameVariables.missMeterValue {
-        case 1:
-            self.dropTimer?.invalidate()
-            print("game over")
-        case 95...100:
-            if changeValue == 5 {
-                valueToChange = GameControls.missMeterLimit - GameVariables.missMeterValue
+        var isGameOver = false
+        
+        if abs(changeValue) >= GameVariables.missesLeft {
+            isGameOver = true
+        } else {
+            if changeValue >= GameVariables.missesLeft {
+                if valueToChange == 100 {
+                    valueToChange = 0
+                } else {
+                    valueToChange = GameVariables.missesLeft
+                }
             }
-        case 100:
-            valueToChange = 0
-        default:
-            print("not game over and not sub 5 left")
         }
-        GameVariables.missMeterValue += valueToChange
-        if let gaugeFillCheck = gaugeFill {
-            print("gauge height: \(gaugeFillCheck.size.height)")
-            print("add to height: \(valueToChange)")
-            var newHeight = (GameControls.missMeterLimit - GameVariables.missMeterValue) * 4
-            if newHeight == 0 {
-                newHeight = 1
+        if !isGameOver {
+            if (GameVariables.missesLeft + valueToChange) > 100 {
+                valueToChange = 100 - GameVariables.missesLeft
             }
-//            let resizeAction = SKAction.resize(toHeight: CGFloat(newHeight), duration: 0.2)
-//            gaugeFillCheck.run(resizeAction)
-            gaugeFillCheck.size.height = CGFloat(newHeight)
             
-            let currentY = gaugeFillCheck.frame.midY
-            let newY = currentY - CGFloat(valueToChange) * 2
-            let newPoint = CGPoint(x: gaugeFillCheck.frame.midX, y: newY)
-            gaugeFillCheck.position = newPoint
-            print("new gauge height: \(gaugeFillCheck.size.height)")
+            GameVariables.missesLeft += valueToChange
+            if let gaugeFillCheck = gaugeFill {
+                let currentY = gaugeFillCheck.frame.midY
+                let newHeight = (GameControls.missMeterLimit - GameVariables.missesLeft) * 4
+                
+                let newY = currentY - CGFloat(valueToChange) * 2
+                let newPoint = CGPoint(x: gaugeFillCheck.frame.midX, y: newY)
+                
+                gaugeFillCheck.scale(to: CGSize(width: gaugeFillCheck.size.width, height: CGFloat(newHeight)))
+                gaugeFillCheck.position = newPoint
+            }
+            self.missLabel?.text = String(GameVariables.missesLeft)
+        } else {
+            gameOver()
         }
-       
-        print("missMeterValue: \(String(GameVariables.missMeterValue))")
-        self.missLabel?.text = String(GameVariables.missMeterValue)
+    }
+    
+    func gameOver() {
+        self.missLabel?.text = "0"
+        dropTimer?.invalidate()
+        if let sceneCheck = scene {
+            for drop in sceneCheck.children {
+                if let name = drop.name {
+                    if name == "drop" {
+                        drop.removeFromParent()
+                    }
+                }
+            }
+        }
+    }
+    
+    func pauseGame() {
+        dropTimer?.invalidate()
+        if let sceneCheck = scene {
+            sceneCheck.isPaused = true
+            for drop in sceneCheck.children {
+                if let name = drop.name {
+                    if name == "drop" {
+                        drop.isHidden = true
+                    }
+                }
+            }
+        }
+    }
+    
+    func resumeGame() {
+        if let sceneCheck = scene {
+            sceneCheck.isPaused = false
+            for drop in sceneCheck.children {
+                if let name = drop.name {
+                    if name == "drop" {
+                        drop.isHidden = false
+                    }
+                }
+            }
+        }
+        startDropTimer()
+    }
+    
+    func startDropTimer() {
+        dropTimer = Timer.scheduledTimer(withTimeInterval: GameControls.dropFrequency, repeats: true, block: { (timer) in
+            self.createDrop()
+        })
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == dropCategory {
-            updateMissMeter(changeValue: -1)
+            updateMissMeter(changeValue: -2)
             contact.bodyA.node?.removeFromParent()
             print("bodyA")
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-            updateMissMeter(changeValue: -1)
+            updateMissMeter(changeValue: -2)
             contact.bodyB.node?.removeFromParent()
             print("bodyB")
         }
