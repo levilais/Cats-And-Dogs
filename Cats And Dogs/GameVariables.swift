@@ -9,16 +9,23 @@
 import Foundation
 
 class GameControls {
+    // Keep a 60 to 1 ratio for drop speed and frequency
+    static var dropSpeed: TimeInterval = 60
+    static var dropFrequency: TimeInterval = 1
     
-    static var dropSpeed: TimeInterval = 30
-    static var dropFrequency: TimeInterval = 0.5
+    // Increase these when increasing drop frequency and storm
     static var baseSingleLetterPoints: Int = 500
     static var baseComboPoints: Int = 1000
+    static var baseMissPoints: Int = 1
+    static var baseMissMeterBonus: Int = 5
+    static var missMeterLimit: Int = 100
 }
 
 class GameVariables {
-    static var streak = ""
+    static var streak: String = ""
     static var streakCount: Int = 0
     static var multiplier: Int = 1
     static var score: Int = 0
+    static var missMeterValue: Int = 100
+    static var firstDrop: Bool = true
 }

@@ -13,8 +13,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var scoreLabel: SKLabelNode?
     var streakLabel: SKLabelNode?
+    var missLabel: SKLabelNode?
+    
     var ground: SKSpriteNode?
     var bgImage: SKSpriteNode?
+    var gauge: SKSpriteNode?
+    var gaugeFill: SKSpriteNode?
     
     // Game Variables
     var dropTimer: Timer?
@@ -33,19 +37,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
 
-        
         scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
         streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
+        missLabel = childNode(withName: "missLabel") as? SKLabelNode
         
+        gauge = childNode(withName: "gauge") as? SKSpriteNode
+        gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
         
+        gaugeFill = childNode(withName: "gaugeFill") as? SKSpriteNode
         
         ground = childNode(withName: "ground") as? SKSpriteNode
         ground?.physicsBody?.categoryBitMask = groundCategory
         ground?.physicsBody?.contactTestBitMask = dropCategory
         
+        setGameState()
+        
         dropTimer = Timer.scheduledTimer(withTimeInterval: GameControls.dropFrequency, repeats: true, block: { (timer) in
             self.createDrop()
         })
+    }
+    
+    func setGameState() {
+        GameVariables.score = 0
+        GameVariables.missMeterValue = GameControls.missMeterLimit
+        
+        self.scoreLabel?.text = String(GameVariables.score)
+        self.missLabel?.text = String(GameVariables.missMeterValue)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,6 +84,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case Drop.DropType.C.rawValue:
             if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
                 GameVariables.multiplier = 1
+                if !GameVariables.firstDrop {
+                    updateMissMeter(changeValue: -1)
+                }
             }
             GameVariables.streak = "C"
         case Drop.DropType.A.rawValue:
@@ -75,19 +95,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 GameVariables.streak = ""
                 GameVariables.multiplier = 1
+                updateMissMeter(changeValue: -1)
             }
         case Drop.DropType.T.rawValue:
             if GameVariables.streak == "CA" {
                 GameVariables.streak = "CAT"
                 isCombo = true
                 GameVariables.multiplier += 1
+                updateMissMeter(changeValue: 5)
             } else {
                 GameVariables.streak = ""
                 GameVariables.multiplier = 1
+                updateMissMeter(changeValue: -1)
             }
         case Drop.DropType.D.rawValue:
             if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
                 GameVariables.multiplier = 1
+                if !GameVariables.firstDrop {
+                    updateMissMeter(changeValue: -1)
+                }
             }
             GameVariables.streak = "D"
         case Drop.DropType.O.rawValue:
@@ -96,15 +122,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 GameVariables.streak = ""
                 GameVariables.multiplier = 1
+                updateMissMeter(changeValue: -1)
             }
         case Drop.DropType.G.rawValue:
             if GameVariables.streak == "DO" {
                 GameVariables.streak = "DOG"
                 isCombo = true
                 GameVariables.multiplier += 1
+                updateMissMeter(changeValue: 5)
             } else {
                 GameVariables.streak = ""
                 GameVariables.multiplier = 1
+                updateMissMeter(changeValue: -1)
             }
         default:
             print("default called")
@@ -114,6 +143,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             streakLabel?.text = String(GameVariables.multiplier) + "x \(GameVariables.streak)"
         } else {
             streakLabel?.text = GameVariables.streak
+        }
+        if GameVariables.firstDrop == true {
+            GameVariables.firstDrop = false
         }
     }
     
@@ -169,22 +201,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.dropSpeed)
         drop.run(moveDown)
         
-        let removeDrop = SKAction.removeFromParent()
-        let dropThenPopAction = SKAction.sequence([moveDown,removeDrop])
+//        let removeDrop = SKAction.removeFromParent()
+        let dropThenPopAction = SKAction.sequence([moveDown])
         drop.run(dropThenPopAction)
     }
     
+    func updateMissMeter(changeValue: Int) {
+        var valueToChange = changeValue
+        switch GameVariables.missMeterValue {
+        case 1:
+            self.dropTimer?.invalidate()
+            print("game over")
+        case 95...100:
+            if changeValue == 5 {
+                valueToChange = GameControls.missMeterLimit - GameVariables.missMeterValue
+            }
+        case 100:
+            valueToChange = 0
+        default:
+            print("not game over and not sub 5 left")
+        }
+        GameVariables.missMeterValue += valueToChange
+        if let gaugeFillCheck = gaugeFill {
+            print("gauge height: \(gaugeFillCheck.size.height)")
+            print("add to height: \(valueToChange)")
+            var newHeight = (GameControls.missMeterLimit - GameVariables.missMeterValue) * 4
+            if newHeight == 0 {
+                newHeight = 1
+            }
+//            let resizeAction = SKAction.resize(toHeight: CGFloat(newHeight), duration: 0.2)
+//            gaugeFillCheck.run(resizeAction)
+            gaugeFillCheck.size.height = CGFloat(newHeight)
+            
+            let currentY = gaugeFillCheck.frame.midY
+            let newY = currentY - CGFloat(valueToChange) * 2
+            let newPoint = CGPoint(x: gaugeFillCheck.frame.midX, y: newY)
+            gaugeFillCheck.position = newPoint
+            print("new gauge height: \(gaugeFillCheck.size.height)")
+        }
+       
+        print("missMeterValue: \(String(GameVariables.missMeterValue))")
+        self.missLabel?.text = String(GameVariables.missMeterValue)
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        // Where we pop drops on the ground
         if contact.bodyA.categoryBitMask == dropCategory {
+            updateMissMeter(changeValue: -1)
             contact.bodyA.node?.removeFromParent()
             print("bodyA")
         }
         if contact.bodyB.categoryBitMask == dropCategory {
+            updateMissMeter(changeValue: -1)
             contact.bodyB.node?.removeFromParent()
             print("bodyB")
         }
-        print("update water meter")
-        // update water meter
     }
 }
