@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */; };
+		040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */; };
+		040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */; };
 		0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456C1E620432DCE00647657 /* AppDelegate.swift */; };
 		0456C1E920432DCE00647657 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1E820432DCE00647657 /* GameScene.sks */; };
 		0456C1EB20432DCE00647657 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1EA20432DCE00647657 /* Actions.sks */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Righteous-Regular.ttf"; sourceTree = "<group>"; };
+		040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Bold.ttf"; sourceTree = "<group>"; };
+		040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
 		0456C1E320432DCE00647657 /* Cats And Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cats And Dogs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456C1E620432DCE00647657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0456C1E820432DCE00647657 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -47,11 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040A3C8220476A4600FCCDD4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */,
+				040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */,
+				040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		0456C1DA20432DCE00647657 = {
 			isa = PBXGroup;
 			children = (
 				0456C1E520432DCE00647657 /* Cats And Dogs */,
 				0456C1E420432DCE00647657 /* Products */,
+				040A3C8220476A4600FCCDD4 /* Fonts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,8 +159,11 @@
 			files = (
 				0456C1F220432DCE00647657 /* Main.storyboard in Resources */,
 				0456C1E920432DCE00647657 /* GameScene.sks in Resources */,
+				040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */,
 				0456C1F420432DD000647657 /* Assets.xcassets in Resources */,
+				040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */,
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
+				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
 				0456C1EB20432DCE00647657 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

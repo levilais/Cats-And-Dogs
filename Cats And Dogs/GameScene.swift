@@ -266,10 +266,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.missLabel?.text = "0"
         dropTimer?.invalidate()
         if let sceneCheck = scene {
-            for drop in sceneCheck.children {
-                if let name = drop.name {
-                    if name == "drop" {
-                        drop.removeFromParent()
+            for child in sceneCheck.children {
+                if let name = child.name {
+                    switch name {
+                    case "drop":
+                        child.removeFromParent()
+                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel":
+                        child.isHidden = true
+                    default:
+                        print("do nothing")
                     }
                 }
             }
