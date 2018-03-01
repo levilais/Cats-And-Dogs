@@ -77,7 +77,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         if let dropLetter = drop.type {
                             self.determineStreak(dropLetter: dropLetter)
                             self.computeScore()
-                            drop.removeFromParent()
+                            animateSplash(dropToSplash: drop)
+                            
+//                            drop.removeFromParent()
                         }
                     }
                 case "pauseButton":
@@ -297,6 +299,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func animateSplash(dropToSplash: Drop) {
+        var splash = SKSpriteNode(texture: SKTexture(imageNamed: "0splash.pdf"))
+        
+        var splashArray = [SKTexture(imageNamed: "0splash.pdf"), SKTexture(imageNamed: "1splash.pdf"),SKTexture(imageNamed: "2splash.pdf")]
+        
+        splash.size = CGSize(width: 75, height: 34)
+        
+        let dropPosition = dropToSplash.position
+        splash.position = dropPosition
+        
+        dropToSplash.removeFromParent()
+        self.addChild(splash)
+        let animateSplash = SKAction.repeat(SKAction.animate(with: splashArray, timePerFrame: 0.05), count: 1)
+        splash.run(animateSplash) {
+            splash.removeFromParent()
+        }
+    }
+    
     func pauseGame() {
         dropTimer?.invalidate()
         if let sceneCheck = scene {
@@ -344,11 +364,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == dropCategory {
             updateMissMeter(changeValue: -2)
-            contact.bodyA.node?.removeFromParent()
+//            contact.bodyA.node?.removeFromParent()
+            if let drop = contact.bodyB.node as? Drop {
+                animateSplash(dropToSplash: drop)
+            }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             updateMissMeter(changeValue: -2)
-            contact.bodyB.node?.removeFromParent()
+//            contact.bodyB.node?.removeFromParent()
+            if let drop = contact.bodyB.node as? Drop {
+                animateSplash(dropToSplash: drop)
+            }
         }
     }
 }
