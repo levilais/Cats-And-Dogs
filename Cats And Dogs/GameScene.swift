@@ -84,6 +84,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     pauseGame()
                 case "playButton":
                     resumeGame()
+                case "quitButton":
+                    if let view = self.view as! SKView? {
+                        if let gameScene = SKScene(fileNamed: "HomeScene") {
+                            gameScene.scaleMode = .aspectFill
+                            view.presentScene(gameScene)
+                        }
+                    }
                 default:
                     print("no button touched")
                 }
