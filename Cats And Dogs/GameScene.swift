@@ -115,6 +115,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if !GameVariables.firstDrop {
                         updateMissMeter(changeValue: -1)
                     }
+                } else {
+                     GameVariables.multiplier += 1
                 }
                 GameVariables.streak = "C"
             case Drop.DropType.A.rawValue:
@@ -142,6 +144,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if !GameVariables.firstDrop {
                         updateMissMeter(changeValue: -1)
                     }
+                } else {
+                    GameVariables.multiplier += 1
                 }
                 GameVariables.streak = "D"
             case Drop.DropType.O.rawValue:
@@ -156,7 +160,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if GameVariables.streak == "DO" {
                     GameVariables.streak = "DOG"
                     isCombo = true
-                    GameVariables.multiplier += 1
                     updateMissMeter(changeValue: 5)
                 } else {
                     GameVariables.streak = ""
