@@ -113,10 +113,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case Drop.DropType.C.rawValue:
                 if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
                     GameVariables.multiplier = 1
-                    if !GameVariables.firstDrop {
-                        missMeterValueToChange = -1
-//                        updateMissMeter(changeValue: -1)
-                    }
                 } else {
                      GameVariables.multiplier += 1
                 }
@@ -127,27 +123,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else {
                     GameVariables.streak = ""
                     GameVariables.multiplier = 1
-//                    updateMissMeter(changeValue: -1)
                     missMeterValueToChange = -1
                 }
             case Drop.DropType.T.rawValue:
                 if GameVariables.streak == "CA" {
                     GameVariables.streak = "CAT"
                     isCombo = true
-//                    updateMissMeter(changeValue: 5)
                     missMeterValueToChange = 5
                 } else {
                     GameVariables.streak = ""
                     GameVariables.multiplier = 1
-//                    updateMissMeter(changeValue: -1)
                     missMeterValueToChange = -1
                 }
             case Drop.DropType.D.rawValue:
                 if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
                     GameVariables.multiplier = 1
-                    if !GameVariables.firstDrop {
-                        updateMissMeter(changeValue: -1)
-                    }
                 } else {
                     GameVariables.multiplier += 1
                 }
@@ -158,19 +148,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else {
                     GameVariables.streak = ""
                     GameVariables.multiplier = 1
-//                    updateMissMeter(changeValue: -1)
                     missMeterValueToChange = -1
                 }
             case Drop.DropType.G.rawValue:
                 if GameVariables.streak == "DO" {
                     GameVariables.streak = "DOG"
                     isCombo = true
-//                    updateMissMeter(changeValue: 5)
                     missMeterValueToChange = 5
                 } else {
                     GameVariables.streak = ""
                     GameVariables.multiplier = 1
-//                    updateMissMeter(changeValue: -1)
                     missMeterValueToChange = -1
                 }
             default:
@@ -339,7 +326,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if missPoints != 0 {
                 missPointsExist = true
                 let missMeterPointChangeLabel = SKLabelNode()
-                missMeterPointChangeLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
+                missMeterPointChangeLabel.fontColor = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
                 missMeterPointChangeLabel.fontName = "Righteous-Regular"
                 missMeterPointChangeLabel.fontSize = 48
                 if let missPointsAmount = dropToScore.missPoints {
@@ -363,7 +350,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         let dropScoreLabel = SKLabelNode()
-        dropScoreLabel.fontColor = UIColor(red:1.00, green:0.58, blue:0.55, alpha:1.0)
+        dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
         dropScoreLabel.fontName = "Righteous-Regular"
         dropScoreLabel.fontSize = 48
         if let dropScore = dropToScore.scorePoints {
