@@ -10,8 +10,8 @@ import Foundation
 
 class GameControls {
     // Keep a 60 to 1 ratio for drop speed and frequency
-    static var dropSpeed: TimeInterval = 10
-    static var dropFrequency: TimeInterval = 0.25
+    static var dropSpeed: TimeInterval = 30
+    static var dropFrequency: TimeInterval = 0.5
     
     // Increase these when increasing drop frequency and storm
     static var baseSingleLetterPoints: Int = 500

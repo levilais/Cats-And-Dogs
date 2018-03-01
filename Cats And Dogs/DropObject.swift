@@ -14,6 +14,8 @@ class Drop: SKSpriteNode {
     static var dropTypes = ["D","O","G","C","A","T"]
     
     var type: String!
+    var scorePoints: Int?
+    var missPoints: Int?
     
     init() {
         let randomDrop = Drop.dropTypes[Int(arc4random_uniform(6))]
