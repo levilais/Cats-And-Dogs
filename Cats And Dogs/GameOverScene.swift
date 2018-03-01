@@ -12,6 +12,7 @@ import SpriteKit
 class GameOverScene: SKScene {
     
     var bgImage: SKSpriteNode?
+    var scoreLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
         print("loaded")
@@ -19,6 +20,14 @@ class GameOverScene: SKScene {
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
         
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        if let formattedNumber = numberFormatter.string(from: GameVariables.score as! NSNumber) {
+            scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
+            if let scoreLabelCheck = scoreLabel {
+                scoreLabelCheck.text = String(formattedNumber)
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
