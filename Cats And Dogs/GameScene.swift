@@ -244,7 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func animateRain() {
-        let rainFrequency: TimeInterval = 0.1
+        let rainFrequency: TimeInterval = 0.05
         let rainSpeed: TimeInterval = 1.5
         
         rainTimer = Timer.scheduledTimer(withTimeInterval: rainFrequency, repeats: true, block: { (timer) in
@@ -261,27 +261,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let maxStartingX = size.width / 2 - drop.size.width / 2
         let minStartingX = -size.width / 2 + drop.size.width / 2
         let startingXRange = maxStartingX - minStartingX
-        
-        var startingX = CGFloat()
-        if let lastX = self.lastDropXValue {
-            var startingXFound = false
-            while !startingXFound {
-                startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
-                if (startingX - drop.size.width)...(startingX + drop.size.width) ~= lastX {
-                    print("too close")
-                } else {
-                    startingXFound = true
-                }
-            }
-        } else {
-            startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
-        }
-        
+
+        let startingX: CGFloat = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
         let startingY: CGFloat = size.height / 2 + drop.size.height / 2
         drop.position = CGPoint(x: startingX, y: startingY)
-        
-        self.lastDropXValue = startingX
-        
+                
         let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: 2)
         drop.run(moveDown)
         
@@ -470,12 +454,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.createDrop()
         })
     }
-    
-//    func createRain() {
-//        let rain = SKSpriteNode(imageNamed: "rain0.pdf")
-//        rain.position = CGPoint(x: 0, y: 0)
-//        scene?.addChild(rain)
-//    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == dropCategory {
