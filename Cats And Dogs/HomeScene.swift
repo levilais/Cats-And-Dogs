@@ -37,7 +37,8 @@ class HomeScene: SKScene {
                             view.presentScene(gameScene)
                         }
                     }
-                    print("home pressed")
+                case "settingsButton":
+                    print("settingsButton pressed")
                 default:
                     print("no button touched")
                 }
