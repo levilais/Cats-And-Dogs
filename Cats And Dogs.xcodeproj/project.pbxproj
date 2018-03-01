@@ -12,6 +12,8 @@
 		040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */; };
 		040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C8520477C4800FCCDD4 /* HomeScene.sks */; };
 		040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A3C8720477C8E00FCCDD4 /* HomeScene.swift */; };
+		040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C892047813D00FCCDD4 /* GameOverScene.sks */; };
+		040A3C8C2047815D00FCCDD4 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A3C8B2047815D00FCCDD4 /* GameOverScene.swift */; };
 		0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456C1E620432DCE00647657 /* AppDelegate.swift */; };
 		0456C1E920432DCE00647657 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1E820432DCE00647657 /* GameScene.sks */; };
 		0456C1EB20432DCE00647657 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1EA20432DCE00647657 /* Actions.sks */; };
@@ -31,6 +33,8 @@
 		040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
 		040A3C8520477C4800FCCDD4 /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
 		040A3C8720477C8E00FCCDD4 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
+		040A3C892047813D00FCCDD4 /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
+		040A3C8B2047815D00FCCDD4 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		0456C1E320432DCE00647657 /* Cats And Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cats And Dogs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456C1E620432DCE00647657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0456C1E820432DCE00647657 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -91,9 +95,11 @@
 				04F01BEE20433A7A002C57F6 /* Utilities.swift */,
 				04F01BF220449254002C57F6 /* GameVariables.swift */,
 				04F01BF0204377EB002C57F6 /* DropObject.swift */,
+				040A3C892047813D00FCCDD4 /* GameOverScene.sks */,
 				040A3C8520477C4800FCCDD4 /* HomeScene.sks */,
 				0456C1E820432DCE00647657 /* GameScene.sks */,
 				0456C1EA20432DCE00647657 /* Actions.sks */,
+				040A3C8B2047815D00FCCDD4 /* GameOverScene.swift */,
 				040A3C8720477C8E00FCCDD4 /* HomeScene.swift */,
 				0456C1EC20432DCE00647657 /* GameScene.swift */,
 				0456C1EE20432DCE00647657 /* GameViewController.swift */,
@@ -171,6 +177,7 @@
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
 				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
 				040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */,
+				040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */,
 				0456C1EB20432DCE00647657 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +191,7 @@
 			files = (
 				0456C1ED20432DCE00647657 /* GameScene.swift in Sources */,
 				04F01BF320449254002C57F6 /* GameVariables.swift in Sources */,
+				040A3C8C2047815D00FCCDD4 /* GameOverScene.swift in Sources */,
 				0456C1EF20432DCE00647657 /* GameViewController.swift in Sources */,
 				040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */,
 				04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */,

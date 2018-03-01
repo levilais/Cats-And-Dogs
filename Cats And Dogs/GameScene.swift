@@ -289,6 +289,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        if let view = self.view as! SKView? {
+            if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
+                gameOverScene.scaleMode = .aspectFill
+                view.presentScene(gameOverScene)
+            }
+        }
     }
     
     func pauseGame() {
@@ -339,12 +345,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == dropCategory {
             updateMissMeter(changeValue: -2)
             contact.bodyA.node?.removeFromParent()
-            print("bodyA")
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             updateMissMeter(changeValue: -2)
             contact.bodyB.node?.removeFromParent()
-            print("bodyB")
         }
     }
 }

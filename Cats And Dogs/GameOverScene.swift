@@ -1,5 +1,5 @@
 //
-//  HomeScene.swift
+//  GameOverScene.swift
 //  Cats And Dogs
 //
 //  Created by Levi on 2/28/18.
@@ -9,10 +9,9 @@
 import UIKit
 import SpriteKit
 
-class HomeScene: SKScene {
+class GameOverScene: SKScene {
     
     var bgImage: SKSpriteNode?
-    var homePlaybutton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
         print("loaded")
@@ -20,7 +19,6 @@ class HomeScene: SKScene {
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
         
-        homePlaybutton = childNode(withName: "homePlayButton") as? SKSpriteNode
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -30,15 +28,13 @@ class HomeScene: SKScene {
             
             if let name = touchedNode.name {
                 switch name {
-                case "homePlayButton":
+                case "playButton":
                     if let view = self.view as! SKView? {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill
                             view.presentScene(gameScene)
                         }
                     }
-                case "settingsButton":
-                    print("settingsButton pressed")
                 default:
                     print("no button touched")
                 }
