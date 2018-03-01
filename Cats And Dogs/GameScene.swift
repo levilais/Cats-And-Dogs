@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Game Variables
     var dropTimer: Timer?
+    var rainTimer: Timer?
     var isCombo = false
     var lastDropXValue: CGFloat?
     var lastDropYValue: CGFloat?
@@ -62,6 +63,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         setGameState()
         startDropTimer()
+        animateRain()
+//        createRain()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -237,6 +240,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.run(moveDown)
         
         let dropThenPopAction = SKAction.sequence([moveDown])
+        drop.run(dropThenPopAction)
+    }
+    
+    func animateRain() {
+        let rainFrequency: TimeInterval = 0.1
+        let rainSpeed: TimeInterval = 1.5
+        
+        rainTimer = Timer.scheduledTimer(withTimeInterval: rainFrequency, repeats: true, block: { (timer) in
+            self.createSmallDrop(speed: rainSpeed)
+        })
+    }
+    
+    func createSmallDrop(speed: TimeInterval) {
+        let drop = SKSpriteNode(imageNamed: "smallDrop")
+        drop.name = "smallDrop"
+        drop.zPosition = 0
+        addChild(drop)
+        
+        let maxStartingX = size.width / 2 - drop.size.width / 2
+        let minStartingX = -size.width / 2 + drop.size.width / 2
+        let startingXRange = maxStartingX - minStartingX
+        
+        var startingX = CGFloat()
+        if let lastX = self.lastDropXValue {
+            var startingXFound = false
+            while !startingXFound {
+                startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
+                if (startingX - drop.size.width)...(startingX + drop.size.width) ~= lastX {
+                    print("too close")
+                } else {
+                    startingXFound = true
+                }
+            }
+        } else {
+            startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
+        }
+        
+        let startingY: CGFloat = size.height / 2 + drop.size.height / 2
+        drop.position = CGPoint(x: startingX, y: startingY)
+        
+        self.lastDropXValue = startingX
+        
+        let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: 2)
+        drop.run(moveDown)
+        
+        let removeDrop = SKAction.removeFromParent()
+        
+        let dropThenPopAction = SKAction.sequence([moveDown, removeDrop])
         drop.run(dropThenPopAction)
     }
     
@@ -420,12 +471,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
     }
     
+//    func createRain() {
+//        let rain = SKSpriteNode(imageNamed: "rain0.pdf")
+//        rain.position = CGPoint(x: 0, y: 0)
+//        scene?.addChild(rain)
+//    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
                 updateMissMeter(changeValue: -2)
                 drop.missPoints = -2
-//                drop = determineStreak(drop: drop)
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
             }
@@ -434,7 +490,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if var drop = contact.bodyB.node as? Drop {
                 updateMissMeter(changeValue: -2)
                 drop.missPoints = -2
-//                drop = determineStreak(drop: drop)
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
             }
