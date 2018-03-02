@@ -13,6 +13,7 @@ class HomeScene: SKScene {
     
     var bgImage: SKSpriteNode?
     var homePlaybutton: SKSpriteNode?
+    var settingsButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
         print("loaded")
@@ -21,6 +22,7 @@ class HomeScene: SKScene {
         bgImage?.zPosition = -1
         
         homePlaybutton = childNode(withName: "homePlayButton") as? SKSpriteNode
+        settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
