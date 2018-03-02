@@ -20,6 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gauge: SKSpriteNode?
     var gaugeFill: SKSpriteNode?
     var pauseButton: SKSpriteNode?
+    var introLabel: SKSpriteNode?
+    let introLabelTextures = [SKTexture(imageNamed: "popThoseDrops0"), SKTexture(imageNamed: "popThoseDrops1"), SKTexture(imageNamed: "popThoseDrops2")]
     
     // Game Variables
     var dropTimer: Timer?
@@ -27,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isCombo = false
     var lastDropXValue: CGFloat?
     var lastDropYValue: CGFloat?
+    var startGameCalled = false
     
     // Physics World Categories
     let dropCategory: UInt32 = 0x1 << 1
@@ -40,13 +43,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bgImage?.zPosition = -1
 
         scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
+        scoreLabel?.alpha = 0
         streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
         missLabel = childNode(withName: "missLabel") as? SKLabelNode
+        missLabel?.alpha = 0
         
         gauge = childNode(withName: "gauge") as? SKSpriteNode
         gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
+        gauge?.alpha = 0
         
         gaugeFill = childNode(withName: "gaugeFill") as? SKSpriteNode
+        gaugeFill?.alpha = 0
         
         ground = childNode(withName: "ground") as? SKSpriteNode
         ground?.physicsBody?.categoryBitMask = groundCategory
@@ -61,11 +68,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scene?.childNode(withName: "settingsButton")?.isHidden = true
         scene?.childNode(withName: "pauseLabel")?.isHidden = true
         
+        animateRain()
+        introAnimation()
+    }
+    
+    
+// things pile up when pause pressed - figure out what's going wrong
+    func introAnimation() {
+        self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
+        self.introLabel?.position = CGPoint(x: 0, y: frame.height / 4)
+        self.introLabel?.alpha = 0
+        scene?.addChild(self.introLabel!)
+
+        let wait = SKAction.wait(forDuration: 1)
+        let show = SKAction.fadeIn(withDuration: 0.1)
+        let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
+        let wait2 = SKAction.wait(forDuration: 0.5)
+        let sequence = SKAction.sequence([wait, show, animateImageChange, wait2])
+        self.introLabel?.run(sequence) {
+            self.introLabel?.alpha = 0
+            self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
+            self.gauge?.alpha = 1
+            self.gaugeFill?.alpha = 1
+            self.scoreLabel?.alpha = 1
+            self.missLabel?.alpha = 1
+            self.startGame()
+            self.startGameCalled = true
+        }
+    }
+    
+    func startGame() {
         setGameState()
         startDropTimer()
-        animateRain()
-//        createRain()
     }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -207,6 +243,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         drop.physicsBody = SKPhysicsBody(rectangleOf: drop.size)
         drop.physicsBody?.affectedByGravity = false
+        drop.zPosition = 10
         
         drop.physicsBody?.categoryBitMask = dropCategory
         drop.physicsBody?.contactTestBitMask = groundCategory
@@ -315,6 +352,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver() {
         self.missLabel?.text = "0"
         dropTimer?.invalidate()
+        rainTimer?.invalidate()
         if let sceneCheck = scene {
             for child in sceneCheck.children {
                 if let name = child.name {
@@ -324,7 +362,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel":
                         child.isHidden = true
                     default:
-                        print("do nothing")
+                        print("default in game over called")
                     }
                 }
             }
@@ -412,7 +450,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func pauseGame() {
+        introLabel?.alpha = 0
         dropTimer?.invalidate()
+        rainTimer?.invalidate()
         if let sceneCheck = scene {
             sceneCheck.isPaused = true
             for child in sceneCheck.children {
@@ -423,7 +463,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = false
                     default:
-                        print("do nothing")
+                        print("default in pauseGame called")
                     }
                 }
             }
@@ -441,12 +481,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = true
                     default:
-                        print("do nothing")
+                        print("default in resumeGame called")
                     }
                 }
             }
         }
-        startDropTimer()
+        
+        if startGameCalled {
+            startDropTimer()
+        } else {
+            introLabel?.alpha = 1
+        }
+        animateRain()
     }
     
     func startDropTimer() {

@@ -14,8 +14,8 @@ class GameControls {
     static var dropFrequency: TimeInterval = 0.33
     
     // Increase these when increasing drop frequency and storm
-    static var baseSingleLetterPoints: Int = 500
-    static var baseComboPoints: Int = 1000
+    static var baseSingleLetterPoints: Int = 100
+    static var baseComboPoints: Int = 200
     static var baseMissPoints: Int = 1
     static var baseMissMeterBonus: Int = 5
     static var missMeterLimit: Int = 100
