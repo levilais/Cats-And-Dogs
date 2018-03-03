@@ -22,7 +22,12 @@ class HomeScene: SKScene {
         bgImage?.zPosition = -1
         
         homePlaybutton = childNode(withName: "homePlayButton") as? SKSpriteNode
+        homePlaybutton?.size = Utilities().resizeDropSpaceSize(view: view, currentSize: (homePlaybutton?.size)!)
+        
         settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
+        
+        settingsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (settingsButton?.position)!)
+        settingsButton?.position = Utilities().shiftDown(view: view, currentPosition: (settingsButton?.position)!)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

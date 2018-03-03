@@ -44,16 +44,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
         scoreLabel?.alpha = 0
+        scoreLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (scoreLabel?.position)!)
+        scoreLabel?.position = Utilities().shiftDown(view: view, currentPosition: (scoreLabel?.position)!)
+        
         streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
+        streakLabel?.position = Utilities().shiftDown(view: view, currentPosition: (streakLabel?.position)!)
+        
         missLabel = childNode(withName: "missLabel") as? SKLabelNode
         missLabel?.alpha = 0
+        missLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missLabel?.position)!)
+        missLabel?.position = Utilities().shiftUp(view: view, currentPosition: (missLabel?.position)!)
         
         gauge = childNode(withName: "gauge") as? SKSpriteNode
         gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
         gauge?.alpha = 0
+        gauge?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gauge?.position)!)
+        gauge?.position = Utilities().shiftUp(view: view, currentPosition: (gauge?.position)!)
         
         gaugeFill = childNode(withName: "gaugeFill") as? SKSpriteNode
         gaugeFill?.alpha = 0
+        gaugeFill?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gaugeFill?.position)!)
+        gaugeFill?.position = Utilities().shiftUp(view: view, currentPosition: (gaugeFill?.position)!)
         
         ground = childNode(withName: "ground") as? SKSpriteNode
         ground?.physicsBody?.categoryBitMask = groundCategory
@@ -62,6 +73,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
         pauseButton?.name = "pauseButton"
         pauseButton?.zPosition = .infinity
+        pauseButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (pauseButton?.position)!)
+        pauseButton?.position = Utilities().shiftDown(view: view, currentPosition: (pauseButton?.position)!)
         
         scene?.childNode(withName: "playButton")?.isHidden = true
         scene?.childNode(withName: "quitButton")?.isHidden = true
@@ -249,8 +262,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.physicsBody?.contactTestBitMask = groundCategory
         addChild(drop)
         
-        let maxStartingX = size.width / 2 - drop.size.width / 2 - 40
-        let minStartingX = -size.width / 2 + drop.size.width / 2
+        let currentSceneSize = scene?.size
+        let newSize = Utilities().resizeDropSpaceSize(view: view!, currentSize: currentSceneSize!)
+        
+        let maxStartingX = newSize.width / 2 - drop.size.width / 2 - 40
+        let minStartingX = -newSize.width / 2 + drop.size.width / 2
         let startingXRange = maxStartingX - minStartingX
         
         var startingX = CGFloat()
