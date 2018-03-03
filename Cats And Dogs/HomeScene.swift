@@ -23,6 +23,11 @@ class HomeScene: SKScene {
         
         homePlaybutton = childNode(withName: "homePlayButton") as? SKSpriteNode
         homePlaybutton?.size = Utilities().resizeDropSpaceSize(view: view, currentSize: (homePlaybutton?.size)!)
+        let pulseUp = SKAction.scale(to: 1.02, duration: 1.5)
+        let pulseDown = SKAction.scale(to: 0.988, duration: 1.5)
+        let pulse = SKAction.sequence([pulseUp, pulseDown])
+        let repeatPulse = SKAction.repeatForever(pulse)
+        self.homePlaybutton?.run(repeatPulse)
         
         settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
         
