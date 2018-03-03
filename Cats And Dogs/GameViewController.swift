@@ -14,7 +14,9 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillLayoutSubviews() {
         if let view = self.view as! SKView? {
             if let scene = SKScene(fileNamed: "HomeScene") {
                 scene.scaleMode = .aspectFill
@@ -23,8 +25,8 @@ class GameViewController: UIViewController {
             
             view.ignoresSiblingOrder = true
             
-//            view.showsFPS = true
-//            view.showsNodeCount = true
+            //            view.showsFPS = true
+            //            view.showsNodeCount = true
         }
     }
 
