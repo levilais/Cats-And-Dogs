@@ -15,7 +15,6 @@ class GameOverScene: SKScene {
     var scoreLabel: SKLabelNode?
     
     override func didMove(to view: SKView) {
-        print("loaded")
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1

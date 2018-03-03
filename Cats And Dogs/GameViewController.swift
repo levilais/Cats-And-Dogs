@@ -14,20 +14,29 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(presentView), name: NSNotification.Name(rawValue: "showController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
-        if let view = self.view as! SKView? {
-            if let scene = SKScene(fileNamed: "HomeScene") {
-                scene.scaleMode = .aspectFill
-                view.presentScene(scene)
+        if GameVariables.gameIsActive == false {
+            if let view = self.view as! SKView? {
+                print("viewWillLayoutSubviews called")
+                if let scene = SKScene(fileNamed: "HomeScene") {
+                    scene.scaleMode = .aspectFill
+                    view.presentScene(scene)
+                }
+                
+                view.ignoresSiblingOrder = true
+                
+                //            view.showsFPS = true
+                //            view.showsNodeCount = true
             }
-            
-            view.ignoresSiblingOrder = true
-            
-            //            view.showsFPS = true
-            //            view.showsNodeCount = true
         }
+    }
+    
+    @objc func presentView() {
+        print("called")
+        self.performSegue(withIdentifier: "toMyController", sender: self)
     }
 
     override var shouldAutorotate: Bool {

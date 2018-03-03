@@ -83,6 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         animateRain()
         introAnimation()
+        print("didMove called")
     }
     
     
@@ -113,6 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         setGameState()
         startDropTimer()
+        GameVariables.gameIsActive = true
     }
     
     
@@ -142,6 +144,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             view.presentScene(gameScene)
                         }
                     }
+                case "settingsButton":
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:
                     print("no button touched")
                 }

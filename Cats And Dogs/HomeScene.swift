@@ -16,7 +16,7 @@ class HomeScene: SKScene {
     var settingsButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
-        print("loaded")
+        print("homeScene loaded")
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
@@ -50,7 +50,7 @@ class HomeScene: SKScene {
                         }
                     }
                 case "settingsButton":
-                    print("settingsButton pressed")
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:
                     print("no button touched")
                 }

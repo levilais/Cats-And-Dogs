@@ -28,4 +28,5 @@ class GameVariables {
     static var score: Int = 0
     static var missesLeft: Int = 100
     static var firstDrop: Bool = true
+    static var gameIsActive: Bool = false
 }
