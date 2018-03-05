@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["Options","Connect","High Scores"]
+    let sectionHeaders = ["OPTIONS","CONNECT","HIGH SCORES"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -145,6 +145,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
+            cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
+            cell.textLabel?.text = "9,999"
+            cell.detailTextLabel?.text = "Levi"
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
         }
