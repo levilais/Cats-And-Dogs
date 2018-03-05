@@ -53,6 +53,21 @@ class Utilities {
         let newSize = CGSize(width: newWidth, height: newHeight)
         return newSize
     }
+    
+    func showSettings(scene: SKScene) {
+//        for child in scene.children {
+//            if child.name != "background" {
+//                child.isHidden = true
+//            }
+//        }
+        
+        let settingsLabel = SKLabelNode()
+        settingsLabel.fontName = "AmaticSC-Regular"
+        settingsLabel.fontSize = 128
+        settingsLabel.fontColor = .white
+        settingsLabel.position = CGPoint(x: 0, y: scene.frame.height / 2)
+        scene.addChild(settingsLabel)
+    }
 }
 
 

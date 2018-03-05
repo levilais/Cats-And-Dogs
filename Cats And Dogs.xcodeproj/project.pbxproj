@@ -23,6 +23,14 @@
 		0456C1F220432DCE00647657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F020432DCE00647657 /* Main.storyboard */; };
 		0456C1F420432DD000647657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F320432DD000647657 /* Assets.xcassets */; };
 		0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F520432DD000647657 /* LaunchScreen.storyboard */; };
+		0466457D204DC4160090055C /* StyleFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466457C204DC4160090055C /* StyleFile.swift */; };
+		04664581204DC7070090055C /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664580204DC7070090055C /* ToggleTableViewCell.swift */; };
+		04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664582204DC7BA0090055C /* DefaultTableViewCell.swift */; };
+		04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664584204DC7C70090055C /* HighScoreTableViewCell.swift */; };
+		0466458C204DD3AF0090055C /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04664588204DD3AF0090055C /* Lato-Black.ttf */; };
+		0466458D204DD3AF0090055C /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04664589204DD3AF0090055C /* Lato-Light.ttf */; };
+		0466458E204DD3AF0090055C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0466458A204DD3AF0090055C /* Lato-Bold.ttf */; };
+		0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0466458B204DD3AF0090055C /* Lato-Hairline.ttf */; };
 		048D7ABA204A3CDF008044FF /* SettingsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 048D7AB9204A3CDF008044FF /* SettingsScene.sks */; };
 		048D7ABC204A3CF3008044FF /* SettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7ABB204A3CF3008044FF /* SettingsScene.swift */; };
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
@@ -49,6 +57,14 @@
 		0456C1F320432DD000647657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0456C1F620432DD000647657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0456C1F820432DD000647657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0466457C204DC4160090055C /* StyleFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleFile.swift; sourceTree = "<group>"; };
+		04664580204DC7070090055C /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		04664582204DC7BA0090055C /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
+		04664584204DC7C70090055C /* HighScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewCell.swift; sourceTree = "<group>"; };
+		04664588204DD3AF0090055C /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		04664589204DD3AF0090055C /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		0466458A204DD3AF0090055C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		0466458B204DD3AF0090055C /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
 		048D7AB9204A3CDF008044FF /* SettingsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SettingsScene.sks; sourceTree = "<group>"; };
 		048D7ABB204A3CF3008044FF /* SettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScene.swift; sourceTree = "<group>"; };
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -73,6 +89,10 @@
 				040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */,
 				040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */,
 				040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */,
+				04664588204DD3AF0090055C /* Lato-Black.ttf */,
+				0466458A204DD3AF0090055C /* Lato-Bold.ttf */,
+				0466458B204DD3AF0090055C /* Lato-Hairline.ttf */,
+				04664589204DD3AF0090055C /* Lato-Light.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -97,8 +117,8 @@
 		0456C1E520432DCE00647657 /* Cats And Dogs */ = {
 			isa = PBXGroup;
 			children = (
-				0456C1E620432DCE00647657 /* AppDelegate.swift */,
-				04F01BEE20433A7A002C57F6 /* Utilities.swift */,
+				0466457F204DC6E40090055C /* CustomTableViewCells */,
+				0466457E204DC5320090055C /* Utilities */,
 				04F01BF220449254002C57F6 /* GameVariables.swift */,
 				04F01BF0204377EB002C57F6 /* DropObject.swift */,
 				040A3C892047813D00FCCDD4 /* GameOverScene.sks */,
@@ -118,6 +138,26 @@
 				0456C1F820432DD000647657 /* Info.plist */,
 			);
 			path = "Cats And Dogs";
+			sourceTree = "<group>";
+		};
+		0466457E204DC5320090055C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0456C1E620432DCE00647657 /* AppDelegate.swift */,
+				04F01BEE20433A7A002C57F6 /* Utilities.swift */,
+				0466457C204DC4160090055C /* StyleFile.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0466457F204DC6E40090055C /* CustomTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				04664580204DC7070090055C /* ToggleTableViewCell.swift */,
+				04664582204DC7BA0090055C /* DefaultTableViewCell.swift */,
+				04664584204DC7C70090055C /* HighScoreTableViewCell.swift */,
+			);
+			path = CustomTableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,13 +219,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				0456C1F220432DCE00647657 /* Main.storyboard in Resources */,
+				0466458D204DD3AF0090055C /* Lato-Light.ttf in Resources */,
 				0456C1E920432DCE00647657 /* GameScene.sks in Resources */,
 				040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */,
 				0456C1F420432DD000647657 /* Assets.xcassets in Resources */,
+				0466458C204DD3AF0090055C /* Lato-Black.ttf in Resources */,
 				040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */,
+				0466458E204DD3AF0090055C /* Lato-Bold.ttf in Resources */,
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
 				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
 				040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */,
+				0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */,
 				040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */,
 				048D7ABA204A3CDF008044FF /* SettingsScene.sks in Resources */,
 				0456C1EB20432DCE00647657 /* Actions.sks in Resources */,
@@ -200,12 +244,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0456C1ED20432DCE00647657 /* GameScene.swift in Sources */,
+				04664581204DC7070090055C /* ToggleTableViewCell.swift in Sources */,
 				04F01BF320449254002C57F6 /* GameVariables.swift in Sources */,
 				040A3C8C2047815D00FCCDD4 /* GameOverScene.swift in Sources */,
 				040ECCA0204B33AE00EF5D7B /* SettingsViewController.swift in Sources */,
 				0456C1EF20432DCE00647657 /* GameViewController.swift in Sources */,
+				04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */,
 				040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */,
+				0466457D204DC4160090055C /* StyleFile.swift in Sources */,
 				04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */,
+				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
 				048D7ABC204A3CF3008044FF /* SettingsScene.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,
