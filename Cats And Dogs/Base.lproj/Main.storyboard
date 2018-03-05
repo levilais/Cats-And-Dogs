@@ -45,7 +45,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qz9-uA-xWm">
-                                <rect key="frame" x="10" y="30" width="15" height="17"/>
+                                <rect key="frame" x="15" y="35" width="15" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="FuN-bN-dnl"/>
                                     <constraint firstAttribute="height" constant="17" id="nqF-sL-5Zn"/>
@@ -62,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ipn-9j-OhX">
-                                <rect key="frame" x="82" y="0.0" width="211" height="667"/>
+                                <rect key="frame" x="82" y="20" width="211" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="toggleTableViewCell" id="wXY-zL-XIO" customClass="ToggleTableViewCell" customModule="Cats_And_Dogs" customModuleProvider="target">
@@ -118,9 +118,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Dwo-mt-4Oi" firstAttribute="bottom" secondItem="fLE-ba-orh" secondAttribute="bottom" id="BwQ-eg-KMI"/>
-                            <constraint firstItem="Qz9-uA-xWm" firstAttribute="top" secondItem="fLE-ba-orh" secondAttribute="top" constant="10" id="Ee9-ZE-UGt"/>
+                            <constraint firstItem="Qz9-uA-xWm" firstAttribute="top" secondItem="fLE-ba-orh" secondAttribute="top" constant="15" id="Ee9-ZE-UGt"/>
                             <constraint firstItem="Dwo-mt-4Oi" firstAttribute="leading" secondItem="fLE-ba-orh" secondAttribute="leading" id="FIk-F3-iCU"/>
-                            <constraint firstItem="ipn-9j-OhX" firstAttribute="top" secondItem="CTL-wr-yBS" secondAttribute="top" id="JHT-hX-y8F"/>
+                            <constraint firstItem="fLE-ba-orh" firstAttribute="top" secondItem="ipn-9j-OhX" secondAttribute="top" id="MTB-6Y-MaD"/>
                             <constraint firstItem="Dwo-mt-4Oi" firstAttribute="top" secondItem="CTL-wr-yBS" secondAttribute="top" id="NzG-gL-Y2e"/>
                             <constraint firstItem="ipn-9j-OhX" firstAttribute="bottom" secondItem="fLE-ba-orh" secondAttribute="bottom" id="Q20-VY-1xx"/>
                             <constraint firstItem="Dwo-mt-4Oi" firstAttribute="trailing" secondItem="fLE-ba-orh" secondAttribute="trailing" id="Vqd-Ae-Yx4"/>
@@ -128,7 +128,7 @@
                             <constraint firstItem="fLE-ba-orh" firstAttribute="trailing" secondItem="ipn-9j-OhX" secondAttribute="trailing" constant="82" id="nMH-p8-gjb"/>
                             <constraint firstItem="ipn-9j-OhX" firstAttribute="leading" secondItem="fLE-ba-orh" secondAttribute="leading" constant="82" id="qsa-oY-JyY"/>
                             <constraint firstItem="bLA-mm-M84" firstAttribute="top" secondItem="fLE-ba-orh" secondAttribute="top" constant="40" id="tf1-gc-ZRw"/>
-                            <constraint firstItem="Qz9-uA-xWm" firstAttribute="leading" secondItem="fLE-ba-orh" secondAttribute="leading" constant="10" id="vtT-3d-e9V"/>
+                            <constraint firstItem="Qz9-uA-xWm" firstAttribute="leading" secondItem="fLE-ba-orh" secondAttribute="leading" constant="15" id="vtT-3d-e9V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fLE-ba-orh"/>
                     </view>
