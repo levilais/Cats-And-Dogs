@@ -20,6 +20,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        for highScore in HighScores.highScores {
+            if let score = highScore.score {
+                if let playerName = highScore.playerName {
+                    print("name \(playerName) scored \(score)")
+                }
+            }
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -79,7 +86,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionHeaders.count
+        var count = Int()
+        if HighScores.highScores.count > 0 {
+            count = 3
+        } else {
+            count = 2
+        }
+        return count
     }
     
     
@@ -106,7 +119,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 1:
             rows = 5
         case 2:
-            rows = 10
+            rows = HighScores.highScores.count
         default:
             rows = 1
         }
@@ -146,8 +159,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
-            cell.textLabel?.text = "9,999"
-            cell.detailTextLabel?.text = "Levi"
+            let highScore = HighScores.highScores[indexPath.row]
+            if let score = highScore.score {
+                if let formattedScore = HighScore().formattedScore(score: score) {
+                    cell.textLabel?.text = formattedScore
+                }
+                if let playerName = highScore.playerName {
+                    cell.detailTextLabel?.text = playerName
+                }
+            }
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
         }

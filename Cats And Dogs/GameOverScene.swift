@@ -27,6 +27,15 @@ class GameOverScene: SKScene {
                 scoreLabelCheck.text = String(formattedNumber)
             }
         }
+        saveScore()
+    }
+    
+    func saveScore() {
+        let score = HighScore()
+        score.playerName = "Levi"
+        score.score = GameVariables.score
+        score.timestamp = Date()
+        HighScores.highScores.append(score)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

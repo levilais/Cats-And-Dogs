@@ -30,3 +30,7 @@ class GameVariables {
     static var firstDrop: Bool = true
     static var gameIsActive: Bool = false
 }
+
+class HighScores {
+    static var highScores = [HighScore]()
+}
