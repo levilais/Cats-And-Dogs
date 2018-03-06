@@ -9,10 +9,16 @@
 import UIKit
 import SpriteKit
 
-class GameOverScene: SKScene {
+class GameOverScene: SKScene, UITextFieldDelegate {
     
     var bgImage: SKSpriteNode?
     var scoreLabel: SKLabelNode?
+    
+//    let gameOver = SKLabelNode(fontNamed: "arial")
+    // let submitScore = SKSpriteNode(imageNamed: "button")
+    let submitScoreText = SKLabelNode(fontNamed: "arial")
+    let submitScoreTextShadow = SKLabelNode(fontNamed: "arial")
+    var nameTextField: UITextField!
     
     override func didMove(to view: SKView) {
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
@@ -27,6 +33,7 @@ class GameOverScene: SKScene {
                 scoreLabelCheck.text = String(formattedNumber)
             }
         }
+        createNameTextField()
         saveScore()
     }
     
@@ -57,5 +64,51 @@ class GameOverScene: SKScene {
                 }
             }
         }
+    }
+    
+    func createNameTextField() {
+        let frame = CGRect(x: (view?.bounds.width)! / 2 - 160, y: (view?.bounds.height)! / 2 - 20, width: 320, height: 40)
+        
+        nameTextField = UITextField(frame: frame)
+        
+        // add the UITextField to the GameScene's view
+        view?.addSubview(nameTextField)
+        
+        // Add the gamescene as the UITextField delegate.
+        // delegate funtion called is textFieldShouldReturn:
+        nameTextField.delegate = self
+        
+        nameTextField.borderStyle = UITextBorderStyle.none
+        nameTextField.tintColor = UIColor.StyleFile.LightBlueGray
+        nameTextField.textColor = UIColor.StyleFile.DarkBlueGray
+        nameTextField.text = "Levi"
+        nameTextField.textColor = UIColor.StyleFile.LightBlueGray
+        nameTextField.textAlignment = .center
+        nameTextField.font = UIFont.StyleFile.textFieldFont
+        nameTextField.returnKeyType = .continue
+        nameTextField.backgroundColor = UIColor.clear
+        nameTextField.autocorrectionType = .no
+        nameTextField.keyboardAppearance = .dark
+        
+        nameTextField.clearButtonMode = UITextFieldViewMode.whileEditing
+        nameTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
+        self.view!.addSubview(nameTextField)
+    }
+
+
+    // Called by tapping return on the keyboard.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Populates the SKLabelNode
+        if let text = nameTextField.text {
+            print("text: \(text)")
+        }
+        
+        // Hides the keyboard
+        nameTextField.resignFirstResponder()
+        return true
+    }
+    
+    override func willMove(from view: SKView) {
+        nameTextField.removeFromSuperview()
     }
 }

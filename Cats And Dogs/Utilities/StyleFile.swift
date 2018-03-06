@@ -25,7 +25,7 @@ extension UIFont {
         static let latoBlack = UIFont(name: "Lato-Black", size: 20)
         static let latoLight = UIFont(name: "Lato-Light", size: 20)
         static let latoHariline = UIFont(name: "Lato-Hairline", size: 20)
-        static let latoBold = UIFont(name: "Lato-Bold.ttf", size: 20)
-        
+        static let latoBold = UIFont(name: "Lato-Bold", size: 20)
+        static let textFieldFont = UIFont(name: "Righteous-Regular", size: 24)
     }
 }
