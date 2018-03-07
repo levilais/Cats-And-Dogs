@@ -13,9 +13,12 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     
     var bgImage: SKSpriteNode?
     var scoreLabel: SKLabelNode?
-    
-//    let gameOver = SKLabelNode(fontNamed: "arial")
-    // let submitScore = SKSpriteNode(imageNamed: "button")
+    var submitButton: SKSpriteNode?
+    var yourScoreLabel: SKLabelNode?
+    var gameOverLabel: SKLabelNode?
+    var textFieldPlacementNode: SKSpriteNode?
+    var nameLabel: SKLabelNode?
+
     let submitScoreText = SKLabelNode(fontNamed: "arial")
     let submitScoreTextShadow = SKLabelNode(fontNamed: "arial")
     var nameTextField: UITextField!
@@ -25,6 +28,13 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
         
+        submitButton = childNode(withName: "submitButton") as? SKSpriteNode
+        textFieldPlacementNode = childNode(withName: "textFieldPlacementNode") as? SKSpriteNode
+        yourScoreLabel = childNode(withName: "yourScoreLabel") as? SKLabelNode
+        gameOverLabel = childNode(withName: "gameOverLabel") as? SKLabelNode
+        nameLabel = childNode(withName: "nameLabel") as? SKLabelNode
+        nameLabel?.text = GameVariables.lastNameUsed
+        
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         if let formattedNumber = numberFormatter.string(from: GameVariables.score as! NSNumber) {
@@ -33,13 +43,19 @@ class GameOverScene: SKScene, UITextFieldDelegate {
                 scoreLabelCheck.text = String(formattedNumber)
             }
         }
+        
         createNameTextField()
-        saveScore()
     }
     
     func saveScore() {
         let score = HighScore()
-        score.playerName = "Levi"
+        
+        if let nameText = nameTextField.text {
+            let formattedText = nameText.trimmingCharacters(in: .whitespaces)
+            score.playerName = formattedText
+            GameVariables.lastNameUsed = formattedText
+        }
+        
         score.score = GameVariables.score
         score.timestamp = Date()
         HighScores.highScores.append(score)
@@ -52,13 +68,22 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             
             if let name = touchedNode.name {
                 switch name {
-                case "playButton":
+                case "submitButton":
+                    saveScore()
                     if let view = self.view as! SKView? {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill
                             view.presentScene(gameScene)
                         }
                     }
+                case "nameLabel":
+                    nameTextField.becomeFirstResponder()
+                    scoreLabel?.isHidden = true
+                    gameOverLabel?.isHidden = true
+                    submitButton?.isHidden = true
+                    yourScoreLabel?.isHidden = true
+                    nameLabel?.isHidden = true
+                    nameTextField.isHidden = false
                 default:
                     print("no button touched")
                 }
@@ -66,42 +91,63 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         }
     }
     
+    
     func createNameTextField() {
-        let frame = CGRect(x: (view?.bounds.width)! / 2 - 160, y: (view?.bounds.height)! / 2 - 20, width: 320, height: 40)
+        let width = (view?.bounds.width)! - 60
+        let textFieldFrame = CGRect(x: (view?.bounds.width)! / 2 - width / 2, y: (view?.bounds.height)! / 2, width: width, height: 60)
         
-        nameTextField = UITextField(frame: frame)
+        nameTextField = UITextField(frame: textFieldFrame)
         
         // add the UITextField to the GameScene's view
         view?.addSubview(nameTextField)
         
-        // Add the gamescene as the UITextField delegate.
-        // delegate funtion called is textFieldShouldReturn:
         nameTextField.delegate = self
         
-        nameTextField.borderStyle = UITextBorderStyle.none
-        nameTextField.tintColor = UIColor.StyleFile.LightBlueGray
-        nameTextField.textColor = UIColor.StyleFile.DarkBlueGray
-        nameTextField.text = "Levi"
         nameTextField.textColor = UIColor.StyleFile.LightBlueGray
+        nameTextField.text = GameVariables.lastNameUsed
         nameTextField.textAlignment = .center
         nameTextField.font = UIFont.StyleFile.textFieldFont
         nameTextField.returnKeyType = .continue
         nameTextField.backgroundColor = UIColor.clear
         nameTextField.autocorrectionType = .no
         nameTextField.keyboardAppearance = .dark
+        nameTextField.keyboardType = .asciiCapable
+        
+        nameTextField.tintColor = UIColor.StyleFile.LightBlueGray
+        nameTextField.borderStyle = UITextBorderStyle.none
+        nameTextField.layer.borderColor = UIColor.StyleFile.LightBlueGray.cgColor
+        nameTextField.layer.borderWidth = 1.0
         
         nameTextField.clearButtonMode = UITextFieldViewMode.whileEditing
-        nameTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
         self.view!.addSubview(nameTextField)
+        nameTextField.isHidden = true
     }
-
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let text = textField.text {
+            if text == "Tap Here To Sign" {
+                textField.text = ""
+            }
+        }
+        return true
+    }
 
     // Called by tapping return on the keyboard.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Populates the SKLabelNode
         if let text = nameTextField.text {
             print("text: \(text)")
+            nameLabel?.text = text
+            GameVariables.lastNameUsed = text
         }
+        
+        nameTextField.isHidden = true
+        nameTextField.becomeFirstResponder()
+        scoreLabel?.isHidden = false
+        gameOverLabel?.isHidden = false
+        submitButton?.isHidden = false
+        yourScoreLabel?.isHidden = false
+        nameLabel?.isHidden = false
         
         // Hides the keyboard
         nameTextField.resignFirstResponder()
