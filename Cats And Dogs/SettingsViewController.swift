@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import StoreKit
+import MessageUI
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -103,8 +105,35 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             if cell.isKind(of: DefaultTableViewCell.self) {
-                print("is default")
-                // perform segue
+                // perform segue if necessary
+                switch indexPath.row {
+                case 2:
+                    print("review")
+                    SKStoreReviewController.requestReview()
+                case 3:
+                    print("email")
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    if MFMailComposeViewController.canSendMail() {
+                        let composeVC = MFMailComposeViewController()
+                        composeVC.mailComposeDelegate = self
+                        composeVC.setToRecipients(["levilais@gmail.com"])
+                        composeVC.setSubject("Prayer Feedback")
+                        composeVC.setMessageBody("A note from Prayer: We are always committed to making Prayer the best experience possible.  Please let us know what you think!", isHTML: false)
+                        
+                        print("trying to present")
+                    
+                    self.present(composeVC, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController(title: "Bummer!", message: "It looks like you are not able to send email at this time!  Please check your connection and/or settings and try again.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(action)
+                        present(alert, animated: true)
+                    }
+                case 4:
+                    print("about")
+                default:
+                    print("should never fire")
+                }
                 tableView.deselectRow(at: indexPath, animated: true)
             }
         }
@@ -182,5 +211,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
+        var labelText = ""
+        
+        switch result {
+        case .cancelled:
+            print("cancelled")
+        case .sent:
+            labelText = "Sent!"
+        case .saved:
+            labelText = "Saved!"
+        case .failed:
+            print("failed")
+        }
+        
+        controller.dismiss(animated: true) {
+            print("controller dismiss called")
+        }
+    }
 }

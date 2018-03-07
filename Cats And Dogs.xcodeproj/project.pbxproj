@@ -32,6 +32,7 @@
 		0466458E204DD3AF0090055C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0466458A204DD3AF0090055C /* Lato-Bold.ttf */; };
 		0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0466458B204DD3AF0090055C /* Lato-Hairline.ttf */; };
 		04989522204DE8BE005B494D /* HighScoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04989521204DE8BE005B494D /* HighScoreObject.swift */; };
+		049895272050A1C2005B494D /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049895262050A1C2005B494D /* MailViewController.swift */; };
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
 		04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF0204377EB002C57F6 /* DropObject.swift */; };
 		04F01BF320449254002C57F6 /* GameVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF220449254002C57F6 /* GameVariables.swift */; };
@@ -65,6 +66,7 @@
 		0466458A204DD3AF0090055C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		0466458B204DD3AF0090055C /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
 		04989521204DE8BE005B494D /* HighScoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreObject.swift; sourceTree = "<group>"; };
+		049895262050A1C2005B494D /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04F01BF0204377EB002C57F6 /* DropObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropObject.swift; sourceTree = "<group>"; };
 		04F01BF220449254002C57F6 /* GameVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariables.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				0456C1EC20432DCE00647657 /* GameScene.swift */,
 				0456C1EE20432DCE00647657 /* GameViewController.swift */,
 				040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */,
+				049895262050A1C2005B494D /* MailViewController.swift */,
 				0456C1F020432DCE00647657 /* Main.storyboard */,
 				0456C1F320432DD000647657 /* Assets.xcassets */,
 				0456C1F520432DD000647657 /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,
+				049895272050A1C2005B494D /* MailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

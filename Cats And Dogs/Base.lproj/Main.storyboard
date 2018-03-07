@@ -73,7 +73,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fVX-IN-bxQ">
-                                                    <rect key="frame" x="152" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="196" y="6" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
