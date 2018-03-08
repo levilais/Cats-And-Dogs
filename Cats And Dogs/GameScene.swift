@@ -15,6 +15,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var streakLabel: SKLabelNode?
     var missLabel: SKLabelNode?
     
+    var elapsedTime: TimeInterval = 0.0
+    var lastTimeStamp: TimeInterval?
+    
     var ground: SKSpriteNode?
     var bgImage: SKSpriteNode?
     var gauge: SKSpriteNode?
@@ -519,6 +522,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dropTimer = Timer.scheduledTimer(withTimeInterval: GameControls.dropFrequency, repeats: true, block: { (timer) in
             self.createDrop()
         })
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        print("updated at \(currentTime)")
+        var difference = TimeInterval()
+        if let lastTimeStampCheck = lastTimeStamp {
+            difference = currentTime - lastTimeStampCheck
+        }
+        
+        elapsedTime += difference
+        lastTimeStamp = currentTime
+        print("elapsedTime: \(elapsedTime)")
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

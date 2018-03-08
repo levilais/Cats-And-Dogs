@@ -108,20 +108,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 // perform segue if necessary
                 switch indexPath.row {
                 case 2:
-                    print("review")
                     SKStoreReviewController.requestReview()
                 case 3:
-                    print("email")
                     tableView.deselectRow(at: indexPath, animated: true)
                     if MFMailComposeViewController.canSendMail() {
                         let composeVC = MFMailComposeViewController()
                         composeVC.mailComposeDelegate = self
                         composeVC.setToRecipients(["levilais@gmail.com"])
-                        composeVC.setSubject("Prayer Feedback")
-                        composeVC.setMessageBody("A note from Prayer: We are always committed to making Prayer the best experience possible.  Please let us know what you think!", isHTML: false)
-                        
-                        print("trying to present")
-                    
+                        composeVC.setSubject("Cats & Dogs Feedback")
+                        composeVC.setMessageBody("A note from Cats & Dogs: We are always committed to making Cats & Dogs the best experience possible.  Please let us know what you think!", isHTML: false)
                     self.present(composeVC, animated: true, completion: nil)
                     } else {
                         let alert = UIAlertController(title: "Bummer!", message: "It looks like you are not able to send email at this time!  Please check your connection and/or settings and try again.", preferredStyle: .alert)
