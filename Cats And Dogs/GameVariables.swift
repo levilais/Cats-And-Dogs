@@ -7,11 +7,18 @@
 //
 
 import Foundation
+import SpriteKit
 
 class GameControls {
-    // Keep a 60 to 1 ratio for drop speed and frequency
-    static var dropSpeed: TimeInterval = 10
-    static var dropFrequency: TimeInterval = 0.17
+    // Keep a 30 to 1 ratio for drop speed and frequency
+//    static var initialDropDuration: TimeInterval = 20
+    static var initialDropDuration: TimeInterval = 5
+    static var dropSpeed: CGFloat = 1
+    static var dropFrequency: TimeInterval = 0.667
+    static var levelUpFrequency: Double = 30
+    static var timeToLevelUp: Double = 30
+    static var levelSpeed: Double = 1
+    static var currentLevel: Double = 1
     
     // Increase these when increasing drop frequency and storm
     static var baseSingleLetterPoints: Int = 100
@@ -19,6 +26,10 @@ class GameControls {
     static var baseMissPoints: Int = 1
     static var baseMissMeterBonus: Int = 5
     static var missMeterLimit: Int = 100
+    
+    // Atmosphere Controls
+    static var rainFrequency: Double = 0.05
+    static var rainSpeed: TimeInterval = 1.5
 }
 
 class GameVariables {
@@ -29,7 +40,40 @@ class GameVariables {
     static var missesLeft: Int = 100
     static var firstDrop: Bool = true
     static var gameIsActive: Bool = false
-    static var lastNameUsed = "Tap Here To Sign"
+    static var lastNameUsed = "Tap Here To Sign" {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lastNameUsedChanged"), object: nil)
+        }
+    }
+    
+    static var dropSpeed: CGFloat = GameControls.dropSpeed
+    static var dropFrequency: TimeInterval = GameControls.dropFrequency
+    static var levelUpFrequency: Double = GameControls.levelUpFrequency
+    static var timeToLevelUp: Double = GameControls.timeToLevelUp
+    static var levelSpeed: Double = GameControls.levelSpeed
+    static var currentLevel: Double = GameControls.currentLevel
+    
+    func speedUpGame(scene: SKScene) {
+        GameVariables.dropSpeed = GameVariables.dropSpeed * 1.2
+        GameVariables.dropFrequency = GameVariables.dropFrequency / 1.2
+        for child in scene.children {
+            if let drop = child as? Drop {
+                drop.speed = GameVariables.dropSpeed
+                print("drop.speed after speeding up: \(drop.speed)")
+            }
+        }
+        GameVariables.timeToLevelUp = GameVariables.timeToLevelUp + GameVariables.levelUpFrequency
+        GameVariables.currentLevel = GameVariables.currentLevel + 1
+    }
+    
+    func resetGameVariables() {
+        GameVariables.dropSpeed = GameControls.dropSpeed
+        GameVariables.dropFrequency = GameControls.dropFrequency
+        GameVariables.levelUpFrequency = GameControls.levelUpFrequency
+        GameVariables.timeToLevelUp = GameControls.timeToLevelUp
+        GameVariables.levelSpeed = GameControls.levelSpeed
+        GameVariables.currentLevel = GameControls.currentLevel
+    }
 }
 
 class HighScores {

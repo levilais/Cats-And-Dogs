@@ -29,8 +29,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillLayoutSubviews() {

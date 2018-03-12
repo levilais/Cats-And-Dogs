@@ -15,10 +15,12 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(presentView), name: NSNotification.Name(rawValue: "showController"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentEnterNameViewController), name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
-        if GameVariables.gameIsActive == false {
+        print("GameVariables.gameIsActive: \(GameVariables.gameIsActive)")
+        if !GameVariables.gameIsActive {
             if let view = self.view as! SKView? {
                 print("viewWillLayoutSubviews called")
                 if let scene = SKScene(fileNamed: "HomeScene") {
@@ -37,6 +39,10 @@ class GameViewController: UIViewController {
     @objc func presentView() {
         print("called")
         self.performSegue(withIdentifier: "toMyController", sender: self)
+    }
+    
+    @objc func presentEnterNameViewController() {
+        self.performSegue(withIdentifier: "showEnterNameVC", sender: self)
     }
 
     override var shouldAutorotate: Bool {

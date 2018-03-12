@@ -10,13 +10,17 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+
+    var timeToRain: Double = 0
+    var timeToDrop: Double = 0
+    var timeToLevelUp: Double = 0
     
     var scoreLabel: SKLabelNode?
     var streakLabel: SKLabelNode?
     var missLabel: SKLabelNode?
     
     var elapsedTime: TimeInterval = 0.0
-    var lastTimeStamp: TimeInterval?
+    var lastTimeStamp: TimeInterval = 0.0
     
     var ground: SKSpriteNode?
     var bgImage: SKSpriteNode?
@@ -27,8 +31,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let introLabelTextures = [SKTexture(imageNamed: "popThoseDrops0"), SKTexture(imageNamed: "popThoseDrops1"), SKTexture(imageNamed: "popThoseDrops2")]
     
     // Game Variables
-    var dropTimer: Timer?
-    var rainTimer: Timer?
     var isCombo = false
     var lastDropXValue: CGFloat?
     var lastDropYValue: CGFloat?
@@ -39,54 +41,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let groundCategory: UInt32 = 0x1 << 2
     
     override func didMove(to view: SKView) {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         physicsWorld.contactDelegate = self
         
-        bgImage = childNode(withName: "bgImage") as? SKSpriteNode
-        bgImage?.texture = SKTexture(imageNamed: "background.pdf")
-        bgImage?.zPosition = -1
+        if !(scene?.isPaused)! {
+            bgImage = childNode(withName: "bgImage") as? SKSpriteNode
+            bgImage?.texture = SKTexture(imageNamed: "background.pdf")
+            bgImage?.zPosition = -1
 
-        scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
-        scoreLabel?.alpha = 0
-        scoreLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (scoreLabel?.position)!)
-        scoreLabel?.position = Utilities().shiftDown(view: view, currentPosition: (scoreLabel?.position)!)
-        
-        streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
-        streakLabel?.position = Utilities().shiftDown(view: view, currentPosition: (streakLabel?.position)!)
-        
-        missLabel = childNode(withName: "missLabel") as? SKLabelNode
-        missLabel?.alpha = 0
-        missLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missLabel?.position)!)
-        missLabel?.position = Utilities().shiftUp(view: view, currentPosition: (missLabel?.position)!)
-        
-        gauge = childNode(withName: "gauge") as? SKSpriteNode
-        gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
-        gauge?.alpha = 0
-        gauge?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gauge?.position)!)
-        gauge?.position = Utilities().shiftUp(view: view, currentPosition: (gauge?.position)!)
-        
-        gaugeFill = childNode(withName: "gaugeFill") as? SKSpriteNode
-        gaugeFill?.alpha = 0
-        gaugeFill?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gaugeFill?.position)!)
-        gaugeFill?.position = Utilities().shiftUp(view: view, currentPosition: (gaugeFill?.position)!)
-        
-        ground = childNode(withName: "ground") as? SKSpriteNode
-        ground?.physicsBody?.categoryBitMask = groundCategory
-        ground?.physicsBody?.contactTestBitMask = dropCategory
-        
-        pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
-        pauseButton?.name = "pauseButton"
-        pauseButton?.zPosition = .infinity
-        pauseButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (pauseButton?.position)!)
-        pauseButton?.position = Utilities().shiftDown(view: view, currentPosition: (pauseButton?.position)!)
-        
-        scene?.childNode(withName: "playButton")?.isHidden = true
-        scene?.childNode(withName: "quitButton")?.isHidden = true
-        scene?.childNode(withName: "settingsButton")?.isHidden = true
-        scene?.childNode(withName: "pauseLabel")?.isHidden = true
-        
-        animateRain()
-        introAnimation()
-        print("didMove called")
+            scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
+            scoreLabel?.alpha = 0
+            scoreLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (scoreLabel?.position)!)
+            scoreLabel?.position = Utilities().shiftDown(view: view, currentPosition: (scoreLabel?.position)!)
+            
+            streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
+            streakLabel?.position = Utilities().shiftDown(view: view, currentPosition: (streakLabel?.position)!)
+            
+            missLabel = childNode(withName: "missLabel") as? SKLabelNode
+            missLabel?.alpha = 0
+            missLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missLabel?.position)!)
+            missLabel?.position = Utilities().shiftUp(view: view, currentPosition: (missLabel?.position)!)
+            
+            gauge = childNode(withName: "gauge") as? SKSpriteNode
+            gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
+            gauge?.alpha = 0
+            gauge?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gauge?.position)!)
+            gauge?.position = Utilities().shiftUp(view: view, currentPosition: (gauge?.position)!)
+            
+            gaugeFill = childNode(withName: "gaugeFill") as? SKSpriteNode
+            gaugeFill?.alpha = 0
+            gaugeFill?.position = Utilities().shiftHorizontal(view: view, currentPosition: (gaugeFill?.position)!)
+            gaugeFill?.position = Utilities().shiftUp(view: view, currentPosition: (gaugeFill?.position)!)
+            
+            ground = childNode(withName: "ground") as? SKSpriteNode
+            ground?.physicsBody?.categoryBitMask = groundCategory
+            ground?.physicsBody?.contactTestBitMask = dropCategory
+            
+            pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
+            pauseButton?.name = "pauseButton"
+            pauseButton?.zPosition = .infinity
+            pauseButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (pauseButton?.position)!)
+            pauseButton?.position = Utilities().shiftDown(view: view, currentPosition: (pauseButton?.position)!)
+            
+            scene?.childNode(withName: "playButton")?.isHidden = true
+            scene?.childNode(withName: "quitButton")?.isHidden = true
+            scene?.childNode(withName: "settingsButton")?.isHidden = true
+            scene?.childNode(withName: "pauseLabel")?.isHidden = true
+            
+            introAnimation()
+        }
     }
     
     
@@ -115,8 +120,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
+        GameVariables().resetGameVariables()
         setGameState()
-        startDropTimer()
         GameVariables.gameIsActive = true
     }
     
@@ -267,6 +272,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         drop.physicsBody?.categoryBitMask = dropCategory
         drop.physicsBody?.contactTestBitMask = groundCategory
+        drop.physicsBody?.collisionBitMask = 0
+//        drop.speed = GameVariables.dropSpeed
+//        print("dropSpeed at creation: \(drop.speed)")
         addChild(drop)
         
         let currentSceneSize = scene?.size
@@ -296,20 +304,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.lastDropXValue = startingX
         
-        let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.dropSpeed)
+        let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.initialDropDuration)
+        drop.speed = GameVariables.dropSpeed
         drop.run(moveDown)
-        
-        let dropThenPopAction = SKAction.sequence([moveDown])
-        drop.run(dropThenPopAction)
-    }
-    
-    func animateRain() {
-        let rainFrequency: TimeInterval = 0.05
-        let rainSpeed: TimeInterval = 1.5
-        
-        rainTimer = Timer.scheduledTimer(withTimeInterval: rainFrequency, repeats: true, block: { (timer) in
-            self.createSmallDrop(speed: rainSpeed)
-        })
+        print("dropSpeed after move: \(drop.speed)")
     }
     
     func createSmallDrop(speed: TimeInterval) {
@@ -373,9 +371,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
+        print("gameOver called")
+        
         self.missLabel?.text = "0"
-        dropTimer?.invalidate()
-        rainTimer?.invalidate()
         if let sceneCheck = scene {
             for child in sceneCheck.children {
                 if let name = child.name {
@@ -391,7 +389,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if let view = self.view as! SKView? {
+            print("1")
             if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
+                print("2")
+                GameVariables.gameIsActive = false
                 gameOverScene.scaleMode = .aspectFill
                 view.presentScene(gameOverScene)
             }
@@ -474,10 +475,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func pauseGame() {
         introLabel?.alpha = 0
-        dropTimer?.invalidate()
-        rainTimer?.invalidate()
+        lastTimeStamp = 0.0
         if let sceneCheck = scene {
-            sceneCheck.isPaused = true
+            scene?.isPaused = true
+            print("sceneCheck.isPaused: \(sceneCheck.isPaused)")
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
@@ -511,34 +512,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if startGameCalled {
-            startDropTimer()
+            print("start game called")
         } else {
             introLabel?.alpha = 1
         }
-        animateRain()
-    }
-    
-    func startDropTimer() {
-        dropTimer = Timer.scheduledTimer(withTimeInterval: GameControls.dropFrequency, repeats: true, block: { (timer) in
-            self.createDrop()
-        })
     }
     
     override func update(_ currentTime: TimeInterval) {
-        print("updated at \(currentTime)")
-        var difference = TimeInterval()
-        if let lastTimeStampCheck = lastTimeStamp {
-            difference = currentTime - lastTimeStampCheck
+        if startGameCalled {
+            var difference = TimeInterval()
+            if lastTimeStamp != 0.0 {
+                difference = currentTime - lastTimeStamp
+            }
+            
+            elapsedTime += difference
+            lastTimeStamp = currentTime
+            
+            // Create Drops
+            if timeToDrop == 0 {
+                timeToDrop = currentTime
+            } else if currentTime - timeToDrop > GameVariables.dropFrequency {
+                createDrop()
+                timeToDrop = currentTime
+            }
+            
+            if elapsedTime > GameVariables.timeToLevelUp {
+                GameVariables().speedUpGame(scene: self)
+            }
         }
         
-        elapsedTime += difference
-        lastTimeStamp = currentTime
-        print("elapsedTime: \(elapsedTime)")
+        // Create Rain
+        if timeToRain == 0 {
+            timeToRain = currentTime
+        } else if currentTime - timeToRain > GameControls.rainFrequency {
+            createSmallDrop(speed: GameControls.rainSpeed)
+            timeToRain = currentTime
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == dropCategory {
-            if var drop = contact.bodyB.node as? Drop {
+            if let drop = contact.bodyB.node as? Drop {
                 updateMissMeter(changeValue: -2)
                 drop.missPoints = -2
                 animateSplash(dropToSplash: drop)
@@ -546,13 +560,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-            if var drop = contact.bodyB.node as? Drop {
+            if let drop = contact.bodyB.node as? Drop {
 //                updateMissMeter(changeValue: -2)
 //                drop.missPoints = -2
 //                animateSplash(dropToSplash: drop)
 //                animateDropScore(dropToScore: drop)
                 gameOver()
             }
+        }
+    }
+    
+    @objc func appMovedToBackground() {
+        if GameVariables.gameIsActive {
+            pauseGame()
+        }
+    }
+    
+    @objc func appDidEnterForeground() {
+        if GameVariables.gameIsActive {
+            pauseGame()
         }
     }
 }

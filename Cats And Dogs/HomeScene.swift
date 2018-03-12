@@ -30,7 +30,6 @@ class HomeScene: SKScene {
         self.homePlaybutton?.run(repeatPulse)
         
         settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
-        
         settingsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (settingsButton?.position)!)
         settingsButton?.position = Utilities().shiftDown(view: view, currentPosition: (settingsButton?.position)!)
     }
