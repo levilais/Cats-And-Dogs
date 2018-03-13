@@ -182,14 +182,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
             let highScore = HighScores.highScores[indexPath.row]
-            if let score = highScore.score {
-                if let formattedScore = HighScore().formattedScore(score: score) {
-                    cell.textLabel?.text = formattedScore
-                }
-                if let playerName = highScore.playerName {
-                    cell.detailTextLabel?.text = playerName
-                }
+            if let formattedScore = HighScore().formattedScore(score: highScore.score) {
+                cell.textLabel?.text = formattedScore
             }
+            cell.detailTextLabel?.text = highScore.playerName
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
         }

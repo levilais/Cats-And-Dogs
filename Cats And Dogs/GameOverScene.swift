@@ -18,6 +18,8 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     var gameOverLabel: SKLabelNode?
     var textFieldPlacementNode: SKSpriteNode?
     var nameLabel: SKLabelNode?
+    var scoreRankText: String?
+    var scoreRank = Int()
 
     let submitScoreText = SKLabelNode(fontNamed: "arial")
     let submitScoreTextShadow = SKLabelNode(fontNamed: "arial")
@@ -39,41 +41,74 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        if let formattedNumber = numberFormatter.string(from: GameVariables.score as! NSNumber) {
+        if let formattedNumber = numberFormatter.string(from: GameVariables.score as NSNumber) {
             scoreLabel = childNode(withName: "scoreLabel") as? SKLabelNode
             if let scoreLabelCheck = scoreLabel {
                 scoreLabelCheck.text = String(formattedNumber)
             }
         }
+        getScoreRank()
     }
     
+    func getScoreRank() {
+        if HighScores.highScores.count == 0 {
+            self.scoreRank = 0
+            self.scoreRankText = "This is now your score to beat!"
+        } else {
+            var i = 0
+            var scoreRankFound = false
+            var lastScore = Int()
+            var matchesHighScore = false
+            while scoreRankFound == false {
+                if GameVariables.score >= HighScores.highScores[i].score {
+                    if lastScore == GameVariables.score {
+                        matchesHighScore = true
+                    }
+                    scoreRankFound = true
+                } else {
+                    lastScore = HighScores.highScores[i].score
+                    i += 1
+                }
+                if i == HighScores.highScores.count {
+                    scoreRankFound = true
+                }
+            }
+            
+            scoreRank = i
+            
+            if scoreRank != 0 {
+                print("score rank doesn't equal 0")
+                if self.scoreRank == HighScores.highScores.count {
+                    self.scoreRankText = "That was your worst score!"
+                } else {
+                    let formattedNumber = NumberFormatter.localizedString(from: NSNumber(value: (i + 1)), number: .ordinal)
+                    self.scoreRankText = "That was your \(formattedNumber) best score!"
+                }
+            } else {
+                if matchesHighScore {
+                    self.scoreRankText = "You tied your best score!"
+                } else {
+                    self.scoreRankText = "That was a new high score!"
+                }
+            }
+        }
+        if let scoreRankTextCheck = scoreRankText {
+            yourScoreLabel?.text = scoreRankTextCheck
+        }
+    }
+    
+    
+    // added code to change "your score" label - but it's in the wrong spot.  Needs to happen before the view loads.
     func saveScore() {
         let score = HighScore()
         score.playerName = GameVariables.lastNameUsed
         score.score = GameVariables.score
         score.timestamp = Date()
         
-        if HighScores.highScores.count == 0 {
+        if self.scoreRank == HighScores.highScores.count {
             HighScores.highScores.append(score)
         } else {
-            var i = 0
-            var scoreRankFound = false
-            while scoreRankFound == false {
-                let existingScores = HighScores.highScores
-                let existingScore = existingScores[i]
-                if let existingScoreCheck = existingScore.score {
-                    if let scoreCheck = score.score {
-                        if scoreCheck > existingScoreCheck {
-                            print("new score: \(scoreCheck), existingScore: \(existingScoreCheck)")
-                            HighScores.highScores.insert(score, at: i)
-                            scoreRankFound = true
-                        }
-                    }
-                i += 1
-                }
-                HighScores.highScores.append(score)
-                scoreRankFound = true
-            }
+            HighScores.highScores.insert(score, at: self.scoreRank)
         }
     }
     

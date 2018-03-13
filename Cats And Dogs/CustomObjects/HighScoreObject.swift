@@ -9,9 +9,9 @@
 import Foundation
 
 class HighScore {
-    var score: Int?
-    var playerName: String?
-    var timestamp: Date?
+    var score: Int!
+    var playerName: String!
+    var timestamp: Date!
     
     func formattedScore(score: Int) -> String? {
         let numberFormatter = NumberFormatter()
