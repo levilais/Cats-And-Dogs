@@ -27,7 +27,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     override func didMove(to view: SKView) {
         NotificationCenter.default.addObserver(self, selector: #selector(lastNameChangedSetLabel), name: NSNotification.Name(rawValue: "lastNameUsedChanged"), object: nil)
         
-//        GameVariables.gameIsActive = false
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
@@ -53,7 +52,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     func getScoreRank() {
         if HighScores.highScores.count == 0 {
             self.scoreRank = 0
-            self.scoreRankText = "This is now your score to beat!"
+            self.scoreRankText = "Now THAT'S a score to beat!"
         } else {
             var i = 0
             var scoreRankFound = false
@@ -77,18 +76,17 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             scoreRank = i
             
             if scoreRank != 0 {
-                print("score rank doesn't equal 0")
                 if self.scoreRank == HighScores.highScores.count {
-                    self.scoreRankText = "That was your worst score!"
+                    self.scoreRankText = "Eek...your worst score yet!"
                 } else {
                     let formattedNumber = NumberFormatter.localizedString(from: NSNumber(value: (i + 1)), number: .ordinal)
-                    self.scoreRankText = "That was your \(formattedNumber) best score!"
+                    self.scoreRankText = "Congrats on your \(formattedNumber) best score!"
                 }
             } else {
                 if matchesHighScore {
-                    self.scoreRankText = "You tied your best score!"
+                    self.scoreRankText = "You tied your high score!"
                 } else {
-                    self.scoreRankText = "That was a new high score!"
+                    self.scoreRankText = "A new high score!"
                 }
             }
         }
@@ -98,7 +96,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     }
     
     
-    // added code to change "your score" label - but it's in the wrong spot.  Needs to happen before the view loads.
     func saveScore() {
         let score = HighScore()
         score.playerName = GameVariables.lastNameUsed
