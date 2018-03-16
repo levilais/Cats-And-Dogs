@@ -11,12 +11,10 @@ import SpriteKit
 
 class GameControls {
     // Keep a 30 to 1 ratio for drop speed and frequency
-//    static var initialDropDuration: TimeInterval = 20
-    static var initialDropDuration: TimeInterval = 5
+    static var initialDropDuration: TimeInterval = 20
     static var dropSpeed: CGFloat = 1
     static var dropFrequency: TimeInterval = 0.667
     static var levelUpFrequency: Double = 30
-    static var timeToLevelUp: Double = 30
     static var levelSpeed: Double = 1
     static var currentLevel: Double = 1
     
@@ -49,7 +47,6 @@ class GameVariables {
     static var dropSpeed: CGFloat = GameControls.dropSpeed
     static var dropFrequency: TimeInterval = GameControls.dropFrequency
     static var levelUpFrequency: Double = GameControls.levelUpFrequency
-    static var timeToLevelUp: Double = GameControls.timeToLevelUp
     static var levelSpeed: Double = GameControls.levelSpeed
     static var currentLevel: Double = GameControls.currentLevel
     
@@ -59,18 +56,15 @@ class GameVariables {
         for child in scene.children {
             if let drop = child as? Drop {
                 drop.speed = GameVariables.dropSpeed
-                print("drop.speed after speeding up: \(drop.speed)")
             }
         }
-        GameVariables.timeToLevelUp = GameVariables.timeToLevelUp + GameVariables.levelUpFrequency
+        
         GameVariables.currentLevel = GameVariables.currentLevel + 1
     }
     
     func resetGameVariables() {
         GameVariables.dropSpeed = GameControls.dropSpeed
         GameVariables.dropFrequency = GameControls.dropFrequency
-        GameVariables.levelUpFrequency = GameControls.levelUpFrequency
-        GameVariables.timeToLevelUp = GameControls.timeToLevelUp
         GameVariables.levelSpeed = GameControls.levelSpeed
         GameVariables.currentLevel = GameControls.currentLevel
     }

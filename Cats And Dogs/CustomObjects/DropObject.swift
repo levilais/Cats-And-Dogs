@@ -18,11 +18,17 @@ class Drop: SKSpriteNode {
     var missPoints: Int?
     var moveAnimation: SKAction!
     
-    init() {
-        let randomDrop = Drop.dropTypes[Int(arc4random_uniform(6))]
-        self.type = randomDrop
-        let texture = SKTexture(imageNamed: "\(randomDrop)Drop.pdf")
-        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+    init(isLevelDrop: Bool) {
+        if !isLevelDrop {
+            let randomDrop = Drop.dropTypes[Int(arc4random_uniform(6))]
+            self.type = randomDrop
+            let texture = SKTexture(imageNamed: "\(randomDrop)Drop.pdf")
+            super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        } else {
+            let texture = SKTexture(imageNamed: "levelDrop.pdf")
+            self.type = "levelDrop"
+            super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        }
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }

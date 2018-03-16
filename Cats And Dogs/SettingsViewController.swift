@@ -22,13 +22,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        for highScore in HighScores.highScores {
-            if let score = highScore.score {
-                if let playerName = highScore.playerName {
-                    print("name \(playerName) scored \(score)")
-                }
-            }
-        }
+//        for highScore in HighScores.highScores {
+//            if let score = highScore.score {
+//                if let playerName = highScore.playerName {
+//                    print("name \(playerName) scored \(score)")
+//                }
+//            }
+//        }
     }
     
     override func viewWillLayoutSubviews() {

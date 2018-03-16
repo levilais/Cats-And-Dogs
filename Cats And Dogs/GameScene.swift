@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeToRain: Double = 0
     var timeToDrop: Double = 0
     var timeToLevelUp: Double = 0
+    var elapsedLevelTime: Double = 0
+    var timeToCreateLevelDrop: Bool = false
     
     var scoreLabel: SKLabelNode?
     var streakLabel: SKLabelNode?
@@ -136,10 +138,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "drop":
                     print("drop touched")
                     if var drop = touchedNode as? Drop {
-                        drop = determineStreak(drop: drop)
-                        drop = computeScore(drop: drop)
-                        animateSplash(dropToSplash: drop)
-                        animateDropScore(dropToScore: drop)
+                        if drop.type != "levelDrop" {
+                            drop = determineStreak(drop: drop)
+                            drop = computeScore(drop: drop)
+                            animateSplash(dropToSplash: drop)
+                            animateDropScore(dropToScore: drop)
+                        } else {
+                            print("level drop popped")
+                            animateSplash(dropToSplash: drop)
+                            GameVariables().speedUpGame(scene: self)
+                        }
                     }
                 case "pauseButton":
                     pauseGame()
@@ -263,9 +271,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createDrop() {
-        let drop = Drop()
-        drop.name = "drop"
+        var drop = Drop(isLevelDrop: false)
+        if timeToCreateLevelDrop {
+            drop = Drop(isLevelDrop: true)
+            print("time to create level drop called - turning to false")
+            self.timeToCreateLevelDrop = false
+        }
         
+        drop.name = "drop"
         drop.physicsBody = SKPhysicsBody(rectangleOf: drop.size)
         drop.physicsBody?.affectedByGravity = false
         drop.zPosition = 10
@@ -273,8 +286,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.physicsBody?.categoryBitMask = dropCategory
         drop.physicsBody?.contactTestBitMask = groundCategory
         drop.physicsBody?.collisionBitMask = 0
-//        drop.speed = GameVariables.dropSpeed
-//        print("dropSpeed at creation: \(drop.speed)")
+        
         addChild(drop)
         
         let currentSceneSize = scene?.size
@@ -307,7 +319,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.initialDropDuration)
         drop.speed = GameVariables.dropSpeed
         drop.run(moveDown)
-        print("dropSpeed after move: \(drop.speed)")
     }
     
     func createSmallDrop(speed: TimeInterval) {
@@ -526,6 +537,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             elapsedTime += difference
+            timeToLevelUp += difference
             lastTimeStamp = currentTime
             
             // Create Drops
@@ -536,8 +548,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 timeToDrop = currentTime
             }
             
-            if elapsedTime > GameVariables.timeToLevelUp {
-                GameVariables().speedUpGame(scene: self)
+            if self.timeToLevelUp > GameControls.levelUpFrequency {
+                timeToLevelUp = 0
+                timeToCreateLevelDrop = true
             }
         }
         
@@ -561,11 +574,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if let drop = contact.bodyB.node as? Drop {
-//                updateMissMeter(changeValue: -2)
-//                drop.missPoints = -2
-//                animateSplash(dropToSplash: drop)
-//                animateDropScore(dropToScore: drop)
-                gameOver()
+                updateMissMeter(changeValue: -2)
+                drop.missPoints = -2
+                animateSplash(dropToSplash: drop)
+                animateDropScore(dropToScore: drop)
+//                gameOver()
             }
         }
     }
