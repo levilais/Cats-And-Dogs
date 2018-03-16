@@ -16,7 +16,7 @@ class GameControls {
     static var dropFrequency: TimeInterval = 0.667
     static var levelUpFrequency: Double = 30
     static var levelSpeed: Double = 1
-    static var currentLevel: Double = 1
+    static var currentLevel: Int = 1
     
     // Increase these when increasing drop frequency and storm
     static var baseSingleLetterPoints: Int = 100
@@ -48,9 +48,11 @@ class GameVariables {
     static var dropFrequency: TimeInterval = GameControls.dropFrequency
     static var levelUpFrequency: Double = GameControls.levelUpFrequency
     static var levelSpeed: Double = GameControls.levelSpeed
-    static var currentLevel: Double = GameControls.currentLevel
+    static var currentLevel: Int = GameControls.currentLevel
+    static var singleLetterPoints = GameControls.baseSingleLetterPoints
+    static var comboPoints = GameControls.baseComboPoints
     
-    func speedUpGame(scene: SKScene) {
+    func levelUp(scene: SKScene) {
         GameVariables.dropSpeed = GameVariables.dropSpeed * 1.2
         GameVariables.dropFrequency = GameVariables.dropFrequency / 1.2
         for child in scene.children {
@@ -60,6 +62,8 @@ class GameVariables {
         }
         
         GameVariables.currentLevel = GameVariables.currentLevel + 1
+        GameVariables.singleLetterPoints += 100
+        GameVariables.comboPoints = GameVariables.singleLetterPoints * 5
     }
     
     func resetGameVariables() {
@@ -67,6 +71,8 @@ class GameVariables {
         GameVariables.dropFrequency = GameControls.dropFrequency
         GameVariables.levelSpeed = GameControls.levelSpeed
         GameVariables.currentLevel = GameControls.currentLevel
+        GameVariables.singleLetterPoints = GameControls.baseSingleLetterPoints
+        GameVariables.comboPoints = GameControls.baseComboPoints
     }
 }
 

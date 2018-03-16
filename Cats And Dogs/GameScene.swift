@@ -144,9 +144,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             animateSplash(dropToSplash: drop)
                             animateDropScore(dropToScore: drop)
                         } else {
-                            print("level drop popped")
                             animateSplash(dropToSplash: drop)
-                            GameVariables().speedUpGame(scene: self)
+                            GameVariables().levelUp(scene: self)
+                            animateDropScore(dropToScore: drop)
                         }
                     }
                 case "pauseButton":
@@ -253,9 +253,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func computeScore(drop: Drop) -> Drop {
         var newPoints = Int()
         if isCombo {
-            newPoints = GameControls.baseComboPoints * GameVariables.multiplier
+            newPoints = GameVariables.comboPoints * GameVariables.multiplier
         } else {
-            newPoints = GameControls.baseSingleLetterPoints * GameVariables.multiplier
+            newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
         }
         
         drop.scorePoints = newPoints
@@ -400,9 +400,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if let view = self.view as! SKView? {
-            print("1")
             if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
-                print("2")
                 GameVariables.gameIsActive = false
                 gameOverScene.scaleMode = .aspectFill
                 view.presentScene(gameOverScene)
@@ -461,12 +459,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
         dropScoreLabel.fontName = "Righteous-Regular"
         dropScoreLabel.fontSize = 48
-        if let dropScore = dropToScore.scorePoints {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
-            if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
-                dropScoreLabel.text = "+\(formattedNumber)"
+        
+        if dropToScore.type != "levelDrop" {
+            if let dropScore = dropToScore.scorePoints {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = NumberFormatter.Style.decimal
+                if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
+                    dropScoreLabel.text = "+\(formattedNumber)"
+                }
             }
+        } else {
+            dropScoreLabel.text = "Level \(GameVariables.currentLevel)"
         }
         
         var y = dropToScore.position.y + 30
@@ -574,8 +577,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if let drop = contact.bodyB.node as? Drop {
-                updateMissMeter(changeValue: -2)
-                drop.missPoints = -2
+                
+                if drop.type == "levelDrop" {
+                    updateMissMeter(changeValue: -10)
+                    drop.missPoints = -10
+                } else {
+                    updateMissMeter(changeValue: -2)
+                    drop.missPoints = -2
+                }
+                
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 //                gameOver()
