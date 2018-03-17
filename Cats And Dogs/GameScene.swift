@@ -140,14 +140,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if var drop = touchedNode as? Drop {
                         if drop.type != "levelDrop" {
                             drop = determineStreak(drop: drop)
-                            drop = computeScore(drop: drop)
-                            animateSplash(dropToSplash: drop)
-                            animateDropScore(dropToScore: drop)
                         } else {
-                            animateSplash(dropToSplash: drop)
                             GameVariables().levelUp(scene: self)
-                            animateDropScore(dropToScore: drop)
                         }
+                        drop = computeScore(drop: drop)
+                        animateSplash(dropToSplash: drop)
+                        animateDropScore(dropToScore: drop)
                     }
                 case "pauseButton":
                     pauseGame()
@@ -252,10 +250,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func computeScore(drop: Drop) -> Drop {
         var newPoints = Int()
-        if isCombo {
-            newPoints = GameVariables.comboPoints * GameVariables.multiplier
+        
+        if drop.type != "levelDrop" {
+            if isCombo {
+                newPoints = GameVariables.comboPoints * GameVariables.multiplier
+            } else {
+                newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
+            }
         } else {
-            newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
+            newPoints = GameVariables.singleLetterPoints * 10
         }
         
         drop.scorePoints = newPoints
@@ -460,21 +463,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dropScoreLabel.fontName = "Righteous-Regular"
         dropScoreLabel.fontSize = 48
         
-        if dropToScore.type != "levelDrop" {
-            if let dropScore = dropToScore.scorePoints {
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = NumberFormatter.Style.decimal
-                if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
-                    dropScoreLabel.text = "+\(formattedNumber)"
-                }
-            }
-        } else {
-            dropScoreLabel.text = "Level \(GameVariables.currentLevel)"
-        }
-        
         var y = dropToScore.position.y + 30
         if missPointsExist == true {
             y += 50
+        }
+        
+        if let dropScore = dropToScore.scorePoints {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
+                dropScoreLabel.text = "+\(formattedNumber)"
+                
+                if dropToScore.type == "levelDrop" {
+                    let levelLabel = SKLabelNode()
+                    levelLabel.fontColor = UIColor.StyleFile.Tan
+                    levelLabel.fontName = "Righteous-Regular"
+                    levelLabel.fontSize = 48
+                    levelLabel.text = "Level \(GameVariables.currentLevel)"
+                    let levelLabely = y + 60
+                    
+                    levelLabel.position = CGPoint(x: dropToScore.position.x, y: levelLabely)
+                    let fadeAction = SKAction.fadeOut(withDuration: 1)
+                    let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
+                    self.addChild(levelLabel)
+                    levelLabel.run(moveAction)
+                    levelLabel.run(fadeAction) {
+                        levelLabel.removeFromParent()
+                    }
+                }
+            }
         }
         
         dropScoreLabel.position = CGPoint(x: dropToScore.position.x, y: y)
