@@ -136,7 +136,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let name = touchedNode.name {
                 switch name {
                 case "drop":
-                    print("drop touched")
                     if var drop = touchedNode as? Drop {
                         if drop.type != "levelDrop" {
                             drop = determineStreak(drop: drop)
@@ -277,7 +276,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var drop = Drop(isLevelDrop: false)
         if timeToCreateLevelDrop {
             drop = Drop(isLevelDrop: true)
-            print("time to create level drop called - turning to false")
             self.timeToCreateLevelDrop = false
         }
         
@@ -593,16 +591,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-            if let drop = contact.bodyB.node as? Drop {
-                
+            if var drop = contact.bodyB.node as? Drop {
+
                 if drop.type == "levelDrop" {
-                    updateMissMeter(changeValue: -10)
-                    drop.missPoints = -10
+                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+                    updateMissMeter(changeValue: drop.missPoints!)
                 } else {
                     updateMissMeter(changeValue: -2)
                     drop.missPoints = -2
                 }
-                
+
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 //                gameOver()

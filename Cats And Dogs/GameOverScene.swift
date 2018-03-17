@@ -98,7 +98,12 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     
     func saveScore() {
         let score = HighScore()
-        score.playerName = GameVariables.lastNameUsed
+        if GameVariables.lastNameUsed != "Tap Here To Sign" {
+            score.playerName = GameVariables.lastNameUsed
+        } else {
+            score.playerName = "Unsigned"
+        }
+        
         score.score = GameVariables.score
         score.timestamp = Date()
         

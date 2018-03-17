@@ -25,7 +25,8 @@ class Drop: SKSpriteNode {
             let texture = SKTexture(imageNamed: "\(randomDrop)Drop.pdf")
             super.init(texture: texture, color: UIColor.clear, size: texture.size())
         } else {
-            let texture = SKTexture(imageNamed: "levelDrop.pdf")
+            print("GameVariables.levelMissPoints: \(-GameVariables.levelMissPoints)")
+            let texture = SKTexture(imageNamed: "\(-GameVariables.levelMissPoints)Drop.pdf")
             self.type = "levelDrop"
             super.init(texture: texture, color: UIColor.clear, size: texture.size())
         }

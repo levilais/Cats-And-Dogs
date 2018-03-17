@@ -19,6 +19,7 @@ class GameControls {
     static var currentLevel: Int = 1
     
     // Increase these when increasing drop frequency and storm
+    static var baseLevelMissPoints: Int = -10
     static var baseSingleLetterPoints: Int = 100
     static var baseComboPoints: Int = 200
     static var baseMissPoints: Int = 1
@@ -51,6 +52,7 @@ class GameVariables {
     static var currentLevel: Int = GameControls.currentLevel
     static var singleLetterPoints = GameControls.baseSingleLetterPoints
     static var comboPoints = GameControls.baseComboPoints
+    static var levelMissPoints: Int = GameControls.baseLevelMissPoints
     
     func levelUp(scene: SKScene) {
         GameVariables.dropSpeed = GameVariables.dropSpeed * 1.1
@@ -61,9 +63,18 @@ class GameVariables {
             }
         }
         
+        GameVariables.levelMissPoints = -10
         GameVariables.currentLevel = GameVariables.currentLevel + 1
         GameVariables.singleLetterPoints += 100
         GameVariables.comboPoints = GameVariables.singleLetterPoints * 5
+    }
+    
+    func updateMissedLevelDrop(drop: Drop) -> Drop {
+        drop.missPoints = GameVariables.levelMissPoints
+        if GameVariables.levelMissPoints != -90 {
+            GameVariables.levelMissPoints -= 10
+        }
+        return drop
     }
     
     func resetGameVariables() {
@@ -74,6 +85,7 @@ class GameVariables {
         GameVariables.singleLetterPoints = GameControls.baseSingleLetterPoints
         GameVariables.comboPoints = GameControls.baseComboPoints
         GameVariables.multiplier = 1
+        GameVariables.levelMissPoints = GameControls.baseLevelMissPoints
     }
 }
 
