@@ -53,8 +53,8 @@ class GameVariables {
     static var comboPoints = GameControls.baseComboPoints
     
     func levelUp(scene: SKScene) {
-        GameVariables.dropSpeed = GameVariables.dropSpeed * 1.2
-        GameVariables.dropFrequency = GameVariables.dropFrequency / 1.2
+        GameVariables.dropSpeed = GameVariables.dropSpeed * 1.1
+        GameVariables.dropFrequency = GameVariables.dropFrequency / 1.1
         for child in scene.children {
             if let drop = child as? Drop {
                 drop.speed = GameVariables.dropSpeed
@@ -73,6 +73,7 @@ class GameVariables {
         GameVariables.currentLevel = GameControls.currentLevel
         GameVariables.singleLetterPoints = GameControls.baseSingleLetterPoints
         GameVariables.comboPoints = GameControls.baseComboPoints
+        GameVariables.multiplier = 1
     }
 }
 

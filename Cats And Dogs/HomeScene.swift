@@ -16,7 +16,6 @@ class HomeScene: SKScene {
     var settingsButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
-        print("homeScene loaded")
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
