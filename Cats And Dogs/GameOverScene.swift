@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import CoreData
 
 class GameOverScene: SKScene, UITextFieldDelegate {
     
@@ -50,7 +51,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     }
     
     func getScoreRank() {
-        if HighScores.highScores.count == 0 {
+        if HighScoresClass.highScores.count == 0 {
             self.scoreRank = 0
             self.scoreRankText = "Now THAT'S a score to beat!"
         } else {
@@ -59,16 +60,16 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             var lastScore = Int()
             var matchesHighScore = false
             while scoreRankFound == false {
-                if GameVariables.score >= HighScores.highScores[i].score {
+                if GameVariables.score >= HighScoresClass.highScores[i].score {
                     if lastScore == GameVariables.score {
                         matchesHighScore = true
                     }
                     scoreRankFound = true
                 } else {
-                    lastScore = HighScores.highScores[i].score
+                    lastScore = HighScoresClass.highScores[i].score
                     i += 1
                 }
-                if i == HighScores.highScores.count {
+                if i == HighScoresClass.highScores.count {
                     scoreRankFound = true
                 }
             }
@@ -76,7 +77,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             scoreRank = i
             
             if scoreRank != 0 {
-                if self.scoreRank == HighScores.highScores.count {
+                if self.scoreRank == HighScoresClass.highScores.count {
                     self.scoreRankText = "Eek...your worst score yet!"
                 } else {
                     let formattedNumber = NumberFormatter.localizedString(from: NSNumber(value: (i + 1)), number: .ordinal)
@@ -107,11 +108,13 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         score.score = GameVariables.score
         score.timestamp = Date()
         
-        if self.scoreRank == HighScores.highScores.count {
-            HighScores.highScores.append(score)
+        if self.scoreRank == HighScoresClass.highScores.count {
+            HighScoresClass.highScores.append(score)
         } else {
-            HighScores.highScores.insert(score, at: self.scoreRank)
+            HighScoresClass.highScores.insert(score, at: self.scoreRank)
         }
+        
+        CoreDataHelper().saveHighScore(score: score.score, playerName: score.playerName)
     }
     
     @objc func lastNameChangedSetLabel() {

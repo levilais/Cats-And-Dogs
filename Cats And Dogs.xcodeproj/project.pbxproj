@@ -15,6 +15,8 @@
 		040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C892047813D00FCCDD4 /* GameOverScene.sks */; };
 		040A3C8C2047815D00FCCDD4 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040A3C8B2047815D00FCCDD4 /* GameOverScene.swift */; };
 		040ECCA0204B33AE00EF5D7B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */; };
+		0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */; };
+		0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */; };
 		0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456C1E620432DCE00647657 /* AppDelegate.swift */; };
 		0456C1E920432DCE00647657 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1E820432DCE00647657 /* GameScene.sks */; };
 		0456C1EB20432DCE00647657 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1EA20432DCE00647657 /* Actions.sks */; };
@@ -48,6 +50,8 @@
 		040A3C892047813D00FCCDD4 /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
 		040A3C8B2047815D00FCCDD4 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatsAndDogsModel.xcdatamodel; sourceTree = "<group>"; };
+		0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		0456C1E320432DCE00647657 /* Cats And Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cats And Dogs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456C1E620432DCE00647657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0456C1E820432DCE00647657 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				0456C1F320432DD000647657 /* Assets.xcassets */,
 				0456C1F520432DD000647657 /* LaunchScreen.storyboard */,
 				0456C1F820432DD000647657 /* Info.plist */,
+				0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */,
 			);
 			path = "Cats And Dogs";
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 				0456C1E620432DCE00647657 /* AppDelegate.swift */,
 				04F01BEE20433A7A002C57F6 /* Utilities.swift */,
 				0466457C204DC4160090055C /* StyleFile.swift */,
+				0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 				040A3C8C2047815D00FCCDD4 /* GameOverScene.swift in Sources */,
 				040ECCA0204B33AE00EF5D7B /* SettingsViewController.swift in Sources */,
 				0456C1EF20432DCE00647657 /* GameViewController.swift in Sources */,
+				0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */,
 				0491EB23205711A7004994C4 /* EnterNameViewController.swift in Sources */,
 				04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */,
 				040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */,
@@ -267,6 +274,7 @@
 				04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */,
 				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
+				0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,
 				049895272050A1C2005B494D /* MailViewController.swift in Sources */,
 			);
@@ -465,6 +473,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */,
+			);
+			currentVersion = 0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */;
+			path = CatsAndDogsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0456C1DB20432DCE00647657 /* Project object */;
 }

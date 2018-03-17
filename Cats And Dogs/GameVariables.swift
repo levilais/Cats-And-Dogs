@@ -89,6 +89,6 @@ class GameVariables {
     }
 }
 
-class HighScores {
+class HighScoresClass {
     static var highScores = [HighScore]()
 }

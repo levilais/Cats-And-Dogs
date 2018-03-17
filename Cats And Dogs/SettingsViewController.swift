@@ -22,6 +22,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+
+        CoreDataHelper().getHighScores()
+        
 //        for highScore in HighScores.highScores {
 //            if let score = highScore.score {
 //                if let playerName = highScore.playerName {
@@ -87,7 +90,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         var count = Int()
-        if HighScores.highScores.count > 0 {
+        if HighScoresClass.highScores.count > 0 {
             count = 3
         } else {
             count = 2
@@ -141,7 +144,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 1:
             rows = 5
         case 2:
-            rows = HighScores.highScores.count
+            rows = HighScoresClass.highScores.count
         default:
             rows = 1
         }
@@ -181,7 +184,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
-            let highScore = HighScores.highScores[indexPath.row]
+            let highScore = HighScoresClass.highScores[indexPath.row]
             if let formattedScore = HighScore().formattedScore(score: highScore.score) {
                 cell.textLabel?.text = formattedScore
             }
