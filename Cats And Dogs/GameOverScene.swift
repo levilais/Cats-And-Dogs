@@ -108,12 +108,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         score.score = GameVariables.score
         score.timestamp = Date()
         
-        if self.scoreRank == HighScoresClass.highScores.count {
-            HighScoresClass.highScores.append(score)
-        } else {
-            HighScoresClass.highScores.insert(score, at: self.scoreRank)
-        }
-        
         CoreDataHelper().saveHighScore(score: score.score, playerName: score.playerName)
     }
     

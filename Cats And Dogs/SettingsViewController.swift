@@ -9,8 +9,9 @@
 import UIKit
 import StoreKit
 import MessageUI
+import CoreData
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -24,14 +25,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         setupTableView()
 
         CoreDataHelper().getHighScores()
-        
-//        for highScore in HighScores.highScores {
-//            if let score = highScore.score {
-//                if let playerName = highScore.playerName {
-//                    print("name \(playerName) scored \(score)")
-//                }
-//            }
-//        }
     }
     
     override func viewWillLayoutSubviews() {

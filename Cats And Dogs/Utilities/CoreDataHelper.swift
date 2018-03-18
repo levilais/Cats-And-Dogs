@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 
 class CoreDataHelper {
+    
     func saveHighScore(score: Int, playerName: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -31,29 +32,29 @@ class CoreDataHelper {
     func getHighScores() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        // GETTING DATA OUT
-        // note that the request returns an "NSFetchRequestResult" object which we cast as an "NSManagedObject" which we then cast as whatever type of object we're pulling out (in this case, "username" is a String)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        //        request.predicate = NSPredicate(format: "age <= %@", 10)
-        
-        
-        // By default when a request is run, the device will return "faults" instead of values. Most of the time, you'll need to do this so you can actually use the values.
+        let sort = NSSortDescriptor(key: "score", ascending: false)
+        request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
+        
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
+                var newScores = [HighScore]()
                 for result in results as! [NSManagedObject] {
+                    let highScore = HighScore()
                     if let score = result.value(forKey: "score") as? Int {
-                        print (score)
+                        highScore.score = score
                     }
                     if let playerName = result.value(forKey: "playerName") as? String {
-                        
-                        print (playerName)
+                        highScore.playerName = playerName
                     }
                     if let timestamp = result.value(forKey: "timestamp") as? Date {
-                        print (timestamp)
+                        highScore.timestamp = timestamp
                     }
+                    newScores.append(highScore)
                 }
+                HighScoresClass.highScores = newScores
             } else {
                 print("no results")
             }
