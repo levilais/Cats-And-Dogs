@@ -181,7 +181,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             if let formattedScore = HighScore().formattedScore(score: highScore.score) {
                 cell.textLabel?.text = formattedScore
             }
-            cell.detailTextLabel?.text = highScore.playerName
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            
+            cell.detailTextLabel?.text = ("\(highScore.playerName!) on \(dateFormatter.string(from: highScore.timestamp))")
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
         }
