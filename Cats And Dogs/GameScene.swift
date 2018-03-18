@@ -591,21 +591,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-//            if var drop = contact.bodyB.node as? Drop {
-//
-//                if drop.type == "levelDrop" {
-//                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
-//                    updateMissMeter(changeValue: drop.missPoints!)
-//                } else {
-//                    updateMissMeter(changeValue: -2)
-//                    drop.missPoints = -2
-//                }
-//
-//                animateSplash(dropToSplash: drop)
-//                animateDropScore(dropToScore: drop)
-                gameOver()
+            if var drop = contact.bodyB.node as? Drop {
+
+                if drop.type == "levelDrop" {
+                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+                    updateMissMeter(changeValue: drop.missPoints!)
+                } else {
+                    updateMissMeter(changeValue: -2)
+                    drop.missPoints = -2
+                }
+
+                animateSplash(dropToSplash: drop)
+                animateDropScore(dropToScore: drop)
+//                gameOver()
             }
-//        }
+        }
     }
     
     @objc func appMovedToBackground() {
