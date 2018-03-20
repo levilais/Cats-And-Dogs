@@ -16,6 +16,7 @@ extension UIColor {
         static let WaterBlue = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
         static let Tan = UIColor(red:0.82, green:0.76, blue:0.66, alpha:1.0)
         static let Salmon = UIColor(red:1.00, green:0.58, blue:0.55, alpha:1.0)
+        static let Orange = UIColor(red:0.96, green:0.67, blue:0.27, alpha:1.0)
         static let ToggleSelectedColor = UIColor(red:0.41, green:0.46, blue:0.53, alpha:1.0)
     }
 }

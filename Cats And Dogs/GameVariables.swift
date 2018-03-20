@@ -66,7 +66,7 @@ class GameVariables {
         GameVariables.levelMissPoints = -10
         GameVariables.currentLevel = GameVariables.currentLevel + 1
         GameVariables.singleLetterPoints += 100
-        GameVariables.comboPoints = GameVariables.singleLetterPoints * 5
+        GameVariables.comboPoints = GameVariables.singleLetterPoints * 2
     }
     
     func updateMissedLevelDrop(drop: Drop) -> Drop {

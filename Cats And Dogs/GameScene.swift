@@ -20,6 +20,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode?
     var streakLabel: SKLabelNode?
     var missLabel: SKLabelNode?
+    var levelTrackerLabel: SKLabelNode?
+    var multipleTrackerLabel: SKLabelNode?
+    var levelTrackerBackground: SKSpriteNode?
+    var multipleTrackerBackground: SKSpriteNode?
+    var missMeterTrackerBackground: SKSpriteNode?
+    var missesLeftLabel: SKLabelNode?
+    var streakBonusLabel: SKLabelNode?
+    var levelLabel: SKLabelNode?
+    var timeElapsedLabel: SKLabelNode?
     
     var elapsedTime: TimeInterval = 0.0
     var lastTimeStamp: TimeInterval = 0.0
@@ -58,13 +67,58 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (scoreLabel?.position)!)
             scoreLabel?.position = Utilities().shiftDown(view: view, currentPosition: (scoreLabel?.position)!)
             
+            timeElapsedLabel = childNode(withName: "timeElapsedLabel") as? SKLabelNode
+            timeElapsedLabel?.isHidden = true
+            timeElapsedLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (timeElapsedLabel?.position)!)
+            timeElapsedLabel?.position = Utilities().shiftDown(view: view, currentPosition: (timeElapsedLabel?.position)!)
+            
             streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
             streakLabel?.position = Utilities().shiftDown(view: view, currentPosition: (streakLabel?.position)!)
+            
+            levelTrackerLabel = childNode(withName: "levelTrackerLabel") as? SKLabelNode
+            levelTrackerLabel?.alpha = 0
+            levelTrackerLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (levelTrackerLabel?.position)!)
+            levelTrackerLabel?.position = Utilities().shiftUp(view: view, currentPosition: (levelTrackerLabel?.position)!)
+            
+            multipleTrackerLabel = childNode(withName: "multipleTrackerLabel") as? SKLabelNode
+            multipleTrackerLabel?.alpha = 0
+            multipleTrackerLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (multipleTrackerLabel?.position)!)
+            multipleTrackerLabel?.position = Utilities().shiftUp(view: view, currentPosition: (multipleTrackerLabel?.position)!)
+            
+            levelTrackerBackground = childNode(withName: "levelTrackerBackground") as? SKSpriteNode
+            levelTrackerBackground?.alpha = 0
+            levelTrackerBackground?.position = Utilities().shiftHorizontal(view: view, currentPosition: (levelTrackerBackground?.position)!)
+            levelTrackerBackground?.position = Utilities().shiftUp(view: view, currentPosition: (levelTrackerBackground?.position)!)
+            
+            multipleTrackerBackground = childNode(withName: "multipleTrackerBackground") as? SKSpriteNode
+            multipleTrackerBackground?.alpha = 0
+            multipleTrackerBackground?.position = Utilities().shiftHorizontal(view: view, currentPosition: (multipleTrackerBackground?.position)!)
+            multipleTrackerBackground?.position = Utilities().shiftUp(view: view, currentPosition: (multipleTrackerBackground?.position)!)
+            
+            missMeterTrackerBackground = childNode(withName: "missMeterTrackerBackground") as? SKSpriteNode
+            missMeterTrackerBackground?.alpha = 0
+            missMeterTrackerBackground?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missMeterTrackerBackground?.position)!)
+            missMeterTrackerBackground?.position = Utilities().shiftUp(view: view, currentPosition: (missMeterTrackerBackground?.position)!)
             
             missLabel = childNode(withName: "missLabel") as? SKLabelNode
             missLabel?.alpha = 0
             missLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missLabel?.position)!)
             missLabel?.position = Utilities().shiftUp(view: view, currentPosition: (missLabel?.position)!)
+            
+            missesLeftLabel = childNode(withName: "missesLeftLabel") as? SKLabelNode
+            missesLeftLabel?.isHidden = true
+            missesLeftLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (missesLeftLabel?.position)!)
+            missesLeftLabel?.position = Utilities().shiftUp(view: view, currentPosition: (missesLeftLabel?.position)!)
+            
+            streakBonusLabel = childNode(withName: "streakBonusLabel") as? SKLabelNode
+            streakBonusLabel?.isHidden = true
+            streakBonusLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (streakBonusLabel?.position)!)
+            streakBonusLabel?.position = Utilities().shiftUp(view: view, currentPosition: (streakBonusLabel?.position)!)
+            
+            levelLabel = childNode(withName: "levelLabel") as? SKLabelNode
+            levelLabel?.isHidden = true
+            levelLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (levelLabel?.position)!)
+            levelLabel?.position = Utilities().shiftUp(view: view, currentPosition: (levelLabel?.position)!)
             
             gauge = childNode(withName: "gauge") as? SKSpriteNode
             gauge?.texture = SKTexture(imageNamed: "gauge.pdf")
@@ -96,7 +150,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
 // things pile up when pause pressed - figure out what's going wrong
     func introAnimation() {
         self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
@@ -116,6 +169,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.gaugeFill?.alpha = 1
             self.scoreLabel?.alpha = 1
             self.missLabel?.alpha = 1
+            self.levelTrackerBackground?.alpha = 1
+            self.multipleTrackerBackground?.alpha = 1
+            self.missMeterTrackerBackground?.alpha = 1
+
+            self.levelTrackerLabel?.alpha = 1
+            self.multipleTrackerLabel?.alpha = 1
             self.startGame()
             self.startGameCalled = true
         }
@@ -141,6 +200,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             drop = determineStreak(drop: drop)
                         } else {
                             GameVariables().levelUp(scene: self)
+                            self.levelTrackerLabel?.text = String(GameVariables.currentLevel)
                         }
                         drop = computeScore(drop: drop)
                         animateSplash(dropToSplash: drop)
@@ -172,6 +232,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.scoreLabel?.text = String(GameVariables.score)
         self.missLabel?.text = String(GameVariables.missesLeft)
+        self.levelTrackerLabel?.text = String(GameVariables.currentLevel)
+        self.multipleTrackerLabel?.text = "\(GameVariables.multiplier)x"
     }
     
     func determineStreak(drop: Drop) -> Drop {
@@ -241,6 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             streakLabel?.text = GameVariables.streak
         }
+        self.multipleTrackerLabel?.text = "\(GameVariables.multiplier)x"
         if GameVariables.firstDrop == true {
             GameVariables.firstDrop = false
         }
@@ -268,7 +331,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
             scoreLabel?.text = formattedNumber
         }
-        
         return drop
     }
     
@@ -386,6 +448,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("gameOver called")
         
         self.missLabel?.text = "0"
+        self.levelTrackerLabel?.text = "1"
+        self.multipleTrackerLabel?.text = "1x"
+        
         if let sceneCheck = scene {
             for child in sceneCheck.children {
                 if let name = child.name {
@@ -474,7 +539,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if dropToScore.type == "levelDrop" {
                     let levelLabel = SKLabelNode()
-                    levelLabel.fontColor = UIColor.StyleFile.Tan
+                    levelLabel.fontColor = UIColor.StyleFile.Orange
                     levelLabel.fontName = "Righteous-Regular"
                     levelLabel.fontSize = 48
                     levelLabel.text = "Level \(GameVariables.currentLevel)"
@@ -511,10 +576,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
-                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel","drop":
+                    case "pauseButton","drop","streakLabel":
                         child.isHidden = true
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = false
+                    case "missesLeftLabel","streakBonusLabel","levelLabel","timeElapsedLabel":
+                        if self.elapsedTime > 0 {
+                            let formatter = DateComponentsFormatter()
+                            formatter.unitsStyle = .positional // Use the appropriate positioning for the current locale
+                            formatter.allowedUnits = [ .hour, .minute, .second ]
+                            if let formattedDuration = formatter.string(from: elapsedTime) {
+                                if elapsedTime > 60 {
+                                    timeElapsedLabel?.text = "Time: \(formattedDuration)"
+                                } else {
+                                    timeElapsedLabel?.text = "Time: \(formattedDuration) Seconds"
+                                }
+                            }
+                            
+                            
+                            child.isHidden = false
+                        }
                     default:
                         print("default in pauseGame called")
                     }
@@ -529,10 +610,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
-                    case "pauseButton","missLabel","gauge","gaugeFill","scoreLabel","streakLabel","drop":
+                    case "pauseButton","drop","streakLabel":
                         child.isHidden = false
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = true
+                    case "missesLeftLabel","streakBonusLabel","levelLabel","timeElapsedLabel":
+                        if self.elapsedTime > 0 {
+                            child.isHidden = true
+                        }
                     default:
                         print("default in resumeGame called")
                     }
