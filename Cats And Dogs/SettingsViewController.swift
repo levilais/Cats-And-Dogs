@@ -20,6 +20,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let sectionHeaders = ["OPTIONS","CONNECT","HIGH SCORES"]
     
+    var highScoreToDisplay: HighScore?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -126,11 +128,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 tableView.deselectRow(at: indexPath, animated: true)
             } else if cell.isKind(of: HighScoreTableViewCell.self) {
                 print("selected high score")
+                self.highScoreToDisplay = HighScoresClass.highScores[indexPath.row]
                 self.performSegue(withIdentifier: "settingsToScoreStatsSegue", sender: self)
             }
         }
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows = Int()
@@ -199,6 +201,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBAction func goBackDidPress(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "settingsToScoreStatsSegue" {
+            if let highScore = self.highScoreToDisplay {
+                if let destinationVC = segue.destination as? ScoreStatsViewController {
+                    destinationVC.scoreToDisplay = highScore
+                }
+            }
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
