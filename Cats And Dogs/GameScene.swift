@@ -197,6 +197,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "drop":
                     if var drop = touchedNode as? Drop {
                         if drop.type != "levelDrop" {
+                            GameVariables.poppedDrops += 1
                             drop = determineStreak(drop: drop)
                         } else {
                             GameVariables().levelUp(scene: self)
@@ -325,6 +326,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         drop.scorePoints = newPoints
         GameVariables.score += newPoints
+        if newPoints > GameVariables.bestDrop {
+            GameVariables.bestDrop = newPoints
+        }
         
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
@@ -445,8 +449,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
-        print("gameOver called")
-        
         self.missLabel?.text = "0"
         self.levelTrackerLabel?.text = "1"
         self.multipleTrackerLabel?.text = "1x"
@@ -465,6 +467,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        
+        GameVariables.time = elapsedTime
+        
         if let view = self.view as! SKView? {
             if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
                 GameVariables.gameIsActive = false
@@ -677,15 +682,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
-
                 if drop.type == "levelDrop" {
                     drop = GameVariables().updateMissedLevelDrop(drop: drop)
                     updateMissMeter(changeValue: drop.missPoints!)
+                    GameVariables.skippedLevelUps += 1
                 } else {
                     updateMissMeter(changeValue: -2)
                     drop.missPoints = -2
+                    GameVariables.missedDrops += 1
                 }
-
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 //                gameOver()

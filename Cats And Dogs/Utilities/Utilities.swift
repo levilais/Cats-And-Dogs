@@ -55,18 +55,20 @@ class Utilities {
     }
     
     func showSettings(scene: SKScene) {
-//        for child in scene.children {
-//            if child.name != "background" {
-//                child.isHidden = true
-//            }
-//        }
-        
         let settingsLabel = SKLabelNode()
         settingsLabel.fontName = "AmaticSC-Regular"
         settingsLabel.fontSize = 128
         settingsLabel.fontColor = .white
         settingsLabel.position = CGPoint(x: 0, y: scene.frame.height / 2)
         scene.addChild(settingsLabel)
+    }
+}
+
+public extension Double {
+    // Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }
 

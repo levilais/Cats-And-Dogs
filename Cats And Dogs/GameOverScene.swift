@@ -48,6 +48,16 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             }
         }
         getScoreRank()
+        
+        print("time: \(GameVariables.time)")
+        print("longestStreak: \(GameVariables.longestStreak)")
+        print("bestDrop: \(GameVariables.bestDrop)")
+        print("missedDrops: \(GameVariables.missedDrops)")
+        print("poppedDrops: \(GameVariables.poppedDrops)")
+        print("accuracy: \(GameVariables().accuracyString())")
+        print("skippedLevelUps: \(GameVariables.skippedLevelUps)")
+        print("level: \(GameVariables.currentLevel)")
+        print("combos: \(GameVariables.combos)")
     }
     
     func getScoreRank() {

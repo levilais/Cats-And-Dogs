@@ -20,8 +20,8 @@ class GameControls {
     
     // Increase these when increasing drop frequency and storm
     static var baseLevelMissPoints: Int = -10
-    static var baseSingleLetterPoints: Int = 10
-    static var baseComboPoints: Int = 20
+    static var baseSingleLetterPoints: Int = 100
+    static var baseComboPoints: Int = 200
     static var baseMissPoints: Int = 1
     static var baseMissMeterBonus: Int = 5
     static var missMeterLimit: Int = 100
@@ -34,7 +34,14 @@ class GameControls {
 class GameVariables {
     static var streak: String = ""
     static var streakCount: Int = 0
-    static var multiplier: Int = 1
+    static var multiplier: Int = 1 {
+        didSet {
+            if multiplier > GameVariables.longestStreak {
+                GameVariables.longestStreak = GameVariables.multiplier
+                GameVariables.combos += 1
+            }
+        }
+    }
     static var score: Int = 0
     static var missesLeft: Int = 100
     static var firstDrop: Bool = true
@@ -44,7 +51,6 @@ class GameVariables {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lastNameUsedChanged"), object: nil)
         }
     }
-    
     static var dropSpeed: CGFloat = GameControls.dropSpeed
     static var dropFrequency: TimeInterval = GameControls.dropFrequency
     static var levelUpFrequency: Double = GameControls.levelUpFrequency
@@ -53,6 +59,24 @@ class GameVariables {
     static var singleLetterPoints = GameControls.baseSingleLetterPoints
     static var comboPoints = GameControls.baseComboPoints
     static var levelMissPoints: Int = GameControls.baseLevelMissPoints
+    static var skippedLevelUps: Int = 0
+    static var longestStreak: Int = 0
+    static var bestDrop: Int = 0
+    static var poppedDrops: Double = 0 {
+        didSet {
+            let totalDrops = GameVariables.poppedDrops + GameVariables.missedDrops
+            GameVariables.accuracy = GameVariables.poppedDrops / totalDrops
+        }
+    }
+    static var missedDrops: Double = 0 {
+        didSet {
+            let totalDrops = GameVariables.poppedDrops + GameVariables.missedDrops
+            GameVariables.accuracy = (GameVariables.poppedDrops / totalDrops)
+        }
+    }
+    static var accuracy: Double = 0
+    static var time: TimeInterval = 0
+    static var combos: Int = 0
     
     func levelUp(scene: SKScene) {
         GameVariables.dropSpeed = GameVariables.dropSpeed * 1.1
@@ -65,7 +89,7 @@ class GameVariables {
         
         GameVariables.levelMissPoints = -10
         GameVariables.currentLevel = GameVariables.currentLevel + 1
-        GameVariables.singleLetterPoints += 10
+        GameVariables.singleLetterPoints += 100
         GameVariables.comboPoints = GameVariables.singleLetterPoints * 2
     }
     
@@ -77,6 +101,12 @@ class GameVariables {
         return drop
     }
     
+    func accuracyString() -> String {
+        let accuracyPercent = (GameVariables.accuracy.rounded(toPlaces: 2))
+        let accuracyInt = Int(100 * accuracyPercent)
+        return "\(accuracyInt)%"
+    }
+    
     func resetGameVariables() {
         GameVariables.dropSpeed = GameControls.dropSpeed
         GameVariables.dropFrequency = GameControls.dropFrequency
@@ -86,6 +116,14 @@ class GameVariables {
         GameVariables.comboPoints = GameControls.baseComboPoints
         GameVariables.multiplier = 1
         GameVariables.levelMissPoints = GameControls.baseLevelMissPoints
+        GameVariables.skippedLevelUps = 0
+        GameVariables.longestStreak = 0
+        GameVariables.bestDrop = 0
+        GameVariables.poppedDrops = 0
+        GameVariables.missedDrops = 0
+        GameVariables.time = 0
+        GameVariables.accuracy = 0
+        GameVariables.combos = 0
     }
 }
 
