@@ -16,8 +16,8 @@ class HighScore {
     var skippedLevelUps: Int = 0
     var longestStreak: Int = 0
     var bestDrop: Int = 0
-    var poppedDrops: Int = 0
-    var missedDrops: Int = 0
+    var poppedDrops: Double = 0
+    var missedDrops: Double = 0
     var time: TimeInterval = 0
     var accuracy: Double = 0
     var combos: Int = 0

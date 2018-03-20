@@ -48,16 +48,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             }
         }
         getScoreRank()
-        
-        print("time: \(GameVariables.time)")
-        print("longestStreak: \(GameVariables.longestStreak)")
-        print("bestDrop: \(GameVariables.bestDrop)")
-        print("missedDrops: \(GameVariables.missedDrops)")
-        print("poppedDrops: \(GameVariables.poppedDrops)")
-        print("accuracy: \(GameVariables().accuracyString())")
-        print("skippedLevelUps: \(GameVariables.skippedLevelUps)")
-        print("level: \(GameVariables.currentLevel)")
-        print("combos: \(GameVariables.combos)")
     }
     
     func getScoreRank() {
@@ -117,8 +107,17 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         score.score = GameVariables.score
         score.timestamp = Date()
+        score.level = GameVariables.currentLevel
+        score.skippedLevelUps = GameVariables.skippedLevelUps
+        score.longestStreak = GameVariables.longestStreak
+        score.bestDrop = GameVariables.bestDrop
+        score.poppedDrops = GameVariables.poppedDrops
+        score.missedDrops = GameVariables.missedDrops
+        score.accuracy = GameVariables.accuracy
+        score.combos = GameVariables.combos
+        score.time = GameVariables.time
         
-        CoreDataHelper().saveHighScore(score: score.score, playerName: score.playerName)
+        CoreDataHelper().saveHighScore(highScore: score)
     }
     
     @objc func lastNameChangedSetLabel() {

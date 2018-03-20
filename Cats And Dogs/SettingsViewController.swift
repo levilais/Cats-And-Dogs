@@ -124,6 +124,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     print("should never fire")
                 }
                 tableView.deselectRow(at: indexPath, animated: true)
+            } else if cell.isKind(of: HighScoreTableViewCell.self) {
+                print("selected high score")
+                self.performSegue(withIdentifier: "settingsToScoreStatsSegue", sender: self)
             }
         }
     }

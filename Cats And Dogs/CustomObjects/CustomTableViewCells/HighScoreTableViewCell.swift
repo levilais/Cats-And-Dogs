@@ -17,9 +17,8 @@ class HighScoreTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         self.textLabel?.textColor = UIColor.StyleFile.LightBlueGray
         self.textLabel?.font = UIFont.StyleFile.latoLight
-        self.isUserInteractionEnabled = false
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
