@@ -20,8 +20,8 @@ class GameControls {
     
     // Increase these when increasing drop frequency and storm
     static var baseLevelMissPoints: Int = -10
-    static var baseSingleLetterPoints: Int = 100
-    static var baseComboPoints: Int = 200
+    static var baseSingleLetterPoints: Int = 10
+    static var baseComboPoints: Int = 20
     static var baseMissPoints: Int = 1
     static var baseMissMeterBonus: Int = 5
     static var missMeterLimit: Int = 100
@@ -65,7 +65,7 @@ class GameVariables {
         
         GameVariables.levelMissPoints = -10
         GameVariables.currentLevel = GameVariables.currentLevel + 1
-        GameVariables.singleLetterPoints += 100
+        GameVariables.singleLetterPoints += 10
         GameVariables.comboPoints = GameVariables.singleLetterPoints * 2
     }
     
