@@ -29,12 +29,33 @@ class CoreDataHelper {
         newHighScore.setValue(highScore.accuracy, forKey: "accuracy")
         newHighScore.setValue(highScore.combos, forKey: "combos")
         newHighScore.setValue(Double(highScore.time), forKey: "time")
+        newHighScore.setValue(highScore.identifier, forKey: "identifier")
         
         do {
             try context.save()
             print("saved")
         } catch {
             print("there was an error")
+        }
+    }
+    
+    func setLastNameUsed() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
+        let sort = NSSortDescriptor(key: "time", ascending: false)
+        request.sortDescriptors = [sort]
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results = try context.fetch(request)
+            if results.count > 0 {
+                if let result = results[0] as? HighScore {
+                    GameVariables.lastNameUsed = result.playerName
+                }
+            }
+        } catch {
+            print("couldn't fetch results")
         }
     }
     
@@ -52,6 +73,9 @@ class CoreDataHelper {
                 var newScores = [HighScore]()
                 for result in results as! [NSManagedObject] {
                     let highScore = HighScore()
+                    if let identifier = result.value(forKey: "identifier") as? String {
+                        highScore.identifier = identifier
+                    }
                     if let score = result.value(forKey: "score") as? Int {
                         highScore.score = score
                     }
@@ -733,5 +757,29 @@ class CoreDataHelper {
         let rankString: String = "Rank: " + NumberFormatter.localizedString(from: NSNumber(value: (bestDropRank + 1)), number: .ordinal)
         
         return rankString
+    }
+    
+    func updateName(highScore: HighScore, newName: String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
+        fetchRequest.predicate = NSPredicate(format: "identifier = %@", highScore.identifier)
+        do {
+            if let results = try context.fetch(fetchRequest) as? [NSManagedObject] {
+                if results.count != 0{
+                    
+                    let managedObject = results[0]
+                    managedObject.setValue(newName, forKey: "playerName")
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print("couldn't save")
+                    }
+                }
+            }
+        } catch {
+            print("couldn't fetch results")
+        }
     }
 }

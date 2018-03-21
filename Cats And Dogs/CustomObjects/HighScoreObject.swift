@@ -9,6 +9,7 @@
 import Foundation
 
 class HighScore {
+    var identifier: String!
     var score: Int!
     var playerName: String!
     var timestamp: Date!

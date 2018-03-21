@@ -9,6 +9,8 @@
 import UIKit
 
 class EnterNameViewController: UIViewController, UITextFieldDelegate {
+    
+    var highScoreToUpdateNameOn = HighScore()
 
     @IBOutlet weak var nameTextField: UITextField!
     override func viewDidLoad() {
@@ -51,15 +53,26 @@ class EnterNameViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    // NOTICE!!!!!!!!  Name disappears when textfield is left blank.  Also - not sure if lastNameUsed is working properly.  It isn't pre loading
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        var newHighScore = GameVariables.gameOverHighScore
         if let text = nameTextField.text {
-            let formattedText = text.trimmingCharacters(in: .whitespaces)
-            GameVariables.lastNameUsed = formattedText
+            if text != "" {
+                let formattedText = text.trimmingCharacters(in: .whitespaces)
+                GameVariables.lastNameUsed = formattedText
+                newHighScore?.playerName = GameVariables.lastNameUsed
+                
+            } else {
+                GameVariables.lastNameUsed = "Tap Here To Sign"
+                newHighScore?.playerName = "Unsigned"
+            }
+            CoreDataHelper().updateName(highScore: self.highScoreToUpdateNameOn, newName: GameVariables.lastNameUsed)
+            GameVariables.gameOverHighScore = newHighScore
         }
         
         nameTextField.resignFirstResponder()
-        
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
         return true
     }
     

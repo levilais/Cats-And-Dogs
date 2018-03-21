@@ -32,6 +32,7 @@ class GameControls {
 }
 
 class GameVariables {
+    static var gameOverHighScore: HighScore?
     static var streak: String = ""
     static var streakCount: Int = 0
     static var multiplier: Int = 1 {

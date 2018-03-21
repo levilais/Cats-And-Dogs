@@ -15,12 +15,20 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var backgroundBottomLayoutConstraint: NSLayoutConstraint!
     
     var scoreToDisplay: HighScore!
+    var isComingFromGameOverScene: Bool?
     
     let sectionHeaders = ["Player","Score","Time","Level","Skipped Level-Ups","Hits","Misses","Accuracy","Combos","Longest Streak","Best Drop Score"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        
+        if isComingFromGameOverScene != nil {
+            if isComingFromGameOverScene! {
+                scoreToDisplay = GameVariables.gameOverHighScore
+                print(GameVariables.gameOverHighScore?.score)
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {

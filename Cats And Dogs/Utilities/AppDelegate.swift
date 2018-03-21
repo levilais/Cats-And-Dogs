@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UISwitch.appearance().onTintColor = UIColor.StyleFile.ToggleSelectedColor
         UISwitch.appearance().thumbTintColor = UIColor.StyleFile.LightBlueGray
         
+        CoreDataHelper().setLastNameUsed()
+        
         return true
     }
 

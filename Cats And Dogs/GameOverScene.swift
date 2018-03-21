@@ -48,6 +48,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             }
         }
         getScoreRank()
+        saveScore()
     }
     
     func getScoreRank() {
@@ -96,7 +97,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         }
     }
     
-    
     func saveScore() {
         let score = HighScore()
         if GameVariables.lastNameUsed != "Tap Here To Sign" {
@@ -105,6 +105,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             score.playerName = "Unsigned"
         }
         
+        score.identifier = UUID().uuidString
         score.score = GameVariables.score
         score.timestamp = Date()
         score.level = GameVariables.currentLevel
@@ -117,6 +118,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         score.combos = GameVariables.combos
         score.time = GameVariables.time
         
+        GameVariables.gameOverHighScore = score
         CoreDataHelper().saveHighScore(highScore: score)
     }
     
@@ -132,7 +134,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
             if let name = touchedNode.name {
                 switch name {
                 case "submitButton":
-                    saveScore()
                     if let view = self.view as! SKView? {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill

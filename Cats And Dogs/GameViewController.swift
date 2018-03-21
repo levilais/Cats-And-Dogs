@@ -39,10 +39,17 @@ class GameViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "settingsToScoreStatsSegue" {
-            if let highScore = self.highScoreToDisplay {
-                if let destinationVC = segue.destination as? ScoreStatsViewController {
-                    destinationVC.scoreToDisplay = highScore
+        print("prepare for segue called")
+        if segue.identifier == "gameViewToScoreStatsSegue" {
+            if let destinationVC = segue.destination as? ScoreStatsViewController {
+                destinationVC.isComingFromGameOverScene = true
+            }
+        }
+        
+        if segue.identifier == "showEnterNameVC" {
+            if let destinationVC = segue.destination as? EnterNameViewController {
+                if let gameOverHighScore = GameVariables.gameOverHighScore {
+                    destinationVC.highScoreToUpdateNameOn = gameOverHighScore
                 }
             }
         }
