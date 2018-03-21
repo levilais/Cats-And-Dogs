@@ -16,7 +16,7 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var scoreToDisplay: HighScore!
     
-    let sectionHeaders = ["Player","Score","Time","Level","Skipped Level-Ups","Hits","Misses","Accuracy","Combos","Longest Streak"]
+    let sectionHeaders = ["Player","Score","Time","Level","Skipped Level-Ups","Hits","Misses","Accuracy","Combos","Longest Streak","Best Drop Score"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,8 +128,12 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.score as NSNumber) {
                 cell.scoreLabel.text = String(formattedNumber)
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().scoreRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().scoreRecord() {
+                cell.recordLabel.text = record
+            }
         case 2:
             print("Time")
             let formatter = DateComponentsFormatter()
@@ -142,18 +146,30 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
                     cell.scoreLabel.text = "Time: \(formattedDuration) Seconds"
                 }
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().timeRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().timeRecord() {
+                cell.recordLabel.text = record
+            }
         case 3:
             print("Level")
             cell.scoreLabel.text = "Level \(scoreToDisplay.level)"
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().levelRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().levelRecord() {
+                cell.recordLabel.text = record
+            }
         case 4:
             print("Skipped Levels")
             cell.scoreLabel.text = "\(scoreToDisplay.skippedLevelUps) Skipped"
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().skippedRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().skippedRecord() {
+                cell.recordLabel.text = record
+            }
         case 5:
             print("Hits")
             let numberFormatter = NumberFormatter()
@@ -161,8 +177,12 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.poppedDrops as NSNumber) {
                 cell.scoreLabel.text = "\(formattedNumber) Drops Popped"
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().hitsRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().hitsRecord() {
+                cell.recordLabel.text = record
+            }
         case 6:
             print("Misses")
             let numberFormatter = NumberFormatter()
@@ -170,14 +190,22 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.missedDrops as NSNumber) {
                 cell.scoreLabel.text = "\(formattedNumber) Drops Missed"
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().missesRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().missesRecord() {
+                cell.recordLabel.text = record
+            }
         case 7:
             print("Accuracy")
             let accuracyString = String("\(Int(100*(scoreToDisplay.accuracy.rounded(toPlaces: 2))))%")
             cell.scoreLabel.text = accuracyString
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().accuracyRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().accuracyRecord() {
+                cell.recordLabel.text = record
+            }
         case 8:
             print("Combos")
             let numberFormatter = NumberFormatter()
@@ -185,8 +213,12 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.combos as NSNumber) {
                 cell.scoreLabel.text = "\(formattedNumber) Total"
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().combosRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().combosRecord() {
+                cell.recordLabel.text = record
+            }
         case 9:
             print("Longest Streak")
             let numberFormatter = NumberFormatter()
@@ -194,8 +226,25 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.longestStreak as NSNumber) {
                 cell.scoreLabel.text = "\(formattedNumber) Straight"
             }
-            cell.rankLabel.text = "Rank: xx"
-            cell.recordLabel.text = "Record: xx"
+            if let rank = CoreDataHelper().streakRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().streakRecord() {
+                cell.recordLabel.text = record
+            }
+        case 10:
+            print("Best Drop")
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            if let formattedNumber = numberFormatter.string(from: scoreToDisplay.bestDrop as NSNumber) {
+                cell.scoreLabel.text = "\(formattedNumber)"
+            }
+            if let rank = CoreDataHelper().bestDropRank(highScore: scoreToDisplay) {
+                cell.rankLabel.text = rank
+            }
+            if let record = CoreDataHelper().bestDropRecord() {
+                cell.recordLabel.text = record
+            }
         default:
             print("default")
         }

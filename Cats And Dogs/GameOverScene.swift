@@ -139,6 +139,10 @@ class GameOverScene: SKScene, UITextFieldDelegate {
                             view.presentScene(gameScene)
                         }
                     }
+                case "quitButton":
+                    print("quitButton pressed")
+                case "statsButton":
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
                 case "nameLabel":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
                 default:

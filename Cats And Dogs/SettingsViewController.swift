@@ -11,7 +11,7 @@ import StoreKit
 import MessageUI
 import CoreData
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, NSFetchedResultsControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundImage: UIImageView!

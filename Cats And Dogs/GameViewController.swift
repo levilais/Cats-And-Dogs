@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(presentView), name: NSNotification.Name(rawValue: "showController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentEnterNameViewController), name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentStatsViewController), name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -36,6 +37,17 @@ class GameViewController: UIViewController {
         }
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "settingsToScoreStatsSegue" {
+            if let highScore = self.highScoreToDisplay {
+                if let destinationVC = segue.destination as? ScoreStatsViewController {
+                    destinationVC.scoreToDisplay = highScore
+                }
+            }
+        }
+    }
+    
     @objc func presentView() {
         print("called")
         self.performSegue(withIdentifier: "toMyController", sender: self)
@@ -43,6 +55,10 @@ class GameViewController: UIViewController {
     
     @objc func presentEnterNameViewController() {
         self.performSegue(withIdentifier: "showEnterNameVC", sender: self)
+    }
+    
+    @objc func presentStatsViewController() {
+        self.performSegue(withIdentifier: "gameViewToScoreStatsSegue", sender: self)
     }
 
     override var shouldAutorotate: Bool {
