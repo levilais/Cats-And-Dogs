@@ -31,7 +31,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillLayoutSubviews() {
         backgroundBottomLayout.constant += (self.view.safeAreaInsets.bottom)
-        tableViewBottomLayout.constant += (self.view.safeAreaInsets.bottom)
     }
     
     func setupTableView() {

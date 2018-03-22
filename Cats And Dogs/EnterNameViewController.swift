@@ -12,11 +12,18 @@ class EnterNameViewController: UIViewController, UITextFieldDelegate {
     
     var highScoreToUpdateNameOn = HighScore()
 
+    @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleNameTextField()
         nameTextField.becomeFirstResponder()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
     }
 
     @IBAction func xButtonDidPress(_ sender: Any) {
@@ -52,8 +59,6 @@ class EnterNameViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    
-    // NOTICE!!!!!!!!  Name disappears when textfield is left blank.  Also - not sure if lastNameUsed is working properly.  It isn't pre loading
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var newHighScore = GameVariables.gameOverHighScore
