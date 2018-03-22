@@ -19,7 +19,6 @@ class HighScore {
     var bestDrop: Int = 0
     var poppedDrops: Double = 0
     var missedDrops: Double = 0
-    var time: TimeInterval = 0
     var accuracy: Double = 0
     var combos: Int = 0
     

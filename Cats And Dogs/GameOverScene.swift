@@ -116,7 +116,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         score.missedDrops = GameVariables.missedDrops
         score.accuracy = GameVariables.accuracy
         score.combos = GameVariables.combos
-        score.time = GameVariables.time
         
         GameVariables.gameOverHighScore = score
         CoreDataHelper().saveHighScore(highScore: score)
@@ -141,7 +140,12 @@ class GameOverScene: SKScene, UITextFieldDelegate {
                         }
                     }
                 case "quitButton":
-                    print("quitButton pressed")
+                    if let view = self.view as! SKView? {
+                        if let gameScene = SKScene(fileNamed: "HomeScene") {
+                            gameScene.scaleMode = .aspectFill
+                            view.presentScene(gameScene)
+                        }
+                    }
                 case "statsButton":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
                 case "nameLabel":

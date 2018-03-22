@@ -147,8 +147,8 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
             let formatter = DateComponentsFormatter()
             formatter.unitsStyle = .positional // Use the appropriate positioning for the current locale
             formatter.allowedUnits = [ .hour, .minute, .second ]
-            if let formattedDuration = formatter.string(from: scoreToDisplay.time) {
-                if scoreToDisplay.time > 60 {
+            if let formattedDuration = formatter.string(from: scoreToDisplay.timestamp.timeIntervalSinceNow) {
+                if scoreToDisplay.timestamp.timeIntervalSinceNow > 60 {
                     cell.scoreLabel.text = "Time: \(formattedDuration)"
                 } else {
                     cell.scoreLabel.text = "Time: \(formattedDuration) Seconds"

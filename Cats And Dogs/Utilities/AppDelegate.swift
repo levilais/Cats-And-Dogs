@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UISwitch.appearance().thumbTintColor = UIColor.StyleFile.LightBlueGray
         
         CoreDataHelper().setLastNameUsed()
-        
+        print("GameVariables.lastNameUsed: \(GameVariables.lastNameUsed)")
         return true
     }
 

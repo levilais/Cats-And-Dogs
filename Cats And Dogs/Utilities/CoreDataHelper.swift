@@ -19,7 +19,7 @@ class CoreDataHelper {
         
         newHighScore.setValue(highScore.playerName, forKey: "playerName")
         newHighScore.setValue(highScore.score, forKey: "score")
-        newHighScore.setValue(Date(), forKey: "timestamp")
+        newHighScore.setValue(highScore.timestamp, forKey: "timestamp")
         newHighScore.setValue(highScore.level, forKey: "level")
         newHighScore.setValue(highScore.skippedLevelUps, forKey: "skippedLevelUps")
         newHighScore.setValue(highScore.longestStreak, forKey: "longestStreak")
@@ -28,12 +28,10 @@ class CoreDataHelper {
         newHighScore.setValue(highScore.missedDrops, forKey: "missedDrops")
         newHighScore.setValue(highScore.accuracy, forKey: "accuracy")
         newHighScore.setValue(highScore.combos, forKey: "combos")
-        newHighScore.setValue(Double(highScore.time), forKey: "time")
         newHighScore.setValue(highScore.identifier, forKey: "identifier")
         
         do {
             try context.save()
-            print("saved")
         } catch {
             print("there was an error")
         }
@@ -43,15 +41,20 @@ class CoreDataHelper {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        let sort = NSSortDescriptor(key: "time", ascending: false)
+        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
         request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
-                if let result = results[0] as? HighScore {
-                    GameVariables.lastNameUsed = result.playerName
+                let result = results[0] as! NSManagedObject
+                if let name = result.value(forKey: "playerName") as? String {
+                    var nameToSave = name
+                    if nameToSave == "Unsigned" {
+                        nameToSave = "Tap Here To Sign"
+                    }
+                    GameVariables.lastNameUsed = nameToSave
                 }
             }
         } catch {
@@ -108,9 +111,6 @@ class CoreDataHelper {
                     }
                     if let combos = result.value(forKey: "combos") as? Int {
                         highScore.combos = combos
-                    }
-                    if let time = result.value(forKey: "time") as? Double {
-                        highScore.time = TimeInterval(time)
                     }
                     newScores.append(highScore)
                 }
@@ -189,21 +189,21 @@ class CoreDataHelper {
     }
     
     func timeRecord() -> String? {
-        var recordTime = TimeInterval()
+        var recordTime = Date()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        let sort = NSSortDescriptor(key: "time", ascending: false)
+        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
         request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
-                var recordTimes = [TimeInterval]()
+                var recordTimes = [Date]()
                 for result in results as! [NSManagedObject] {
-                    if let time = result.value(forKey: "time") as? Double {
-                        recordTimes.append(TimeInterval(time))
+                    if let time = result.value(forKey: "timestamp") as? Date {
+                        recordTimes.append(time)
                     }
                 }
                 recordTime = recordTimes[0]
@@ -216,8 +216,8 @@ class CoreDataHelper {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional // Use the appropriate positioning for the current locale
         formatter.allowedUnits = [ .hour, .minute, .second ]
-        if let formattedDuration = formatter.string(from: recordTime) {
-            if recordTime > 60 {
+        if let formattedDuration = formatter.string(from: recordTime.timeIntervalSinceNow) {
+            if recordTime.timeIntervalSinceNow > 60 {
                 timeString = "\(formattedDuration)"
             } else {
                 timeString = "\(formattedDuration) Seconds"
@@ -232,20 +232,20 @@ class CoreDataHelper {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        let sort = NSSortDescriptor(key: "time", ascending: false)
+        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
         request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
-                var recordTimes = [TimeInterval]()
+                var recordTimes = [Date]()
                 for result in results as! [NSManagedObject] {
-                    if let time = result.value(forKey: "time") as? Double {
-                        recordTimes.append(TimeInterval(time))
+                    if let time = result.value(forKey: "timestamp") as? Date {
+                        recordTimes.append(time)
                     }
                 }
-                if let rank = recordTimes.index(of: highScore.time) {
+                if let rank = recordTimes.index(of: highScore.timestamp) {
                     timeRank = rank
                 }
             }
@@ -769,8 +769,13 @@ class CoreDataHelper {
                 if results.count != 0{
                     
                     let managedObject = results[0]
-                    managedObject.setValue(newName, forKey: "playerName")
                     
+                    var nameToSave = newName
+                    if nameToSave == "Tap Here To Sign" {
+                        nameToSave = "Unsigned"
+                    }
+                    
+                    managedObject.setValue(nameToSave, forKey: "playerName")
                     do {
                         try context.save()
                     } catch {
