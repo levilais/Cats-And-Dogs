@@ -140,12 +140,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             pauseButton?.zPosition = .infinity
             pauseButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (pauseButton?.position)!)
             pauseButton?.position = Utilities().shiftDown(view: view, currentPosition: (pauseButton?.position)!)
+            Utilities().resizespriteNode(spriteNode: pauseButton!, view: view)
             
             scene?.childNode(withName: "playButton")?.isHidden = true
             scene?.childNode(withName: "quitButton")?.isHidden = true
             scene?.childNode(withName: "settingsButton")?.isHidden = true
             scene?.childNode(withName: "pauseLabel")?.isHidden = true
-            
+
             introAnimation()
         }
     }
@@ -354,6 +355,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.physicsBody?.contactTestBitMask = groundCategory
         drop.physicsBody?.collisionBitMask = 0
         
+        if let view = self.view {
+            Utilities().resizespriteNode(spriteNode: drop, view: view)
+        }
+        
         addChild(drop)
         
         let currentSceneSize = scene?.size
@@ -394,8 +399,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drop.zPosition = 0
         addChild(drop)
         
-        let maxStartingX = size.width / 2 - drop.size.width / 2
-        let minStartingX = -size.width / 2 + drop.size.width / 2
+        let currentSceneSize = scene?.size
+        let newSize = Utilities().resizeDropSpaceSize(view: view!, currentSize: currentSceneSize!)
+        
+        let maxStartingX = newSize.width / 2 - drop.size.width / 2
+        let minStartingX = -newSize.width / 2 + drop.size.width / 2
         let startingXRange = maxStartingX - minStartingX
 
         let startingX: CGFloat = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))

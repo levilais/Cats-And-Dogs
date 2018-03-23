@@ -40,6 +40,35 @@ class Utilities {
         return newPoint
     }
     
+    func resizespriteNode(spriteNode: SKSpriteNode, view: SKView) {
+        let posth = view.frame.height
+        let top = view.safeAreaInsets.top
+        let bottom = view.safeAreaInsets.bottom
+        let increase = top + bottom
+        let increase2 = increase * 2
+        let preh = posth - increase2
+        let percent = preh / posth
+        
+        let newWidth = spriteNode.size.width * percent
+        let newHeight = spriteNode.size.height * percent
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        
+        spriteNode.size = newSize
+    }
+    
+    func resizeLabelNode(labelNode: SKLabelNode, view: SKView) {
+        let posth = view.frame.height
+        let top = view.safeAreaInsets.top
+        let bottom = view.safeAreaInsets.bottom
+        let increase = top + bottom
+        let increase2 = increase * 2
+        let preh = posth - increase2
+        let percent = preh / posth
+        let newFontSize = labelNode.fontSize * percent
+        
+        labelNode.fontSize = newFontSize
+    }
+    
     func resizeDropSpaceSize(view: SKView, currentSize: CGSize) -> CGSize {
         let posth = view.frame.height
         let top = view.safeAreaInsets.top

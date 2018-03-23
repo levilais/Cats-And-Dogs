@@ -31,6 +31,7 @@ class HomeScene: SKScene {
         settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
         settingsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (settingsButton?.position)!)
         settingsButton?.position = Utilities().shiftDown(view: view, currentPosition: (settingsButton?.position)!)
+        Utilities().resizespriteNode(spriteNode: settingsButton!, view: view)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
