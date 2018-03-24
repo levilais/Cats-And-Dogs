@@ -16,6 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeToLevelUp: Double = 0
     var elapsedLevelTime: Double = 0
     var timeToCreateLevelDrop: Bool = false
+    var timeForLightning = 30.0
+    var timeForLightningTriggered = false
     
     var scoreLabel: SKLabelNode?
     var streakLabel: SKLabelNode?
@@ -151,6 +153,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
+    func createLightningAnimation() {
+        let flashSprite = SKSpriteNode()
+        if let background = self.bgImage {
+            flashSprite.size = background.size
+            flashSprite.position = background.position
+            flashSprite.zPosition = background.zPosition
+            background.zPosition -= 1
+        }
+        
+        flashSprite.alpha = 0
+        scene?.addChild(flashSprite)
+
+        var textureInt = 0
+        let lightningEvent = SKAction.run {
+            var lightningFrequencyFactor = 15.0
+            switch self.elapsedTime {
+            case 30..<60:
+                textureInt = Int(arc4random_uniform(2)) + 1
+                lightningFrequencyFactor = 15
+            case 60..<120:
+                textureInt = Int(arc4random_uniform(3)) + 1
+                lightningFrequencyFactor = 15
+            case 120..<180:
+                textureInt = Int(arc4random_uniform(4)) + 1
+                lightningFrequencyFactor = 10
+            case 180..<240:
+                textureInt = Int(arc4random_uniform(2)) + 4
+                lightningFrequencyFactor = 6
+            case 240..<300:
+                textureInt = Int(arc4random_uniform(2)) + 5
+                lightningFrequencyFactor = 4
+            default:
+                let weight = Int(arc4random_uniform(9)) + 1
+                if weight <= 5 {
+                    textureInt = 6
+                } else {
+                    textureInt = Int(arc4random_uniform(6)) + 1
+                }
+                lightningFrequencyFactor = 2
+            }
+            
+            flashSprite.texture = SKTexture(imageNamed: "lightning\(textureInt)")
+            let randomDelayDouble = (Double(arc4random_uniform(UInt32(lightningFrequencyFactor)) + 1))
+            self.timeForLightning = self.timeForLightning + randomDelayDouble
+            
+            let flashCount: Int = Int(arc4random_uniform(3) + 2)
+            let flashWithDelay = SKAction.run {
+                let randomFadeInDouble = Double(arc4random_uniform(2) + 1)
+                let fadeInTimeInterval: TimeInterval = TimeInterval(randomFadeInDouble) * 0.1
+                let randomFadeOutDouble = Double(arc4random_uniform(3) + 1)
+                let fadeOutTimeInterval: TimeInterval = TimeInterval(randomFadeOutDouble) * 0.1
+                let randomDelayDouble = Double(arc4random_uniform(9) + 3)
+                let delayTimeInterval: TimeInterval = randomDelayDouble * 0.1
+                
+                let fadeIn = SKAction.fadeIn(withDuration: fadeInTimeInterval)
+                let fadeOut = SKAction.fadeOut(withDuration: fadeOutTimeInterval)
+
+                let delay = SKAction.wait(forDuration: delayTimeInterval)
+                let sequence = SKAction.sequence([fadeIn,fadeOut,delay])
+                flashSprite.run(sequence)
+            }
+            
+            let pulseFlash = SKAction.repeat(flashWithDelay, count: flashCount)
+            flashSprite.run(pulseFlash)
+        }
+        flashSprite.run(lightningEvent)
+        self.timeForLightningTriggered = false
+    }
+    
 // things pile up when pause pressed - figure out what's going wrong
     func introAnimation() {
         self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
@@ -185,6 +257,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameVariables().resetGameVariables()
         setGameState()
         GameVariables.gameIsActive = true
+        
+        createLightningAnimation()
     }
     
     
@@ -660,13 +734,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if timeToDrop == 0 {
                 timeToDrop = currentTime
             } else if currentTime - timeToDrop > GameVariables.dropFrequency {
-                createDrop()
+//                createDrop()
                 timeToDrop = currentTime
             }
             
             if self.timeToLevelUp > GameControls.levelUpFrequency {
                 timeToLevelUp = 0
                 timeToCreateLevelDrop = true
+            }
+            
+            if self.elapsedTime > timeForLightning && !self.timeForLightningTriggered {
+                self.timeForLightningTriggered = true
+                self.createLightningAnimation()
             }
         }
         
@@ -689,21 +768,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-//            if var drop = contact.bodyB.node as? Drop {
-//                if drop.type == "levelDrop" {
-//                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
-//                    updateMissMeter(changeValue: drop.missPoints!)
-//                    GameVariables.skippedLevelUps += 1
-//                } else {
-//                    updateMissMeter(changeValue: -2)
-//                    drop.missPoints = -2
-//                    GameVariables.missedDrops += 1
-//                }
-//                animateSplash(dropToSplash: drop)
-//                animateDropScore(dropToScore: drop)
-                gameOver()
+            if var drop = contact.bodyB.node as? Drop {
+                if drop.type == "levelDrop" {
+                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+                    updateMissMeter(changeValue: drop.missPoints!)
+                    GameVariables.skippedLevelUps += 1
+                } else {
+                    updateMissMeter(changeValue: -2)
+                    drop.missPoints = -2
+                    GameVariables.missedDrops += 1
+                }
+                animateSplash(dropToSplash: drop)
+                animateDropScore(dropToScore: drop)
+//                gameOver()
             }
-//        }
+        }
     }
     
     @objc func appMovedToBackground() {
