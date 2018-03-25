@@ -168,21 +168,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         var textureInt = 0
         let lightningEvent = SKAction.run {
-            var lightningFrequencyFactor = 15.0
-            switch self.elapsedTime {
-            case 30..<60:
+            var lightningFrequencyFactor = Double()
+                        
+            switch GameVariables.currentLevel {
+            case 1:
                 textureInt = Int(arc4random_uniform(2)) + 1
-                lightningFrequencyFactor = 15
-            case 60..<120:
+                lightningFrequencyFactor = 20
+            case 2:
                 textureInt = Int(arc4random_uniform(3)) + 1
                 lightningFrequencyFactor = 15
-            case 120..<180:
+            case 3:
                 textureInt = Int(arc4random_uniform(4)) + 1
                 lightningFrequencyFactor = 10
-            case 180..<240:
+            case 4:
                 textureInt = Int(arc4random_uniform(2)) + 4
                 lightningFrequencyFactor = 6
-            case 240..<300:
+            case 5:
                 textureInt = Int(arc4random_uniform(2)) + 5
                 lightningFrequencyFactor = 4
             default:
@@ -730,11 +731,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             timeToLevelUp += difference
             lastTimeStamp = currentTime
             
-            // Create Drops
             if timeToDrop == 0 {
                 timeToDrop = currentTime
             } else if currentTime - timeToDrop > GameVariables.dropFrequency {
-//                createDrop()
+                createDrop()
                 timeToDrop = currentTime
             }
             
@@ -749,7 +749,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        // Create Rain
         if timeToRain == 0 {
             timeToRain = currentTime
         } else if currentTime - timeToRain > GameControls.rainFrequency {
@@ -780,7 +779,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
-//                gameOver()
             }
         }
     }
