@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tDrop.pdf",
+      "filename" : "tDrop.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tDrop@2x.pdf",
+      "filename" : "tDrop@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tDrop@3x.pdf",
+      "filename" : "tDrop@3x.png",
       "scale" : "3x"
     }
   ],

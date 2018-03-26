@@ -76,6 +76,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             streakLabel = childNode(withName: "streakLabel") as? SKLabelNode
             streakLabel?.position = Utilities().shiftDown(view: view, currentPosition: (streakLabel?.position)!)
+            streakLabel?.position = Utilities().shiftHorizontal(view: view, currentPosition: (streakLabel?.position)!)
+            streakLabel?.text = ""
             
             levelTrackerLabel = childNode(withName: "levelTrackerLabel") as? SKLabelNode
             levelTrackerLabel?.alpha = 0
@@ -439,7 +441,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let currentSceneSize = scene?.size
         let newSize = Utilities().resizeDropSpaceSize(view: view!, currentSize: currentSceneSize!)
         
-        let maxStartingX = newSize.width / 2 - drop.size.width / 2 - 40
+        let maxStartingX = newSize.width / 2 - drop.size.width / 2 - 30
         let minStartingX = -newSize.width / 2 + drop.size.width / 2
         let startingXRange = maxStartingX - minStartingX
         
@@ -448,7 +450,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             var startingXFound = false
             while !startingXFound {
                 startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
-                if (startingX - drop.size.width)...(startingX + drop.size.width) ~= lastX {
+                if (startingX - (drop.size.width + 20))...(startingX + (drop.size.width + 20)) ~= lastX {
                     print("too close")
                 } else {
                     startingXFound = true
