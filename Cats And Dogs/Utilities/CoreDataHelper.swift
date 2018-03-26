@@ -29,6 +29,7 @@ class CoreDataHelper {
         newHighScore.setValue(highScore.accuracy, forKey: "accuracy")
         newHighScore.setValue(highScore.combos, forKey: "combos")
         newHighScore.setValue(highScore.identifier, forKey: "identifier")
+        newHighScore.setValue(highScore.time, forKey: "time")
         
         do {
             try context.save()
@@ -112,6 +113,9 @@ class CoreDataHelper {
                     if let combos = result.value(forKey: "combos") as? Int {
                         highScore.combos = combos
                     }
+                    if let time = result.value(forKey: "time") as? Double {
+                        highScore.time = time
+                    }
                     newScores.append(highScore)
                 }
                 HighScoresClass.highScores = newScores
@@ -189,21 +193,22 @@ class CoreDataHelper {
     }
     
     func timeRecord() -> String? {
-        var recordTime = Date()
+        var recordTime = TimeInterval()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
+        let sort = NSSortDescriptor(key: "time", ascending: false)
         request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
-                var recordTimes = [Date]()
+                var recordTimes = [TimeInterval]()
                 for result in results as! [NSManagedObject] {
-                    if let time = result.value(forKey: "timestamp") as? Date {
-                        recordTimes.append(time)
+                    if let time = result.value(forKey: "time") as? Double {
+                        let interval = TimeInterval(time)
+                        recordTimes.append(interval)
                     }
                 }
                 recordTime = recordTimes[0]
@@ -216,8 +221,8 @@ class CoreDataHelper {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional // Use the appropriate positioning for the current locale
         formatter.allowedUnits = [ .hour, .minute, .second ]
-        if let formattedDuration = formatter.string(from: recordTime.timeIntervalSinceNow) {
-            if recordTime.timeIntervalSinceNow > 60 {
+        if let formattedDuration = formatter.string(from: recordTime) {
+            if recordTime > 60 {
                 timeString = "\(formattedDuration)"
             } else {
                 timeString = "\(formattedDuration) Seconds"
@@ -232,20 +237,21 @@ class CoreDataHelper {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "HighScores")
-        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
+        let sort = NSSortDescriptor(key: "time", ascending: false)
         request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(request)
             if results.count > 0 {
-                var recordTimes = [Date]()
+                var recordTimes = [TimeInterval]()
                 for result in results as! [NSManagedObject] {
-                    if let time = result.value(forKey: "timestamp") as? Date {
-                        recordTimes.append(time)
+                    if let time = result.value(forKey: "time") as? Double {
+                        let interval = TimeInterval(time)
+                        recordTimes.append(interval)
                     }
                 }
-                if let rank = recordTimes.index(of: highScore.timestamp) {
+                if let rank = recordTimes.index(of: TimeInterval(highScore.time)) {
                     timeRank = rank
                 }
             }

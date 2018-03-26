@@ -13,6 +13,7 @@ class HighScore {
     var score: Int!
     var playerName: String!
     var timestamp: Date!
+    var time: Double!
     var level: Int = 1
     var skippedLevelUps: Int = 0
     var longestStreak: Int = 0

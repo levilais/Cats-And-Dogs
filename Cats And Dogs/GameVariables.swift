@@ -39,7 +39,6 @@ class GameVariables {
         didSet {
             if multiplier > GameVariables.longestStreak {
                 GameVariables.longestStreak = GameVariables.multiplier
-                GameVariables.combos += 1
             }
         }
     }

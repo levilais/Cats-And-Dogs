@@ -107,7 +107,9 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         score.identifier = UUID().uuidString
         score.score = GameVariables.score
+        
         score.timestamp = Date()
+        
         score.level = GameVariables.currentLevel
         score.skippedLevelUps = GameVariables.skippedLevelUps
         score.longestStreak = GameVariables.longestStreak
@@ -116,6 +118,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         score.missedDrops = GameVariables.missedDrops
         score.accuracy = GameVariables.accuracy
         score.combos = GameVariables.combos
+        score.time = GameVariables.time
         
         GameVariables.gameOverHighScore = score
         CoreDataHelper().saveHighScore(highScore: score)
