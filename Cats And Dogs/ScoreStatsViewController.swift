@@ -33,6 +33,7 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillLayoutSubviews() {
         backgroundBottomLayoutConstraint.constant -= (self.view.safeAreaInsets.bottom)
+        tableViewBottomLayoutConstraint.constant += (self.view.safeAreaInsets.bottom)
     }
     
     func setupTableView() {

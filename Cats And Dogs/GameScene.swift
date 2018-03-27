@@ -31,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var streakBonusLabel: SKLabelNode?
     var levelLabel: SKLabelNode?
     var timeElapsedLabel: SKLabelNode?
+    var water: SKSpriteNode?
     
     var elapsedTime: TimeInterval = 0.0
     var lastTimeStamp: TimeInterval = 0.0
@@ -138,6 +139,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ground = childNode(withName: "ground") as? SKSpriteNode
             ground?.physicsBody?.categoryBitMask = groundCategory
             ground?.physicsBody?.contactTestBitMask = dropCategory
+            
+            if super.view?.safeAreaInsets.bottom != 0 {
+                water = childNode(withName: "water") as? SKSpriteNode
+                water?.zPosition = 100
+                water?.position.y += ((water?.size.height)! + (super.view?.safeAreaInsets.bottom)!)
+                ground?.position.y += ((water?.size.height)! - 20)
+            }
             
             pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
             pauseButton?.name = "pauseButton"
@@ -260,8 +268,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameVariables().resetGameVariables()
         setGameState()
         GameVariables.gameIsActive = true
-        
-        createLightningAnimation()
     }
     
     
@@ -590,6 +596,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if missPoints != 0 {
                 missPointsExist = true
                 let missMeterPointChangeLabel = SKLabelNode()
+                missMeterPointChangeLabel.name = "missMeterPointChangeLabel"
+                
                 missMeterPointChangeLabel.fontColor = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
                 missMeterPointChangeLabel.fontName = "Righteous-Regular"
                 missMeterPointChangeLabel.fontSize = 48
@@ -614,6 +622,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         let dropScoreLabel = SKLabelNode()
+        dropScoreLabel.name = "dropScoreLabel"
         dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
         dropScoreLabel.fontName = "Righteous-Regular"
         dropScoreLabel.fontSize = 48
@@ -631,6 +640,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if dropToScore.type == "levelDrop" {
                     let levelLabel = SKLabelNode()
+                    levelLabel.name = "levelLabel"
                     levelLabel.fontColor = UIColor.StyleFile.Orange
                     levelLabel.fontName = "Righteous-Regular"
                     levelLabel.fontSize = 48
@@ -668,7 +678,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
-                    case "pauseButton","drop","streakLabel":
+                    case "pauseButton","drop","streakLabel","levelLabel","dropScoreLabel", "missMeterPointChangeLabel":
                         child.isHidden = true
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = false
@@ -702,7 +712,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
-                    case "pauseButton","drop","streakLabel":
+                    case "pauseButton","drop","streakLabel","dropScoreLabel", "missMeterPointChangeLabel":
                         child.isHidden = false
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = true
@@ -772,19 +782,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
-//                if drop.type == "levelDrop" {
-//                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
-//                    updateMissMeter(changeValue: drop.missPoints!)
-//                    GameVariables.skippedLevelUps += 1
-//                } else {
-//                    updateMissMeter(changeValue: -2)
-//                    drop.missPoints = -2
-//                    GameVariables.missedDrops += 1
-//                }
-//                animateSplash(dropToSplash: drop)
-//                animateDropScore(dropToScore: drop)
+                if drop.type == "levelDrop" {
+                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+                    updateMissMeter(changeValue: drop.missPoints!)
+                    GameVariables.skippedLevelUps += 1
+                } else {
+                    updateMissMeter(changeValue: -2)
+                    drop.missPoints = -2
+                    GameVariables.missedDrops += 1
+                }
+                animateSplash(dropToSplash: drop)
+                animateDropScore(dropToScore: drop)
                 
-                gameOver()
+//                gameOver()
             }
         }
     }
