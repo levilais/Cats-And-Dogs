@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04059F1C206AEBAB00D85500 /* LegalAndCopyright in Resources */ = {isa = PBXBuildFile; fileRef = 04059F1B206AEBAB00D85500 /* LegalAndCopyright */; };
+		04059F23206AECE500D85500 /* BackgroundAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04059F22206AECE400D85500 /* BackgroundAudio.swift */; };
+		04059F35206C3A9200D85500 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F34206C3A9200D85500 /* rain.mp3 */; };
+		04059F37206C3D3D00D85500 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F36206C3D3D00D85500 /* backgroundMusic.mp3 */; };
+		04059F3F206C3F3F00D85500 /* thunder6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F38206C3F3E00D85500 /* thunder6.mp3 */; };
+		04059F40206C3F3F00D85500 /* thunder4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F39206C3F3E00D85500 /* thunder4.mp3 */; };
+		04059F41206C3F3F00D85500 /* thunder5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F3A206C3F3E00D85500 /* thunder5.mp3 */; };
+		04059F42206C3F3F00D85500 /* thunder0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F3B206C3F3E00D85500 /* thunder0.mp3 */; };
+		04059F43206C3F3F00D85500 /* thunder3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F3C206C3F3F00D85500 /* thunder3.mp3 */; };
+		04059F44206C3F3F00D85500 /* thunder1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F3D206C3F3F00D85500 /* thunder1.mp3 */; };
+		04059F45206C3F3F00D85500 /* thunder2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04059F3E206C3F3F00D85500 /* thunder2.mp3 */; };
 		040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */; };
 		040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */; };
 		040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */; };
@@ -44,6 +55,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04059F1B206AEBAB00D85500 /* LegalAndCopyright */ = {isa = PBXFileReference; lastKnownFileType = text; path = LegalAndCopyright; sourceTree = "<group>"; };
+		04059F22206AECE400D85500 /* BackgroundAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAudio.swift; sourceTree = "<group>"; };
+		04059F34206C3A9200D85500 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rain.mp3; sourceTree = "<group>"; };
+		04059F36206C3D3D00D85500 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
+		04059F38206C3F3E00D85500 /* thunder6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder6.mp3; sourceTree = "<group>"; };
+		04059F39206C3F3E00D85500 /* thunder4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder4.mp3; sourceTree = "<group>"; };
+		04059F3A206C3F3E00D85500 /* thunder5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder5.mp3; sourceTree = "<group>"; };
+		04059F3B206C3F3E00D85500 /* thunder0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder0.mp3; sourceTree = "<group>"; };
+		04059F3C206C3F3F00D85500 /* thunder3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder3.mp3; sourceTree = "<group>"; };
+		04059F3D206C3F3F00D85500 /* thunder1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder1.mp3; sourceTree = "<group>"; };
+		04059F3E206C3F3F00D85500 /* thunder2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunder2.mp3; sourceTree = "<group>"; };
 		040A3C7C20476A3700FCCDD4 /* Righteous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Righteous-Regular.ttf"; sourceTree = "<group>"; };
 		040A3C7D20476A3700FCCDD4 /* AmaticSC-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Bold.ttf"; sourceTree = "<group>"; };
 		040A3C7E20476A3700FCCDD4 /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
@@ -93,6 +115,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04059F16206AB51F00D85500 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				04059F34206C3A9200D85500 /* rain.mp3 */,
+				04059F36206C3D3D00D85500 /* backgroundMusic.mp3 */,
+				04059F3B206C3F3E00D85500 /* thunder0.mp3 */,
+				04059F3D206C3F3F00D85500 /* thunder1.mp3 */,
+				04059F3E206C3F3F00D85500 /* thunder2.mp3 */,
+				04059F3C206C3F3F00D85500 /* thunder3.mp3 */,
+				04059F39206C3F3E00D85500 /* thunder4.mp3 */,
+				04059F3A206C3F3E00D85500 /* thunder5.mp3 */,
+				04059F38206C3F3E00D85500 /* thunder6.mp3 */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		04059F21206AECBE00D85500 /* Atmosphere */ = {
+			isa = PBXGroup;
+			children = (
+				04059F16206AB51F00D85500 /* Audio */,
+				04059F22206AECE400D85500 /* BackgroundAudio.swift */,
+			);
+			path = Atmosphere;
+			sourceTree = "<group>";
+		};
 		040A3C8220476A4600FCCDD4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +176,7 @@
 			children = (
 				0466457E204DC5320090055C /* Utilities */,
 				04989520204DE6CA005B494D /* CustomObjects */,
+				04059F21206AECBE00D85500 /* Atmosphere */,
 				04F01BF220449254002C57F6 /* GameVariables.swift */,
 				040A3C892047813D00FCCDD4 /* GameOverScene.sks */,
 				040A3C8520477C4800FCCDD4 /* HomeScene.sks */,
@@ -147,6 +195,7 @@
 				0456C1F520432DD000647657 /* LaunchScreen.storyboard */,
 				0456C1F820432DD000647657 /* Info.plist */,
 				0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */,
+				04059F1B206AEBAB00D85500 /* LegalAndCopyright */,
 			);
 			path = "Cats And Dogs";
 			sourceTree = "<group>";
@@ -242,17 +291,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				0456C1F220432DCE00647657 /* Main.storyboard in Resources */,
+				04059F45206C3F3F00D85500 /* thunder2.mp3 in Resources */,
+				04059F35206C3A9200D85500 /* rain.mp3 in Resources */,
+				04059F41206C3F3F00D85500 /* thunder5.mp3 in Resources */,
+				04059F37206C3D3D00D85500 /* backgroundMusic.mp3 in Resources */,
 				0466458D204DD3AF0090055C /* Lato-Light.ttf in Resources */,
+				04059F44206C3F3F00D85500 /* thunder1.mp3 in Resources */,
+				04059F1C206AEBAB00D85500 /* LegalAndCopyright in Resources */,
 				0456C1E920432DCE00647657 /* GameScene.sks in Resources */,
 				040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */,
 				0456C1F420432DD000647657 /* Assets.xcassets in Resources */,
 				0466458C204DD3AF0090055C /* Lato-Black.ttf in Resources */,
+				04059F42206C3F3F00D85500 /* thunder0.mp3 in Resources */,
 				040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */,
 				0466458E204DD3AF0090055C /* Lato-Bold.ttf in Resources */,
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
 				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
+				04059F3F206C3F3F00D85500 /* thunder6.mp3 in Resources */,
 				040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */,
 				0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */,
+				04059F40206C3F3F00D85500 /* thunder4.mp3 in Resources */,
+				04059F43206C3F3F00D85500 /* thunder3.mp3 in Resources */,
 				040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */,
 				0456C1EB20432DCE00647657 /* Actions.sks in Resources */,
 			);
@@ -274,6 +333,7 @@
 				0456C1EF20432DCE00647657 /* GameViewController.swift in Sources */,
 				0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */,
 				0491EB23205711A7004994C4 /* EnterNameViewController.swift in Sources */,
+				04059F23206AECE500D85500 /* BackgroundAudio.swift in Sources */,
 				04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */,
 				040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */,
 				0428225420617F4600097D34 /* ScoreStatsViewController.swift in Sources */,

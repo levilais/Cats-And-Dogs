@@ -54,9 +54,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let dropCategory: UInt32 = 0x1 << 1
     let groundCategory: UInt32 = 0x1 << 2
     
+//    // Atmosphere
+//    var backgroundMusic = SKAudioNode()
+    
     override func didMove(to view: SKView) {
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         physicsWorld.contactDelegate = self
         
@@ -160,9 +165,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scene?.childNode(withName: "pauseLabel")?.isHidden = true
 
             introAnimation()
+            
+            if BackgroundAudio.backgroundMusicPlayer == nil {
+                self.createBackgroundMusic()
+            } else {
+                BackgroundAudio().resetBackgroundMusic()
+            }
         }
     }
-    
     
     func createLightningAnimation() {
         let flashSprite = SKSpriteNode()
@@ -232,6 +242,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         flashSprite.run(lightningEvent)
         self.timeForLightningTriggered = false
+    }
+    
+    func createBackgroundMusic() {
+//        backgroundMusic = SKAudioNode(fileNamed: "backgroundMusic.mp3")
+//        self.addChild(backgroundMusic)
+//        backgroundMusic.run(SKAction.play())
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            backgroundMusicPlayer.play()
+        }
     }
     
 // things pile up when pause pressed - figure out what's going wrong
@@ -542,6 +561,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            backgroundMusicPlayer.setVolume(0.0, fadeDuration: 2.0)
+        }
+        
         self.missLabel?.text = "0"
         self.levelTrackerLabel?.text = "1"
         self.multipleTrackerLabel?.text = "1x"
@@ -670,15 +693,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func pauseGame() {
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            print("fading audio out")
+            backgroundMusicPlayer.setVolume(0.4, fadeDuration: 1.0)
+        }
         introLabel?.alpha = 0
         lastTimeStamp = 0.0
         if let sceneCheck = scene {
             scene?.isPaused = true
-            print("sceneCheck.isPaused: \(sceneCheck.isPaused)")
             for child in sceneCheck.children {
                 if let name = child.name {
                     switch name {
-                    case "pauseButton","drop","streakLabel","levelLabel","dropScoreLabel", "missMeterPointChangeLabel":
+                    case "pauseButton","drop","streakLabel","dropScoreLabel", "missMeterPointChangeLabel":
                         child.isHidden = true
                     case "pauseLabel","playButton","settingsButton","quitButton":
                         child.isHidden = false
@@ -694,8 +720,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                     timeElapsedLabel?.text = "Time: \(formattedDuration) Seconds"
                                 }
                             }
-                            
-                            
                             child.isHidden = false
                         }
                     default:
@@ -707,6 +731,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func resumeGame() {
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            print("fading audio in")
+            backgroundMusicPlayer.setVolume(1.0, fadeDuration: 1.0)
+        }
         if let sceneCheck = scene {
             sceneCheck.isPaused = false
             for child in sceneCheck.children {
@@ -782,19 +810,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
-                if drop.type == "levelDrop" {
-                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
-                    updateMissMeter(changeValue: drop.missPoints!)
-                    GameVariables.skippedLevelUps += 1
-                } else {
-                    updateMissMeter(changeValue: -2)
-                    drop.missPoints = -2
-                    GameVariables.missedDrops += 1
-                }
-                animateSplash(dropToSplash: drop)
-                animateDropScore(dropToScore: drop)
-                
-//                gameOver()
+//                if drop.type == "levelDrop" {
+//                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+//                    updateMissMeter(changeValue: drop.missPoints!)
+//                    GameVariables.skippedLevelUps += 1
+//                } else {
+//                    updateMissMeter(changeValue: -2)
+//                    drop.missPoints = -2
+//                    GameVariables.missedDrops += 1
+//                }
+//                animateSplash(dropToSplash: drop)
+//                animateDropScore(dropToScore: drop)
+//
+                gameOver()
             }
         }
     }
@@ -803,11 +831,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if GameVariables.gameIsActive {
             pauseGame()
         }
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            backgroundMusicPlayer.pause()
+        }
+//        BackgroundAudio.backgroundMusicIsPlaying = false
     }
     
     @objc func appDidEnterForeground() {
         if GameVariables.gameIsActive {
             pauseGame()
         }
+        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+            backgroundMusicPlayer.play()
+        }
+//        if !BackgroundAudio.backgroundMusicIsPlaying {
+//            BackgroundAudio().createRainAudio(scene: self)
+//        }
     }
 }

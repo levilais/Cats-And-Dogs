@@ -16,6 +16,18 @@ class HomeScene: SKScene {
     var settingsButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        if let rainAudioPlayer = BackgroundAudio.rainAudioPlayer {
+            rainAudioPlayer.play()
+        }
+        
+//        if !BackgroundAudio.backgroundMusicIsPlaying {
+//            BackgroundAudio().createRainAudio(scene: self)
+//        }
+    
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
@@ -55,5 +67,14 @@ class HomeScene: SKScene {
                 }
             }
         }
+    }
+    
+    @objc func appDidEnterForeground() {
+        if let rainAudioPlayer = BackgroundAudio.rainAudioPlayer {
+            rainAudioPlayer.play()
+        }
+//        if !BackgroundAudio.backgroundMusicIsPlaying {
+//            BackgroundAudio().createRainAudio(scene: self)
+//        }
     }
 }

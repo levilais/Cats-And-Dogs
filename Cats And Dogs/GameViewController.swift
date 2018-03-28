@@ -9,8 +9,12 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    
+    // Atmosphere
+    var backgroundMusic = SKAudioNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()

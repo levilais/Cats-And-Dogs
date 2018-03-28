@@ -28,6 +28,8 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     override func didMove(to view: SKView) {
         NotificationCenter.default.addObserver(self, selector: #selector(lastNameChangedSetLabel), name: NSNotification.Name(rawValue: "lastNameUsedChanged"), object: nil)
         
+        BackgroundAudio().soundThunderStrike(scene: self)
+        
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
