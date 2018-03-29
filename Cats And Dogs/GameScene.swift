@@ -163,10 +163,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             introAnimation()
             
-            if BackgroundAudio.backgroundMusicPlayer == nil {
+            if GameAudio.backgroundMusicPlayer == nil {
                 self.createBackgroundMusic()
             } else {
-                BackgroundAudio().resetBackgroundMusic()
+                GameAudio().resetBackgroundMusic()
             }
         }
     }
@@ -186,7 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var textureInt = 0
         let lightningEvent = SKAction.run {
             var lightningFrequencyFactor = Double()
-                        
+            
             switch GameVariables.currentLevel {
             case 1:
                 textureInt = Int(arc4random_uniform(2)) + 1
@@ -235,14 +235,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             let pulseFlash = SKAction.repeat(flashWithDelay, count: flashCount)
-            flashSprite.run(pulseFlash)
+            let delay = SKAction.wait(forDuration: 1.5 * (10.0 - Double(textureInt)))
+            let sequence = SKAction.sequence([pulseFlash,delay])
+            flashSprite.run(sequence, completion: {
+                GameAudio().createThunderStrike(severityLevel: textureInt)
+            })
+            
+            flashSprite.run(sequence)
         }
         flashSprite.run(lightningEvent)
         self.timeForLightningTriggered = false
     }
     
     func createBackgroundMusic() {
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.play()
         }
     }
@@ -308,7 +314,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "playButton":
                     resumeGame()
                 case "quitButton":
-                    if let backgroundMusic = BackgroundAudio.backgroundMusicPlayer {
+                    if let backgroundMusic = GameAudio.backgroundMusicPlayer {
                         backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
                     }
                     if let view = self.view as! SKView? {
@@ -557,7 +563,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.setVolume(0.0, fadeDuration: 2.0)
         }
         
@@ -689,7 +695,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func pauseGame() {
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             print("fading audio out")
             backgroundMusicPlayer.setVolume(0.4, fadeDuration: 1.0)
         }
@@ -727,7 +733,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func resumeGame() {
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             print("fading audio in")
             backgroundMusicPlayer.setVolume(1.0, fadeDuration: 1.0)
         }
@@ -827,7 +833,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if GameVariables.gameIsActive {
             pauseGame()
         }
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.pause()
         }
     }
@@ -836,7 +842,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if GameVariables.gameIsActive {
             pauseGame()
         }
-        if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
+        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.play()
         }
     }

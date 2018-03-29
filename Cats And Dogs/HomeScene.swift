@@ -20,7 +20,7 @@ class HomeScene: SKScene {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        if let rainAudioPlayer = BackgroundAudio.rainAudioPlayer {
+        if let rainAudioPlayer = GameAudio.rainAudioPlayer {
             rainAudioPlayer.play()
         }
     
@@ -66,11 +66,8 @@ class HomeScene: SKScene {
     }
     
     @objc func appDidEnterForeground() {
-        if let rainAudioPlayer = BackgroundAudio.rainAudioPlayer {
+        if let rainAudioPlayer = GameAudio.rainAudioPlayer {
             rainAudioPlayer.play()
         }
-//        if !BackgroundAudio.backgroundMusicIsPlaying {
-//            BackgroundAudio().createRainAudio(scene: self)
-//        }
     }
 }
