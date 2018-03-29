@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
     let sectionHeaders = ["OPTIONS","CONNECT","HIGH SCORES"]
+    let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
     
@@ -138,7 +139,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var rows = Int()
         switch section {
         case 0:
-            rows = 1
+            rows = 3
         case 1:
             rows = 5
         case 2:
@@ -154,7 +155,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         switch indexPath.section {
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
-            cell.textLabel?.text = "Sound"
+            cell.textLabel?.text = optionsTitles[indexPath.row]
+            
+            switch indexPath.row {
+            case 0:
+                print("need to handle toggle")
+            case 1:
+                print("need to handle toggle")
+            case 2:
+                print("need to handle toggle")
+            default:
+                print("default called")
+            }
         case 1:
             switch indexPath.row {
             case 0:

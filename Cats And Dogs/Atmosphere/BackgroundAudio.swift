@@ -15,11 +15,13 @@ class BackgroundAudio {
     static var backgroundMusicIsPlaying = false
     static var backgroundMusicPlayer: AVAudioPlayer?
     static var rainAudioPlayer: AVAudioPlayer?
+    static var thunderAudioPlayers = [AVAudioPlayer]()
     
     func setupAudioPlayers() {
         let backgroundMusic = Bundle.main.url(forResource: "backgroundMusic", withExtension: "mp3")
         do {
             BackgroundAudio.backgroundMusicPlayer = try AVAudioPlayer(contentsOf: backgroundMusic!)
+            BackgroundAudio.backgroundMusicPlayer?.numberOfLoops = -1
         } catch let error {
             print(error.localizedDescription)
         }
@@ -41,30 +43,38 @@ class BackgroundAudio {
         }
     }
     
-//    func playBackgroundMusic(){
-//        let sound = Bundle.main.url(forResource: "backgroundMusic", withExtension: "mp3")
-//        do {
-//            BackgroundAudio.backgroundMusicPlayer = try AVAudioPlayer(contentsOf: sound!)
-//            guard let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer else { return }
-//            backgroundMusicPlayer.prepareToPlay()
-//            backgroundMusicPlayer.play()
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//    }
-//    
-//    func playRainAudio(){
-//        let sound = Bundle.main.url(forResource: "rain", withExtension: "mp3")
-//        do {
-//            BackgroundAudio.rainAudioPlayer = try AVAudioPlayer(contentsOf: sound!)
-//            guard let rainAudioPlayer = BackgroundAudio.rainAudioPlayer else { return }
-//            rainAudioPlayer.prepareToPlay()
-//            rainAudioPlayer.play()
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//    }
+    func createThunderPlayer(severityLevel: Int) {
+        // turn severity into randomly generated volume and thunder clap
+        // create URL for thunder file to be played
+        do {
+            let thunderPlayer = try AVAudioPlayer(contentsOf: url)
+            thunderPlayer.numberOfLoops = 0
+            thunderPlayer.volume = 1
+            thunderPlayer.play()
+            BackgroundAudio.thunderAudioPlayers.append(thunderPlayer)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+
+        for player in BackgroundAudio.thunderAudioPlayers {
+            if player.isPlaying { continue } else {
+                if let index = BackgroundAudio.thunderAudioPlayers.index(of: player) {
+                    BackgroundAudio.thunderAudioPlayers.remove(at: index)
+                }
+            }
+        }
+    }
     
+    func soundThunderStrike(scene: SKScene) {
+        let thunder = SKAction.playSoundFileNamed("thunder3.mp3", waitForCompletion: true)
+        scene.run(thunder)
+    }
+}
+
+
+// USE FOR NOTES THEN DELETE
+
+
 //    func createRainAudio(scene: SKScene) {
 //        scene.run(SKAction.playSoundFileNamed("rain.mp3", waitForCompletion: false))
 ////        let loopMusic:SKAction = SKAction.repeatForever(music)
@@ -72,16 +82,11 @@ class BackgroundAudio {
 //
 //        BackgroundAudio.backgroundMusicIsPlaying = true
 //    }
-    
+
 //    func createBackgroundMusic(scene: SKScene) {
 ////        if let musicURL = Bundle.main.url(forResource: "lightRain", withExtension: ".wav") {
 ////            BackgroundAudio.backgroundMusic = SKAudioNode(url: musicURL)
 ////            scene.addChild(BackgroundAudio.backgroundMusic)
 ////        }
 //    }
-    
-    func soundThunderStrike(scene: SKScene) {
-        let thunder = SKAction.playSoundFileNamed("thunder3.mp3", waitForCompletion: true)
-        scene.run(thunder)
-    }
-}
+

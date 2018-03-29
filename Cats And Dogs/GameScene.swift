@@ -54,9 +54,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let dropCategory: UInt32 = 0x1 << 1
     let groundCategory: UInt32 = 0x1 << 2
     
-//    // Atmosphere
-//    var backgroundMusic = SKAudioNode()
-    
     override func didMove(to view: SKView) {
         
         let notificationCenter = NotificationCenter.default
@@ -245,15 +242,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createBackgroundMusic() {
-//        backgroundMusic = SKAudioNode(fileNamed: "backgroundMusic.mp3")
-//        self.addChild(backgroundMusic)
-//        backgroundMusic.run(SKAction.play())
         if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.play()
         }
     }
     
-// things pile up when pause pressed - figure out what's going wrong
     func introAnimation() {
         self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
         self.introLabel?.position = CGPoint(x: 0, y: frame.height / 4)
@@ -263,8 +256,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let wait = SKAction.wait(forDuration: 1)
         let show = SKAction.fadeIn(withDuration: 0.1)
         let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
-        let wait2 = SKAction.wait(forDuration: 0.5)
-        let sequence = SKAction.sequence([wait, show, animateImageChange, wait2])
+//        let wait2 = SKAction.wait(forDuration: 0.5)
+        let sequence = SKAction.sequence([wait, show, animateImageChange/*, wait2*/])
         self.introLabel?.run(sequence) {
             self.introLabel?.alpha = 0
             self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
@@ -315,6 +308,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "playButton":
                     resumeGame()
                 case "quitButton":
+                    if let backgroundMusic = BackgroundAudio.backgroundMusicPlayer {
+                        backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
+                    }
                     if let view = self.view as! SKView? {
                         if let gameScene = SKScene(fileNamed: "HomeScene") {
                             gameScene.scaleMode = .aspectFill
@@ -810,19 +806,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
-//                if drop.type == "levelDrop" {
-//                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
-//                    updateMissMeter(changeValue: drop.missPoints!)
-//                    GameVariables.skippedLevelUps += 1
-//                } else {
-//                    updateMissMeter(changeValue: -2)
-//                    drop.missPoints = -2
-//                    GameVariables.missedDrops += 1
-//                }
-//                animateSplash(dropToSplash: drop)
-//                animateDropScore(dropToScore: drop)
-//
-                gameOver()
+                if drop.type == "levelDrop" {
+                    drop = GameVariables().updateMissedLevelDrop(drop: drop)
+                    updateMissMeter(changeValue: drop.missPoints!)
+                    GameVariables.skippedLevelUps += 1
+                } else {
+                    updateMissMeter(changeValue: -2)
+                    drop.missPoints = -2
+                    GameVariables.missedDrops += 1
+                }
+                animateSplash(dropToSplash: drop)
+                animateDropScore(dropToScore: drop)
+
+//                gameOver()
             }
         }
     }
@@ -834,7 +830,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.pause()
         }
-//        BackgroundAudio.backgroundMusicIsPlaying = false
     }
     
     @objc func appDidEnterForeground() {
@@ -844,8 +839,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let backgroundMusicPlayer = BackgroundAudio.backgroundMusicPlayer {
             backgroundMusicPlayer.play()
         }
-//        if !BackgroundAudio.backgroundMusicIsPlaying {
-//            BackgroundAudio().createRainAudio(scene: self)
-//        }
     }
 }

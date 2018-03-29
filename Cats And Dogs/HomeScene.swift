@@ -23,10 +23,6 @@ class HomeScene: SKScene {
         if let rainAudioPlayer = BackgroundAudio.rainAudioPlayer {
             rainAudioPlayer.play()
         }
-        
-//        if !BackgroundAudio.backgroundMusicIsPlaying {
-//            BackgroundAudio().createRainAudio(scene: self)
-//        }
     
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")

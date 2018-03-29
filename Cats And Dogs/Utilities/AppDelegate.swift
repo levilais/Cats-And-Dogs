@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UISwitch.appearance().thumbTintColor = UIColor.StyleFile.LightBlueGray
         
         CoreDataHelper().setLastNameUsed()
-        BackgroundAudio().setupAudioPlayers()
+        
+        if BackgroundAudio.backgroundMusicPlayer == nil {
+            BackgroundAudio().setupAudioPlayers()
+        }
         
         return true
     }
