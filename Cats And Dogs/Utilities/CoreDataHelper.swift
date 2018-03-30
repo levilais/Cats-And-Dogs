@@ -24,6 +24,7 @@ class CoreDataHelper {
         newHighScore.setValue(highScore.skippedLevelUps, forKey: "skippedLevelUps")
         newHighScore.setValue(highScore.longestStreak, forKey: "longestStreak")
         newHighScore.setValue(highScore.bestDrop, forKey: "bestDrop")
+        print("bestDrop when running: saveHighScore: \(highScore.bestDrop)")
         newHighScore.setValue(highScore.poppedDrops, forKey: "poppedDrops")
         newHighScore.setValue(highScore.missedDrops, forKey: "missedDrops")
         newHighScore.setValue(highScore.accuracy, forKey: "accuracy")
@@ -100,6 +101,7 @@ class CoreDataHelper {
                     }
                     if let bestDrop = result.value(forKey: "bestDrop") as? Int {
                         highScore.bestDrop = bestDrop
+                        print("bestDrop when running: getHighScores: \(highScore.bestDrop)")
                     }
                     if let poppedDrops = result.value(forKey: "poppedDrops") as? Double {
                         highScore.poppedDrops = poppedDrops

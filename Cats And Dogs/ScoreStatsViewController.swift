@@ -242,11 +242,12 @@ class ScoreStatsViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.recordLabel.text = record
             }
         case 10:
-            print("Best Drop")
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = NumberFormatter.Style.decimal
             if let formattedNumber = numberFormatter.string(from: scoreToDisplay.bestDrop as NSNumber) {
                 cell.scoreLabel.text = "\(formattedNumber)"
+                print("bestDrop formatted: \(formattedNumber)")
+                print("bestDrop not formatted: \(scoreToDisplay.bestDrop)")
             }
             if let rank = CoreDataHelper().bestDropRank(highScore: scoreToDisplay) {
                 cell.rankLabel.text = rank

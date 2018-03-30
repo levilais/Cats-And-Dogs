@@ -161,6 +161,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scene?.childNode(withName: "settingsButton")?.isHidden = true
             scene?.childNode(withName: "pauseLabel")?.isHidden = true
 
+            if let rainAudioPlayer = GameAudio.rainAudioPlayer {
+                rainAudioPlayer.setVolume(1.0, fadeDuration: 2.0)
+            }
+            
             introAnimation()
             
             if GameAudio.backgroundMusicPlayer == nil {
@@ -235,13 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             let pulseFlash = SKAction.repeat(flashWithDelay, count: flashCount)
-            let delay = SKAction.wait(forDuration: 1.5 * (10.0 - Double(textureInt)))
-            let sequence = SKAction.sequence([pulseFlash,delay])
-            flashSprite.run(sequence, completion: {
-                GameAudio().createThunderStrike(severityLevel: textureInt)
-            })
-            
-            flashSprite.run(sequence)
+            flashSprite.run(pulseFlash)
         }
         flashSprite.run(lightningEvent)
         self.timeForLightningTriggered = false

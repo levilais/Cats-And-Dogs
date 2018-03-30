@@ -91,6 +91,7 @@ class GameVariables {
         GameVariables.currentLevel = GameVariables.currentLevel + 1
         GameVariables.singleLetterPoints += 100
         GameVariables.comboPoints = GameVariables.singleLetterPoints * 2
+        GameAudio().setThunderVolume()
     }
     
     func updateMissedLevelDrop(drop: Drop) -> Drop {
@@ -124,6 +125,7 @@ class GameVariables {
         GameVariables.time = 0
         GameVariables.accuracy = 0
         GameVariables.combos = 0
+        GameAudio.thunderAudioPlayer?.setVolume(0.4, fadeDuration: 1.0)
     }
 }
 
