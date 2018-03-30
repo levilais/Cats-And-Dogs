@@ -260,8 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let wait = SKAction.wait(forDuration: 1)
         let show = SKAction.fadeIn(withDuration: 0.1)
         let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
-//        let wait2 = SKAction.wait(forDuration: 0.5)
-        let sequence = SKAction.sequence([wait, show, animateImageChange/*, wait2*/])
+        let sequence = SKAction.sequence([wait, show, animateImageChange])
         self.introLabel?.run(sequence) {
             self.introLabel?.alpha = 0
             self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
@@ -822,7 +821,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 
-//                gameOver()
+                gameOver()
             }
         }
     }
