@@ -20,6 +20,9 @@
 		040ECCA0204B33AE00EF5D7B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */; };
 		04226AC1206D94AB00E5CF15 /* GameAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04226AC0206D94AB00E5CF15 /* GameAudio.swift */; };
 		04226AC3206DB1F100E5CF15 /* thunder.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04226AC2206DB1F100E5CF15 /* thunder.wav */; };
+		04226AC7206DC2B500E5CF15 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04226AC6206DC2B500E5CF15 /* pop.mp3 */; };
+		04226AD1206DD21E00E5CF15 /* chime.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04226AD0206DD21E00E5CF15 /* chime.mp3 */; };
+		04226AD3206DD27A00E5CF15 /* shake.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04226AD2206DD27A00E5CF15 /* shake.mp3 */; };
 		0428225220617F2B00097D34 /* ScoreStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428225120617F2B00097D34 /* ScoreStatsTableViewCell.swift */; };
 		0428225420617F4600097D34 /* ScoreStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428225320617F4600097D34 /* ScoreStatsViewController.swift */; };
 		0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */; };
@@ -62,6 +65,9 @@
 		040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		04226AC0206D94AB00E5CF15 /* GameAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAudio.swift; sourceTree = "<group>"; };
 		04226AC2206DB1F100E5CF15 /* thunder.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thunder.wav; sourceTree = "<group>"; };
+		04226AC6206DC2B500E5CF15 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
+		04226AD0206DD21E00E5CF15 /* chime.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chime.mp3; sourceTree = "<group>"; };
+		04226AD2206DD27A00E5CF15 /* shake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake.mp3; sourceTree = "<group>"; };
 		0428225120617F2B00097D34 /* ScoreStatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStatsTableViewCell.swift; sourceTree = "<group>"; };
 		0428225320617F4600097D34 /* ScoreStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStatsViewController.swift; sourceTree = "<group>"; };
 		0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatsAndDogsModel.xcdatamodel; sourceTree = "<group>"; };
@@ -109,6 +115,9 @@
 				04059F34206C3A9200D85500 /* rain.mp3 */,
 				04059F36206C3D3D00D85500 /* backgroundMusic.mp3 */,
 				04226AC2206DB1F100E5CF15 /* thunder.wav */,
+				04226AD2206DD27A00E5CF15 /* shake.mp3 */,
+				04226AC6206DC2B500E5CF15 /* pop.mp3 */,
+				04226AD0206DD21E00E5CF15 /* chime.mp3 */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -279,11 +288,14 @@
 				04226AC3206DB1F100E5CF15 /* thunder.wav in Resources */,
 				04059F1C206AEBAB00D85500 /* LegalAndCopyright in Resources */,
 				0456C1E920432DCE00647657 /* GameScene.sks in Resources */,
+				04226AD3206DD27A00E5CF15 /* shake.mp3 in Resources */,
 				040A3C8020476A3700FCCDD4 /* AmaticSC-Bold.ttf in Resources */,
 				0456C1F420432DD000647657 /* Assets.xcassets in Resources */,
 				0466458C204DD3AF0090055C /* Lato-Black.ttf in Resources */,
 				040A3C8120476A3700FCCDD4 /* AmaticSC-Regular.ttf in Resources */,
+				04226AC7206DC2B500E5CF15 /* pop.mp3 in Resources */,
 				0466458E204DD3AF0090055C /* Lato-Bold.ttf in Resources */,
+				04226AD1206DD21E00E5CF15 /* chime.mp3 in Resources */,
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
 				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
 				040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */,

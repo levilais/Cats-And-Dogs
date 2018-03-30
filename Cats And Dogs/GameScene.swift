@@ -301,7 +301,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         } else {
                             GameVariables().levelUp(scene: self)
                             self.levelTrackerLabel?.text = String(GameVariables.currentLevel)
+                            GameAudio().soundChime()
                         }
+                        GameAudio().soundPop()
                         drop = computeScore(drop: drop)
                         animateSplash(dropToSplash: drop)
                         animateDropScore(dropToScore: drop)
@@ -399,6 +401,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             default:
                 print("default called")
             }
+            if isCombo {
+                GameAudio().soundShake()
+            }
+            
             updateMissMeter(changeValue: missMeterValueToChange)
             drop.missPoints = missMeterValueToChange
         }
@@ -821,7 +827,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 
-                gameOver()
+//                gameOver()
             }
         }
     }
