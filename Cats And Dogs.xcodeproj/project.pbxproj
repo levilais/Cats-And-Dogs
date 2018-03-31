@@ -50,6 +50,7 @@
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
 		04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF0204377EB002C57F6 /* DropObject.swift */; };
 		04F01BF320449254002C57F6 /* GameVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF220449254002C57F6 /* GameVariables.swift */; };
+		04F96974206FFBFB00DD5DC1 /* GameEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F96973206FFBFB00DD5DC1 /* GameEnvironment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04F01BF0204377EB002C57F6 /* DropObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropObject.swift; sourceTree = "<group>"; };
 		04F01BF220449254002C57F6 /* GameVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariables.swift; sourceTree = "<group>"; };
+		04F96973206FFBFB00DD5DC1 /* GameEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				04059F16206AB51F00D85500 /* Audio */,
 				04226AC0206D94AB00E5CF15 /* GameAudio.swift */,
+				04F96973206FFBFB00DD5DC1 /* GameEnvironment.swift */,
 			);
 			path = Atmosphere;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				04989522204DE8BE005B494D /* HighScoreObject.swift in Sources */,
 				04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */,
 				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
+				04F96974206FFBFB00DD5DC1 /* GameEnvironment.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
 				0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */,
 				0457A7DF206EB48900B4C418 /* UserPrefs.swift in Sources */,

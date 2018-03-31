@@ -53,7 +53,7 @@ class HomeScene: SKScene {
             if let name = touchedNode.name {
                 switch name {
                 case "homePlayButton":
-                    if let view = self.view as! SKView? {
+                    if let view = self.view {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill
                             view.presentScene(gameScene)
