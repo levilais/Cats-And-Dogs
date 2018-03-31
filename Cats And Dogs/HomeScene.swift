@@ -23,6 +23,9 @@ class HomeScene: SKScene {
         if let rainAudioPlayer = GameAudio.rainAudioPlayer {
             rainAudioPlayer.play()
         }
+        if let thunderAudioPlayer = GameAudio.thunderAudioPlayer {
+            thunderAudioPlayer.play()
+        }
     
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")

@@ -738,7 +738,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resumeGame() {
         if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
             print("fading audio in")
-            backgroundMusicPlayer.setVolume(1.0, fadeDuration: 1.0)
+            if UserPrefs.musicAllowed {
+                if backgroundMusicPlayer.isPlaying {
+                    backgroundMusicPlayer.setVolume(1.0, fadeDuration: 1.0)
+                }
+//                else {
+//                    GameAudio().resetBackgroundMusic()
+//                }
+            }
         }
         if let sceneCheck = scene {
             sceneCheck.isPaused = false
@@ -833,20 +840,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func appMovedToBackground() {
-        if GameVariables.gameIsActive {
-            pauseGame()
-        }
-        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
-            backgroundMusicPlayer.pause()
-        }
+//        if GameVariables.gameIsActive {
+//            pauseGame()
+//        }
+//        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
+//            backgroundMusicPlayer.pause()
+//        }
     }
     
     @objc func appDidEnterForeground() {
-        if GameVariables.gameIsActive {
-            pauseGame()
-        }
-        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
-            backgroundMusicPlayer.play()
-        }
+//        if GameVariables.gameIsActive {
+//            pauseGame()
+//        }
+//        if let backgroundMusicPlayer = GameAudio.backgroundMusicPlayer {
+//            backgroundMusicPlayer.play()
+//        }
     }
 }

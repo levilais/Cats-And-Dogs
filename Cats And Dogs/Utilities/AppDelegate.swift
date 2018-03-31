@@ -16,15 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        UserPrefs().updateLoadCount()
         
         UISwitch.appearance().onTintColor = UIColor.StyleFile.ToggleSelectedColor
         UISwitch.appearance().thumbTintColor = UIColor.StyleFile.LightBlueGray
         
         CoreDataHelper().setLastNameUsed()
+        UserPrefs().getUserPrefs()
         
-        if GameAudio.backgroundMusicPlayer == nil {
-            GameAudio().setupAudioPlayers()
-        }
+        GameAudio().setupAudioPlayers()
         
         return true
     }

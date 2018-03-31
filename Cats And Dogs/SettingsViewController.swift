@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["OPTIONS","CONNECT","HIGH SCORES"]
+    let sectionHeaders = ["SOUND OPTIONS","CONNECT","HIGH SCORES"]
     let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
@@ -151,48 +151,72 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
             cell.textLabel?.text = optionsTitles[indexPath.row]
             
             switch indexPath.row {
             case 0:
-                print("need to handle toggle")
+                // music
+                if UserPrefs.musicAllowed {
+                    cell.toggle.setOn(true, animated: false)
+                } else {
+                    cell.toggle.setOn(false, animated: false)
+                }
+                cell.toggle.addTarget(self, action: #selector(toggleAllowMusic(toggleSwitch:)), for: .touchUpInside)
             case 1:
-                print("need to handle toggle")
+                // rain
+                if UserPrefs.rainAllowed {
+                    cell.toggle.setOn(true, animated: false)
+                } else {
+                    cell.toggle.setOn(false, animated: false)
+                }
+                cell.toggle.addTarget(self, action: #selector(toggleAllowRain(toggleSwitch:)), for: .touchUpInside)
             case 2:
-                print("need to handle toggle")
+                // sfx
+                if UserPrefs.soundFxAllowed {
+                    cell.toggle.setOn(true, animated: false)
+                } else {
+                    cell.toggle.setOn(false, animated: false)
+                }
+                cell.toggle.addTarget(self, action: #selector(toggleAllowSoundFx(toggleSwitch:)), for: .touchUpInside)
             default:
                 print("default called")
             }
+            return cell
         case 1:
             switch indexPath.row {
             case 0:
-                cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
                 cell.textLabel?.text = "Facebook"
+                return cell
             case 1:
-                cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
                 cell.textLabel?.text = "GameCenter"
+                return cell
             case 2:
-                cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Review"
+                return cell
             case 3:
-                cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Give Feedback"
+                return cell
             case 4:
-                cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "About"
+                return cell
             default:
-                cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
+                return cell
             }
         case 2:
-            cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
             let highScore = HighScoresClass.highScores[indexPath.row]
             if let formattedScore = HighScore().formattedScore(score: highScore.score) {
@@ -204,13 +228,71 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             dateFormatter.timeStyle = .none
             
             cell.detailTextLabel?.text = ("\(highScore.playerName!) on \(dateFormatter.string(from: highScore.timestamp))")
+            return cell
         default:
-            cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+            return cell
         }
-        cell.textLabel?.backgroundColor = .clear
-        return cell
+    }
+    
+    @objc func toggleAllowMusic(toggleSwitch: UISwitch) {
+        togglePref(switchType: "music")
+    }
+    @objc func toggleAllowRain(toggleSwitch: UISwitch) {
+        togglePref(switchType: "rain")
+    }
+    @objc func toggleAllowSoundFx(toggleSwitch: UISwitch) {
+        togglePref(switchType: "soundFx")
     }
 
+    func togglePref(switchType: String) {
+        switch switchType {
+        case "music":
+            if UserPrefs.musicAllowed {
+                UserPrefs.musicAllowed = false
+                if let musicPlayer = GameAudio.backgroundMusicPlayer {
+                    musicPlayer.stop()
+                }
+                GameAudio().setupMusicPlayer()
+            } else {
+                UserPrefs.musicAllowed = true
+                GameAudio().setupMusicPlayer()
+                if GameVariables.gameIsActive {
+                    GameAudio().resetBackgroundMusic()
+                }
+            }
+        case "rain":
+            if UserPrefs.rainAllowed {
+                UserPrefs.rainAllowed = false
+                if let rainPlayer = GameAudio.rainAudioPlayer {
+                    rainPlayer.stop()
+                }
+            } else {
+                UserPrefs.rainAllowed = true
+                if let rainPlayer = GameAudio.rainAudioPlayer {
+                    rainPlayer.play()
+                } else {
+                    GameAudio().setupRainPlayer()
+                    if let rainAudioPlayer = GameAudio.rainAudioPlayer {
+                        rainAudioPlayer.play()
+                    }
+                    if let thunderAudioPlayer = GameAudio.thunderAudioPlayer {
+                        thunderAudioPlayer.play()
+                    }
+                }
+            }
+        case "soundFx":
+            if UserPrefs.soundFxAllowed {
+                UserPrefs.soundFxAllowed = false
+            } else {
+                UserPrefs.soundFxAllowed = true
+            }
+        default:
+            print("default called")
+        }
+        UserPrefs().saveUserPrefs()
+    }
+    
     @IBAction func goBackDidPress(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

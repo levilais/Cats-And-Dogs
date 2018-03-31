@@ -35,6 +35,7 @@
 		0456C1F220432DCE00647657 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F020432DCE00647657 /* Main.storyboard */; };
 		0456C1F420432DD000647657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F320432DD000647657 /* Assets.xcassets */; };
 		0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1F520432DD000647657 /* LaunchScreen.storyboard */; };
+		0457A7DF206EB48900B4C418 /* UserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0457A7DE206EB48900B4C418 /* UserPrefs.swift */; };
 		0466457D204DC4160090055C /* StyleFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466457C204DC4160090055C /* StyleFile.swift */; };
 		04664581204DC7070090055C /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664580204DC7070090055C /* ToggleTableViewCell.swift */; };
 		04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664582204DC7BA0090055C /* DefaultTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		0456C1F320432DD000647657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0456C1F620432DD000647657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0456C1F820432DD000647657 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0457A7DE206EB48900B4C418 /* UserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefs.swift; sourceTree = "<group>"; };
 		0466457C204DC4160090055C /* StyleFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleFile.swift; sourceTree = "<group>"; };
 		04664580204DC7070090055C /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
 		04664582204DC7BA0090055C /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				0466457F204DC6E40090055C /* CustomTableViewCells */,
 				04F01BF0204377EB002C57F6 /* DropObject.swift */,
 				04989521204DE8BE005B494D /* HighScoreObject.swift */,
+				0457A7DE206EB48900B4C418 /* UserPrefs.swift */,
 			);
 			path = CustomObjects;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
 				0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */,
+				0457A7DF206EB48900B4C418 /* UserPrefs.swift in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,
 				049895272050A1C2005B494D /* MailViewController.swift in Sources */,
 			);

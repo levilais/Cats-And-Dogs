@@ -21,6 +21,7 @@ class ToggleTableViewCell: UITableViewCell {
         self.textLabel?.textColor = UIColor.StyleFile.LightBlueGray
         self.textLabel?.font = UIFont.StyleFile.latoLight
         self.bringSubview(toFront: toggle)
+        self.textLabel?.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

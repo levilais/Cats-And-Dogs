@@ -17,6 +17,7 @@ class DefaultTableViewCell: UITableViewCell {
         self.isUserInteractionEnabled = true
         self.textLabel?.textColor = UIColor.StyleFile.LightBlueGray
         self.textLabel?.font = UIFont.StyleFile.latoLight
+        self.textLabel?.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
