@@ -32,6 +32,7 @@ class GameControls {
 }
 
 class GameVariables {
+    static var newAchievementsToDisplay = [String]()
     static var gameOverHighScore: HighScore?
     static var streak: String = ""
     static var streakCount: Int = 0
@@ -109,6 +110,7 @@ class GameVariables {
     }
     
     func resetGameVariables() {
+        GameVariables.newAchievementsToDisplay = []
         GameVariables.dropSpeed = GameControls.dropSpeed
         GameVariables.dropFrequency = GameControls.dropFrequency
         GameVariables.levelSpeed = GameControls.levelSpeed

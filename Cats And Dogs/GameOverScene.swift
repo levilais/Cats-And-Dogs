@@ -124,6 +124,13 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         GameVariables.gameOverHighScore = score
         CoreDataHelper().saveHighScore(highScore: score)
+        let newAchievements = UserAchievementsObject().determineNewUserAchievements(score: score)
+        UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievements)
+        if UserPrefs.achievementLevelUpTriggered {
+            UserPrefs.achievementLevelUpTriggered = false
+            let newAchievementsRoundTwo = UserAchievementsObject().determineNewUserAchievements(score: score)
+            UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievementsRoundTwo)
+        }
     }
     
     @objc func lastNameChangedSetLabel() {

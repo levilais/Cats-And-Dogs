@@ -14,6 +14,9 @@ class UserPrefs {
     static var rainAllowed = true
     static var soundFxAllowed = true
     
+    static var currentAchievementLevel = 0
+    static var achievementLevelUpTriggered = false
+    
     func updateLoadCount() {
         let defaults = UserDefaults.standard
         let savedLoadCount = defaults.integer(forKey: "loadCount")
@@ -32,12 +35,19 @@ class UserPrefs {
         defaults.set(UserPrefs.soundFxAllowed, forKey: "soundFxAllowed")
     }
     
+    func updateCurrentAchievementLevel() {
+        let defaults = UserDefaults.standard
+        let newLevel = UserPrefs.currentAchievementLevel + 1
+        defaults.set(newLevel, forKey: "currentAchievementLevel")
+    }
+    
     func getUserPrefs() {
         if UserPrefs.loadCount > 1 {
             let defaults = UserDefaults.standard
             UserPrefs.musicAllowed = defaults.bool(forKey: "musicAllowed")
             UserPrefs.rainAllowed = defaults.bool(forKey: "rainAllowed")
             UserPrefs.soundFxAllowed = defaults.bool(forKey: "soundFxAllowed")
+            UserPrefs.currentAchievementLevel = defaults.integer(forKey: "currentAchievementLevel")
         } else {
             UserPrefs.musicAllowed = true
             UserPrefs.rainAllowed = true
