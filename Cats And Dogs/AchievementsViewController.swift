@@ -26,12 +26,12 @@ class AchievementsViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
-
     }
     
     @IBAction func achievementButtonDidPress(_ sender: Any) {
+        let button = sender as! UIButton
+        print("\(button.tag) button")
     }
-    
     
     @IBAction func bronzeToggleDidPress(_ sender: Any) {
         print("bronze toggle pressed")

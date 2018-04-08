@@ -182,7 +182,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymm-L3-izL">
-                                <rect key="frame" x="0.0" y="10" width="60" height="60"/>
+                                <rect key="frame" x="0.0" y="30" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="QYW-41-cvw"/>
                                     <constraint firstAttribute="height" constant="60" id="hRv-d0-Jni"/>
@@ -453,7 +453,7 @@
                             <constraint firstItem="5cU-hS-yTV" firstAttribute="centerX" secondItem="IkL-Lw-vz8" secondAttribute="centerX" id="RKh-dW-qaX"/>
                             <constraint firstItem="HF1-Gg-s0R" firstAttribute="centerX" secondItem="gjY-za-qcT" secondAttribute="centerX" id="Rgb-Ny-gLj"/>
                             <constraint firstItem="gjY-za-qcT" firstAttribute="bottom" secondItem="HF1-Gg-s0R" secondAttribute="top" id="TUj-go-1Dr"/>
-                            <constraint firstItem="RoY-gp-1Zh" firstAttribute="top" secondItem="ymm-L3-izL" secondAttribute="top" constant="10" id="Urx-IC-xfR"/>
+                            <constraint firstItem="RoY-gp-1Zh" firstAttribute="top" secondItem="ymm-L3-izL" secondAttribute="top" constant="-10" id="Urx-IC-xfR"/>
                             <constraint firstItem="pTp-Av-mUj" firstAttribute="centerX" secondItem="47I-J0-3Z3" secondAttribute="centerX" id="WqS-AY-NU9"/>
                             <constraint firstItem="RoY-gp-1Zh" firstAttribute="trailing" secondItem="heO-HW-6ko" secondAttribute="trailing" constant="20" id="YVk-FO-LfF"/>
                             <constraint firstItem="RoY-gp-1Zh" firstAttribute="bottom" secondItem="OUv-PR-JlE" secondAttribute="bottom" id="asb-XN-j5b"/>
@@ -701,6 +701,6 @@
         <image name="zeroToOneHundredGoal0" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xFy-IK-DqM"/>
+        <segue reference="fhn-Ih-ufT"/>
     </inferredMetricsTieBreakers>
 </document>
