@@ -18,6 +18,9 @@ extension UIColor {
         static let Salmon = UIColor(red:1.00, green:0.58, blue:0.55, alpha:1.0)
         static let Orange = UIColor(red:0.96, green:0.67, blue:0.27, alpha:1.0)
         static let ToggleSelectedColor = UIColor(red:0.41, green:0.46, blue:0.53, alpha:1.0)
+        static let bronzeColor = UIColor(red:0.79, green:0.31, blue:0.16, alpha:1.0)
+        static let silverColor = UIColor(red:0.85, green:0.83, blue:0.83, alpha:1.0)
+        static let goldColor = UIColor(red:0.95, green:0.71, blue:0.12, alpha:1.0)
     }
 }
 

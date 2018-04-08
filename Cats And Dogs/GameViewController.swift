@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(presentView), name: NSNotification.Name(rawValue: "showController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentEnterNameViewController), name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentStatsViewController), name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentToAchievementController), name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -67,7 +68,11 @@ class GameViewController: UIViewController {
     @objc func presentStatsViewController() {
         self.performSegue(withIdentifier: "gameViewToScoreStatsSegue", sender: self)
     }
-
+    
+    @objc func presentToAchievementController() {
+        self.performSegue(withIdentifier: "toAchievementController", sender: self)
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }

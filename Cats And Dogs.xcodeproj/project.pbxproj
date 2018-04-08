@@ -50,6 +50,7 @@
 		04C7CC222077D0C600104555 /* AchievementDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC212077D0C600104555 /* AchievementDataHelper.swift */; };
 		04C7CC242077E99A00104555 /* UserAchievementsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC232077E99A00104555 /* UserAchievementsHelper.swift */; };
 		04C7CC262077EB8200104555 /* UserAchievementsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC252077EB8200104555 /* UserAchievementsObject.swift */; };
+		04C7CC2820799B8600104555 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC2720799B8600104555 /* AchievementsViewController.swift */; };
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
 		04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF0204377EB002C57F6 /* DropObject.swift */; };
 		04F01BF320449254002C57F6 /* GameVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF220449254002C57F6 /* GameVariables.swift */; };
@@ -102,6 +103,7 @@
 		04C7CC212077D0C600104555 /* AchievementDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDataHelper.swift; sourceTree = "<group>"; };
 		04C7CC232077E99A00104555 /* UserAchievementsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAchievementsHelper.swift; sourceTree = "<group>"; };
 		04C7CC252077EB8200104555 /* UserAchievementsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAchievementsObject.swift; sourceTree = "<group>"; };
+		04C7CC2720799B8600104555 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04F01BF0204377EB002C57F6 /* DropObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropObject.swift; sourceTree = "<group>"; };
 		04F01BF220449254002C57F6 /* GameVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariables.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */,
 				0428225320617F4600097D34 /* ScoreStatsViewController.swift */,
 				0491EB22205711A7004994C4 /* EnterNameViewController.swift */,
+				04C7CC2720799B8600104555 /* AchievementsViewController.swift */,
 				049895262050A1C2005B494D /* MailViewController.swift */,
 				0456C1F020432DCE00647657 /* Main.storyboard */,
 				0456C1F320432DD000647657 /* Assets.xcassets */,
@@ -327,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C7CC2820799B8600104555 /* AchievementsViewController.swift in Sources */,
 				0456C1ED20432DCE00647657 /* GameScene.swift in Sources */,
 				04C7CC222077D0C600104555 /* AchievementDataHelper.swift in Sources */,
 				04C7CC242077E99A00104555 /* UserAchievementsHelper.swift in Sources */,

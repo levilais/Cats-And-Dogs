@@ -14,6 +14,7 @@ class HomeScene: SKScene {
     var bgImage: SKSpriteNode?
     var homePlaybutton: SKSpriteNode?
     var settingsButton: SKSpriteNode?
+    var achievementsButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
         
@@ -43,6 +44,11 @@ class HomeScene: SKScene {
         settingsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (settingsButton?.position)!)
         settingsButton?.position = Utilities().shiftDown(view: view, currentPosition: (settingsButton?.position)!)
         Utilities().resizespriteNode(spriteNode: settingsButton!, view: view)
+        
+        achievementsButton = childNode(withName: "achievementsButton") as? SKSpriteNode
+        achievementsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (achievementsButton?.position)!)
+        achievementsButton?.position = Utilities().shiftDown(view: view, currentPosition: (achievementsButton?.position)!)
+        Utilities().resizespriteNode(spriteNode: achievementsButton!, view: view)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,6 +65,8 @@ class HomeScene: SKScene {
                             view.presentScene(gameScene)
                         }
                     }
+                case "achievementsButton":
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
                 case "settingsButton":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:
