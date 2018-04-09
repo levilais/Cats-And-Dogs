@@ -91,6 +91,31 @@ class Utilities {
         settingsLabel.position = CGPoint(x: 0, y: scene.frame.height / 2)
         scene.addChild(settingsLabel)
     }
+    
+    func showCustomPopup(presentingVC: UIViewController) {
+        let popupVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupViewControllerID") as! PopUpViewController
+        presentingVC.addChildViewController(popupVC)
+        let frame = CGRect(x: presentingVC.view.frame.minX, y: presentingVC.view.frame.minY, width: presentingVC.view.frame.width, height: (presentingVC.view.frame.height + presentingVC.view.safeAreaInsets.bottom))
+        popupVC.view.frame = frame
+        presentingVC.view.addSubview(popupVC.view)
+        popupVC.didMove(toParentViewController: presentingVC)
+        popupVC.popupBackground.alpha = 1.0
+        
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseIn], animations: {
+            popupVC.displayView.alpha = 1.0
+            popupVC.displayView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        })
+    }
+    
+    func dismissViewController(viewController: UIViewController) {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseIn], animations: {
+            viewController.view.alpha = 0
+            
+        }, completion: { (completed) in
+            viewController.view.removeFromSuperview()
+        })
+
+    }
 }
 
 public extension Double {

@@ -18,6 +18,8 @@ class AchievementsViewController: UIViewController {
     @IBOutlet var achievementButtons: [UIButton]!
     @IBOutlet var achievementLabels: [UILabel]!
     
+    var viewLaidOut = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,12 +27,16 @@ class AchievementsViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
+        if !viewLaidOut {
+            backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
+            viewLaidOut = true
+        }
     }
     
     @IBAction func achievementButtonDidPress(_ sender: Any) {
         let button = sender as! UIButton
         print("\(button.tag) button")
+        Utilities().showCustomPopup(presentingVC: self)
     }
     
     @IBAction func bronzeToggleDidPress(_ sender: Any) {

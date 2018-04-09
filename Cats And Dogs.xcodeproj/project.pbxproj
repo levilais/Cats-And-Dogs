@@ -27,6 +27,7 @@
 		0428225420617F4600097D34 /* ScoreStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428225320617F4600097D34 /* ScoreStatsViewController.swift */; };
 		0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */; };
 		0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */; };
+		04498630207AD2C90047F46E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449862F207AD2C90047F46E /* PopUpViewController.swift */; };
 		0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456C1E620432DCE00647657 /* AppDelegate.swift */; };
 		0456C1E920432DCE00647657 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1E820432DCE00647657 /* GameScene.sks */; };
 		0456C1EB20432DCE00647657 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0456C1EA20432DCE00647657 /* Actions.sks */; };
@@ -78,6 +79,7 @@
 		0428225320617F4600097D34 /* ScoreStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStatsViewController.swift; sourceTree = "<group>"; };
 		0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatsAndDogsModel.xcdatamodel; sourceTree = "<group>"; };
 		0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		0449862F207AD2C90047F46E /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		0456C1E320432DCE00647657 /* Cats And Dogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cats And Dogs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0456C1E620432DCE00647657 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0456C1E820432DCE00647657 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				0491EB22205711A7004994C4 /* EnterNameViewController.swift */,
 				04C7CC2720799B8600104555 /* AchievementsViewController.swift */,
 				049895262050A1C2005B494D /* MailViewController.swift */,
+				0449862F207AD2C90047F46E /* PopUpViewController.swift */,
 				0456C1F020432DCE00647657 /* Main.storyboard */,
 				0456C1F320432DD000647657 /* Assets.xcassets */,
 				0456C1F520432DD000647657 /* LaunchScreen.storyboard */,
@@ -353,6 +356,7 @@
 				04664585204DC7C70090055C /* HighScoreTableViewCell.swift in Sources */,
 				04F96974206FFBFB00DD5DC1 /* GameEnvironment.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
+				04498630207AD2C90047F46E /* PopUpViewController.swift in Sources */,
 				0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */,
 				0457A7DF206EB48900B4C418 /* UserPrefs.swift in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,
