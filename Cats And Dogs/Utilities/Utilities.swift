@@ -115,14 +115,19 @@ class Utilities {
             print("error")
         }
         
-        popupVC.titleLabel.text = "\(achievementLevel.kmFormatted)" + " " + achievement.textTag
-        
-        if let number = achievementLevel as? NSNumber {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            if let numberString = numberFormatter.string(from: number) {
-                popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + numberString + " " +  achievement.detailDescriptionEnd
+        if buttonTag != 7 {
+            popupVC.titleLabel.text = "\(achievementLevel.kmFormatted)" + " " + achievement.textTag
+            
+            if let number = achievementLevel as? NSNumber {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                if let numberString = numberFormatter.string(from: number) {
+                    popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + numberString + " " +  achievement.detailDescriptionEnd
+                }
             }
+        } else {
+            popupVC.titleLabel.text = "\((Int(achievementLevel / 60)))" + " " + achievement.textTag
+            popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + "\((Int(achievementLevel / 60)))" + " " +  achievement.detailDescriptionEnd
         }
 
         popupVC.popupBackground.alpha = 1.0

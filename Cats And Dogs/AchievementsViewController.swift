@@ -56,7 +56,12 @@ class AchievementsViewController: UIViewController {
                 print("error")
             }
             label.textColor = achievementColor
-            label.text = "\(achievementLevel.kmFormatted)" + " " + achievement.textTag
+            
+            if label.tag != 7 {
+                label.text = "\(achievementLevel.kmFormatted)" + " " + achievement.textTag
+            } else {
+                label.text = "\((Int(achievementLevel / 60)))" + " " + achievement.textTag
+            }
         }
     }
     
