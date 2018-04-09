@@ -26,8 +26,8 @@ class AchievementDataHelper {
     
     static let achievements = [
         "pointGoal": [
-            "detailDescriptionBeginning": "To earn this achievement, you will need to spell DOG and CAT",
-            "detailDescriptionEnd": "times in a row.",
+            "detailDescriptionBeginning": "To earn this achievement, you will need to score",
+            "detailDescriptionEnd": "points.",
             "bronzeGoal": 7000000.0,
             "silverGoal": 10000000.0,
             "goldGoal": 25000000.0,
@@ -44,9 +44,9 @@ class AchievementDataHelper {
         "zeroToOneHundredGoal": [
             "detailDescriptionBeginning": "To earn this achievement, you will need see your miss meter drop to",
             "detailDescriptionEnd": "and then bring it all the way back to full (100)",
-            "bronzeGoal": 40.0,
-            "silverGoal": 70.0,
-            "goldGoal": 90.0,
+            "bronzeGoal": 60.0,
+            "silverGoal": 30.0,
+            "goldGoal": 10.0,
             "textTag": "To 100"
         ],
         "skipsGoal": [

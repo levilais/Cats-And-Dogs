@@ -14,7 +14,7 @@ class UserPrefs {
     static var rainAllowed = true
     static var soundFxAllowed = true
     
-    static var currentAchievementLevel = 0
+    static var currentAchievementLevel = 1
     static var achievementLevelUpTriggered = false
     
     func updateLoadCount() {
