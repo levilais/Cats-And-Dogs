@@ -55,6 +55,7 @@ class AchievementsViewController: UIViewController {
             default:
                 print("error")
             }
+            
             label.textColor = achievementColor
             
             if label.tag != 7 {
@@ -62,6 +63,24 @@ class AchievementsViewController: UIViewController {
             } else {
                 label.text = "\((Int(achievementLevel / 60)))" + " " + achievement.textTag
             }
+        }
+        
+        
+        let currentUserAchievements = UserAchievementsObject().currentUserAchievementsObject()
+        
+        print("achievementLevelShowing: \(achievementLevelShowing)")
+        let achievementsEarned = UserAchievementsObject().achievementsEarnedAtCurrentLevel(userAchievements: currentUserAchievements, atLevel: achievementLevelShowing)
+        print("achievements earned count: \(achievementsEarned.count)")
+        
+        for button in self.achievementButtons {
+            var nameString = Achievement().achievementNameFromInt(tag: button.tag)
+            if achievementsEarned.contains(button.tag) {
+                print("achievement earned")
+                nameString += String(achievementLevelShowing + 1)
+            } else {
+                nameString += String(0)
+            }
+             button.setBackgroundImage(UIImage(named: nameString), for: .normal)
         }
     }
     

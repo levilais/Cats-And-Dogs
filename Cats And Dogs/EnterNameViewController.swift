@@ -11,6 +11,7 @@ import UIKit
 class EnterNameViewController: UIViewController, UITextFieldDelegate {
     
     var highScoreToUpdateNameOn = HighScore()
+    var viewInitiallyLoaded = false
 
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
@@ -23,7 +24,10 @@ class EnterNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
+        if !viewInitiallyLoaded {
+            backgroundBottomLayout.constant -= (self.view.safeAreaInsets.bottom)
+            viewInitiallyLoaded = true
+        }
     }
 
     @IBAction func xButtonDidPress(_ sender: Any) {

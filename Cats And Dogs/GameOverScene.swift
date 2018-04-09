@@ -109,9 +109,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         score.identifier = UUID().uuidString
         score.score = GameVariables.score
-        
         score.timestamp = Date()
-        
         score.level = GameVariables.currentLevel
         score.skippedLevelUps = GameVariables.skippedLevelUps
         score.longestStreak = GameVariables.longestStreak
@@ -124,6 +122,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         GameVariables.gameOverHighScore = score
         CoreDataHelper().saveHighScore(highScore: score)
+        
         let newAchievements = UserAchievementsObject().determineNewUserAchievements(score: score)
         UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievements)
         if UserPrefs.achievementLevelUpTriggered {

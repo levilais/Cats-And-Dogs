@@ -13,6 +13,7 @@ import CoreData
 class UserAchievementsHelper {
     
     func updateUserAchievements(newUserAchievements: UserAchievementsObject) {
+        print("userAchievementsHelper called")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAchievements")
@@ -106,21 +107,25 @@ class UserAchievementsHelper {
                     }
                 } else {
                     print("no objects found, saving first object")
-                    let managedObject = UserAchievements()
-                    managedObject.setValue((newUserAchievements.pointGoal), forKey: "pointGoal")
-                    managedObject.setValue((newUserAchievements.missesGoal), forKey: "missesGoal")
-                    managedObject.setValue((newUserAchievements.zeroToOneHundredGoal), forKey: "zeroToOneHundredGoal")
-                    managedObject.setValue((newUserAchievements.skipsGoal), forKey: "skipsGoal")
-                    managedObject.setValue((newUserAchievements.inARowGoal), forKey: "inARowGoal")
-                    managedObject.setValue((newUserAchievements.millionInMinutesGoal), forKey: "millionInMinutesGoal")
-                    managedObject.setValue((newUserAchievements.dropGoal), forKey: "dropGoal")
-                    managedObject.setValue((newUserAchievements.minutesOfTimeGoal), forKey: "minutesOfTimeGoal")
-                    managedObject.setValue((newUserAchievements.noComboGoal), forKey: "noComboGoal")
-                    managedObject.setValue((newUserAchievements.hitsGoal), forKey: "hitsGoal")
-                    do {
-                        try context.save()
-                    } catch {
-                        print("couldn't save")
+                    if let entity = NSEntityDescription.entity(forEntityName: "UserAchievements", in: context) {
+                        let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                        
+                        managedObject.setValue((newUserAchievements.pointGoal), forKey: "pointGoal")
+                        managedObject.setValue((newUserAchievements.missesGoal), forKey: "missesGoal")
+                        managedObject.setValue((newUserAchievements.zeroToOneHundredGoal), forKey: "zeroToOneHundredGoal")
+                        managedObject.setValue((newUserAchievements.skipsGoal), forKey: "skipsGoal")
+                        managedObject.setValue((newUserAchievements.inARowGoal), forKey: "inARowGoal")
+                        managedObject.setValue((newUserAchievements.millionInMinutesGoal), forKey: "millionInMinutesGoal")
+                        managedObject.setValue((newUserAchievements.dropGoal), forKey: "dropGoal")
+                        managedObject.setValue((newUserAchievements.minutesOfTimeGoal), forKey: "minutesOfTimeGoal")
+                        managedObject.setValue((newUserAchievements.noComboGoal), forKey: "noComboGoal")
+                        managedObject.setValue((newUserAchievements.hitsGoal), forKey: "hitsGoal")
+                        
+                        do {
+                            try context.save()
+                        } catch {
+                            print("couldn't save")
+                        }
                     }
                 }
             }
