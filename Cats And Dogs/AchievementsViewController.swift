@@ -36,7 +36,7 @@ class AchievementsViewController: UIViewController {
     @IBAction func achievementButtonDidPress(_ sender: Any) {
         let button = sender as! UIButton
         print("\(button.tag) button")
-        Utilities().showCustomPopup(presentingVC: self)
+        Utilities().showCustomPopup(buttonTag: button.tag, presentingVC: self)
     }
     
     @IBAction func bronzeToggleDidPress(_ sender: Any) {

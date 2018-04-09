@@ -92,15 +92,28 @@ class Utilities {
         scene.addChild(settingsLabel)
     }
     
-    func showCustomPopup(presentingVC: UIViewController) {
+    func showCustomPopup(buttonTag: Int, presentingVC: UIViewController) {
         let popupVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupViewControllerID") as! PopUpViewController
         presentingVC.addChildViewController(popupVC)
         let frame = CGRect(x: presentingVC.view.frame.minX, y: presentingVC.view.frame.minY, width: presentingVC.view.frame.width, height: (presentingVC.view.frame.height + presentingVC.view.safeAreaInsets.bottom))
         popupVC.view.frame = frame
         presentingVC.view.addSubview(popupVC.view)
         popupVC.didMove(toParentViewController: presentingVC)
-        popupVC.popupBackground.alpha = 1.0
         
+        let achievementName = Achievement().achievementNameFromInt(buttonTag: buttonTag)
+        let achievement = Achievement().achievementObjectFromString(achievementName: achievementName)
+        
+        popupVC.titleLabel.text = "\(achievement.bronzeGoal.kmFormatted)" + " " + achievement.textTag
+        
+        if let number = achievement.bronzeGoal as? NSNumber {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            if let numberString = numberFormatter.string(from: number) {
+                popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + numberString + " " +  achievement.detailDescriptionEnd
+            }
+        }
+
+        popupVC.popupBackground.alpha = 1.0
         UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseIn], animations: {
             popupVC.displayView.alpha = 1.0
             popupVC.displayView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -140,5 +153,17 @@ public extension CGFloat {
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
         let randomNumber: CGFloat = (arc4random_uniform(2) == 0) ? 1.0 : -1.0
         return randomNumber * (max - min) + min
+    }
+}
+
+extension Double {
+    var kmFormatted: String {
+        if self >= 1000, self <= 999999 {
+            return String(format: "%.1fK", locale: Locale.current,self/1000).replacingOccurrences(of: ".0", with: "")
+        }
+        if self > 999999 {
+            return String(format: "%.1fM", locale: Locale.current,self/1000000).replacingOccurrences(of: ".0", with: "")
+        }
+        return String(format: "%.0f", locale: Locale.current,self)
     }
 }

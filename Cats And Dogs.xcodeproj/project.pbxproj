@@ -25,6 +25,7 @@
 		04226AD3206DD27A00E5CF15 /* shake.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04226AD2206DD27A00E5CF15 /* shake.mp3 */; };
 		0428225220617F2B00097D34 /* ScoreStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428225120617F2B00097D34 /* ScoreStatsTableViewCell.swift */; };
 		0428225420617F4600097D34 /* ScoreStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428225320617F4600097D34 /* ScoreStatsViewController.swift */; };
+		0437D7FE207BBB3A000900C4 /* AchievementObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437D7FD207BBB3A000900C4 /* AchievementObject.swift */; };
 		0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0437E16F205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld */; };
 		0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */; };
 		04498630207AD2C90047F46E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449862F207AD2C90047F46E /* PopUpViewController.swift */; };
@@ -77,6 +78,7 @@
 		04226AD2206DD27A00E5CF15 /* shake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake.mp3; sourceTree = "<group>"; };
 		0428225120617F2B00097D34 /* ScoreStatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStatsTableViewCell.swift; sourceTree = "<group>"; };
 		0428225320617F4600097D34 /* ScoreStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreStatsViewController.swift; sourceTree = "<group>"; };
+		0437D7FD207BBB3A000900C4 /* AchievementObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementObject.swift; sourceTree = "<group>"; };
 		0437E170205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatsAndDogsModel.xcdatamodel; sourceTree = "<group>"; };
 		0437E172205DAE6300BC3BEC /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		0449862F207AD2C90047F46E /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				0457A7DE206EB48900B4C418 /* UserPrefs.swift */,
 				04C7CC252077EB8200104555 /* UserAchievementsObject.swift */,
 				04C7CC232077E99A00104555 /* UserAchievementsHelper.swift */,
+				0437D7FD207BBB3A000900C4 /* AchievementObject.swift */,
 			);
 			path = CustomObjects;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				04C7CC242077E99A00104555 /* UserAchievementsHelper.swift in Sources */,
 				0428225220617F2B00097D34 /* ScoreStatsTableViewCell.swift in Sources */,
 				04226AC1206D94AB00E5CF15 /* GameAudio.swift in Sources */,
+				0437D7FE207BBB3A000900C4 /* AchievementObject.swift in Sources */,
 				04C7CC262077EB8200104555 /* UserAchievementsObject.swift in Sources */,
 				04664581204DC7070090055C /* ToggleTableViewCell.swift in Sources */,
 				04F01BF320449254002C57F6 /* GameVariables.swift in Sources */,
