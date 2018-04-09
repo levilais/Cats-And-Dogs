@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AV" translatesAutoresizingMaskIntoConstraints="NO" id="JeK-dW-zIR">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                                <rect key="frame" x="87" y="243.5" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="OCt-yK-2tq"/>
                                     <constraint firstAttribute="height" constant="200" id="gRg-OA-eGc"/>
@@ -28,7 +28,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.14117647058823529" blue="0.20784313725490197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="JeK-dW-zIR" secondAttribute="top" constant="-213" id="V2D-0s-qad"/>
+                            <constraint firstItem="JeK-dW-zIR" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Cgv-yk-aOS"/>
                             <constraint firstItem="JeK-dW-zIR" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="u9U-82-QTi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

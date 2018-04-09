@@ -101,7 +101,7 @@ class Utilities {
         popupVC.didMove(toParentViewController: presentingVC)
         popupVC.popupBackground.alpha = 1.0
         
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseIn], animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseIn], animations: {
             popupVC.displayView.alpha = 1.0
             popupVC.displayView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         })
