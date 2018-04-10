@@ -127,6 +127,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         let newAchievements = UserAchievementsObject().determineNewUserAchievements(score: score)
         UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievements)
+        
         if UserPrefs.achievementLevelUpTriggered {
             UserPrefs.achievementLevelUpTriggered = false
             let newAchievementsRoundTwo = UserAchievementsObject().determineNewUserAchievements(score: score)

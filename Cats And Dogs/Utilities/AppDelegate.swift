@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         CoreDataHelper().setLastNameUsed()
         UserPrefs().getUserPrefs()
+        //      FOR TESTING:  UserPrefs.currentAchievementLevel = 1
         
         GameAudio().setupAudioPlayers()
         

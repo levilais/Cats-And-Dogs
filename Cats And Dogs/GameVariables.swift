@@ -50,19 +50,14 @@ class GameVariables {
     static var mostMissesWithOneHundredHit: Double = 100
     
     func determineZeroToOneHundred() {
-        print("GameVariables.mostMissesTracker before: \(GameVariables.mostMissesTracker)")
-        print("GameVariables.missesLeft: \(GameVariables.missesLeft)")
         if Double(GameVariables.missesLeft) < GameVariables.mostMissesTracker {
             GameVariables.mostMissesTracker = Double(GameVariables.missesLeft)
             GameVariables.waitingForOneHundred = true
         }
-        print("GameVariables.mostMissesTracker after: \(GameVariables.mostMissesTracker)")
         if GameVariables.missesLeft == 100 {
-            print("made it back to one hundred")
             if GameVariables.waitingForOneHundred == true {
                 if GameVariables.mostMissesTracker < GameVariables.mostMissesWithOneHundredHit {
                     GameVariables.mostMissesWithOneHundredHit = GameVariables.mostMissesTracker
-                    print("most misses while making it back: \(GameVariables.mostMissesWithOneHundredHit)")
                 }
                 GameVariables.mostMissesTracker = GameControls.mostMissesTracker
                 GameVariables.waitingForOneHundred = GameControls.waitingForOneHundred

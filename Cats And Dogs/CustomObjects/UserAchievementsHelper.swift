@@ -13,15 +13,12 @@ import CoreData
 class UserAchievementsHelper {
     
     func updateUserAchievements(newUserAchievements: UserAchievementsObject) {
-        print("userAchievementsHelper called")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAchievements")
         do {
             if let results = try context.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count != 0 {
-                    print("\(results.count) achievement objects found")
-                    
                     var accomplishedGoalCount = 0
                     
                     if let managedObject = results[0] as? UserAchievements {
@@ -35,6 +32,7 @@ class UserAchievementsHelper {
                         if managedObject.missesGoal < newUserAchievements.missesGoal {
                             managedObject.setValue((newUserAchievements.missesGoal), forKey: "missesGoal")
                         }
+                        
                         if newUserAchievements.missesGoal == UserPrefs.currentAchievementLevel + 1 {
                             accomplishedGoalCount += 1
                         }
@@ -42,6 +40,7 @@ class UserAchievementsHelper {
                         if managedObject.zeroToOneHundredGoal < newUserAchievements.zeroToOneHundredGoal {
                             managedObject.setValue((newUserAchievements.zeroToOneHundredGoal), forKey: "zeroToOneHundredGoal")
                         }
+                        
                         if newUserAchievements.zeroToOneHundredGoal == UserPrefs.currentAchievementLevel + 1 {
                             accomplishedGoalCount += 1
                         }
@@ -100,13 +99,13 @@ class UserAchievementsHelper {
                         } catch {
                             print("couldn't save")
                         }
+                        
                         if accomplishedGoalCount == 10 {
                             UserPrefs().updateCurrentAchievementLevel()
                             UserPrefs.achievementLevelUpTriggered = true
                         }
                     }
                 } else {
-                    print("no objects found, saving first object")
                     if let entity = NSEntityDescription.entity(forEntityName: "UserAchievements", in: context) {
                         let managedObject = NSManagedObject(entity: entity, insertInto: context)
                         

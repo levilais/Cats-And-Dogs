@@ -68,14 +68,11 @@ class AchievementsViewController: UIViewController {
         
         let currentUserAchievements = UserAchievementsObject().currentUserAchievementsObject()
         
-        print("achievementLevelShowing: \(achievementLevelShowing)")
         let achievementsEarned = UserAchievementsObject().achievementsEarnedAtCurrentLevel(userAchievements: currentUserAchievements, atLevel: achievementLevelShowing)
-        print("achievements earned count: \(achievementsEarned.count)")
         
         for button in self.achievementButtons {
             var nameString = Achievement().achievementNameFromInt(tag: button.tag)
             if achievementsEarned.contains(button.tag) {
-                print("achievement earned")
                 nameString += String(achievementLevelShowing + 1)
             } else {
                 nameString += String(0)
@@ -91,19 +88,16 @@ class AchievementsViewController: UIViewController {
     }
     
     @IBAction func bronzeToggleDidPress(_ sender: Any) {
-        print("bronze toggle pressed")
         achievementLevelShowing = 0
         setupAchievementsForLevelShowing()
     }
     
     @IBAction func silverToggleDidPress(_ sender: Any) {
-        print("silver toggle pressed")
         achievementLevelShowing = 1
         setupAchievementsForLevelShowing()
     }
     
     @IBAction func goldToggleDidPress(_ sender: Any) {
-        print("gold toggle pressed")
         achievementLevelShowing = 2
         setupAchievementsForLevelShowing()
     }

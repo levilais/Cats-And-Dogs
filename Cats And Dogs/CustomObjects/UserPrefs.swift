@@ -36,9 +36,14 @@ class UserPrefs {
     }
     
     func updateCurrentAchievementLevel() {
-        let defaults = UserDefaults.standard
-        let newLevel = UserPrefs.currentAchievementLevel + 1
-        defaults.set(newLevel, forKey: "currentAchievementLevel")
+        if UserPrefs.currentAchievementLevel < 2 {
+            let defaults = UserDefaults.standard
+            let newLevel = UserPrefs.currentAchievementLevel + 1
+            UserPrefs.currentAchievementLevel = newLevel
+            defaults.set(newLevel, forKey: "currentAchievementLevel")
+        } else {
+            print("Earned every achievement!")
+        }
     }
     
     func getUserPrefs() {
