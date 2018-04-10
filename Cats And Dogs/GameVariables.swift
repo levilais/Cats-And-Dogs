@@ -6,6 +6,12 @@
 //  Copyright © 2018 App Volks. All rights reserved.
 //
 
+
+
+// figure out how to do this - likey track the most misses on the miss meter in one variable, have a boolean switch to determine if 100 is reached again after dropping below 100 - do the math between the "most" and the 100 when 100 is reached again.  Compare the zeroToOneHundredGoal to the acheievement level value (40, 70, and 90) - have another boolean variable that goes to true when the difference exceeds the goal
+
+
+
 import Foundation
 import SpriteKit
 
@@ -29,9 +35,41 @@ class GameControls {
     // Atmosphere Controls
     static var rainFrequency: Double = 0.05
     static var rainSpeed: TimeInterval = 1.5
+    
+    // zeroToOneHundredGoal
+    static var mostMissesTracker: Double = 100
+    static var waitingForOneHundred = false
+    static var mostMissesWithOneHundredHit: Double = 100
 }
 
+
+
 class GameVariables {
+    static var mostMissesTracker: Double = 100
+    static var waitingForOneHundred = false
+    static var mostMissesWithOneHundredHit: Double = 100
+    
+    func determineZeroToOneHundred() {
+        print("GameVariables.mostMissesTracker before: \(GameVariables.mostMissesTracker)")
+        print("GameVariables.missesLeft: \(GameVariables.missesLeft)")
+        if Double(GameVariables.missesLeft) < GameVariables.mostMissesTracker {
+            GameVariables.mostMissesTracker = Double(GameVariables.missesLeft)
+            GameVariables.waitingForOneHundred = true
+        }
+        print("GameVariables.mostMissesTracker after: \(GameVariables.mostMissesTracker)")
+        if GameVariables.missesLeft == 100 {
+            print("made it back to one hundred")
+            if GameVariables.waitingForOneHundred == true {
+                if GameVariables.mostMissesTracker < GameVariables.mostMissesWithOneHundredHit {
+                    GameVariables.mostMissesWithOneHundredHit = GameVariables.mostMissesTracker
+                    print("most misses while making it back: \(GameVariables.mostMissesWithOneHundredHit)")
+                }
+                GameVariables.mostMissesTracker = GameControls.mostMissesTracker
+                GameVariables.waitingForOneHundred = GameControls.waitingForOneHundred
+            }
+        }
+    }
+    
     static var newAchievementsToDisplay = [String]()
     static var gameOverHighScore: HighScore?
     static var streak: String = ""
@@ -87,7 +125,6 @@ class GameVariables {
                 drop.speed = GameVariables.dropSpeed
             }
         }
-        
         GameVariables.levelMissPoints = -10
         GameVariables.currentLevel = GameVariables.currentLevel + 1
         GameVariables.singleLetterPoints += 100
@@ -128,6 +165,9 @@ class GameVariables {
         GameVariables.accuracy = 0
         GameVariables.combos = 0
         GameAudio.thunderAudioPlayer?.setVolume(0.4, fadeDuration: 1.0)
+        GameVariables.mostMissesTracker = GameControls.mostMissesTracker
+        GameVariables.mostMissesWithOneHundredHit = GameControls.mostMissesWithOneHundredHit
+        GameVariables.waitingForOneHundred = GameControls.waitingForOneHundred
     }
 }
 

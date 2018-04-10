@@ -100,6 +100,8 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     }
     
     func saveScore() {
+        print("most misses while still hitting one hundred at GameOver: \(GameVariables.mostMissesWithOneHundredHit)")
+        
         let score = HighScore()
         if GameVariables.lastNameUsed != "Tap Here To Sign" {
             score.playerName = GameVariables.lastNameUsed

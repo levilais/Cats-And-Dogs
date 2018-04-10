@@ -445,6 +445,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             GameVariables.missesLeft += valueToChange
+            GameVariables().determineZeroToOneHundred()
+            
             if let gaugeFillCheck = gaugeFill {
                 let currentY = gaugeFillCheck.frame.midY
                 let newHeight = (GameControls.missMeterLimit - GameVariables.missesLeft) * 4
@@ -727,7 +729,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 animateSplash(dropToSplash: drop)
                 animateDropScore(dropToScore: drop)
 
-                gameOver()
+//                gameOver()
             }
         }
     }

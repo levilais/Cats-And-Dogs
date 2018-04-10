@@ -131,7 +131,11 @@ class UserAchievementsObject {
             }
         }
         if let zeroToOneHundredGoal = AchievementDataHelper.achievements["zeroToOneHundredGoal"]![currentAchievementLevelString] as? Double {
-            // figure out how to do this - likey track the most misses on the miss meter in one variable, have a boolean switch to determine if 100 is reached again after dropping below 100 - do the math between the "most" and the 100 when 100 is reached again.  Compare the zeroToOneHundredGoal to the acheievement level value (40, 70, and 90) - have another boolean variable that goes to true when the difference exceeds the goal
+            if GameVariables.mostMissesWithOneHundredHit <= zeroToOneHundredGoal {
+                print("new zeroToOneHundredGoal Achieved")
+                newUserAchievementsObject.zeroToOneHundredGoal = currentAchievementLevel + 1
+                GameVariables.newAchievementsToDisplay.append("zeroToOneHundredGoal")
+            }
         }
         if let skipsGoal = AchievementDataHelper.achievements["skipsGoal"]![currentAchievementLevelString] as? Double {
             if Double(GameVariables.skippedLevelUps) >= skipsGoal {
