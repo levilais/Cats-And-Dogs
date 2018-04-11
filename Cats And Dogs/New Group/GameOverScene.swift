@@ -128,11 +128,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         let newAchievements = UserAchievementsObject().determineNewUserAchievements(score: score)
         UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievements)
-        
-        
-        // NOTICE - figure out how to add "Silver Level Unlocked" and "Gold Level Unlocked" achievement notificaitons when doing the notifications.
-        
-        print("GameVariables.newUserAchievemensToDisplay.count: \(GameVariables.newAchievementsToDisplay.count)")
         if GameVariables.newAchievementsToDisplay.count > 0 {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
         }

@@ -107,7 +107,7 @@ class NewUserAchievementNotificationObject {
         UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseIn], animations: {
             popupVC.popupBackground.alpha = 1.0
             popupVC.displayView.alpha = 1.0
-            popupVC.displayView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            popupVC.displayView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
         })
     }
     
@@ -116,10 +116,5 @@ class NewUserAchievementNotificationObject {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
         }
         viewController.view.removeFromSuperview()
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseIn], animations: {
-            viewController.view.alpha = 0
-        }, completion: { (completed) in
-            viewController.view.removeFromSuperview()
-        })
     }
 }

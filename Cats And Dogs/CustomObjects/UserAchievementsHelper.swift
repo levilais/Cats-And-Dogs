@@ -101,11 +101,12 @@ class UserAchievementsHelper {
                         }
                         
                         if accomplishedGoalCount == 10 {
-                            UserPrefs().updateCurrentAchievementLevel()
-                            
-                            let levelUpAchievement = NewUserAchievementNotificationObject()
-                            levelUpAchievement.isLevelUpNotification = true
-                            GameVariables.newAchievementsToDisplay.append(levelUpAchievement)
+                            if UserPrefs.currentAchievementLevel < 2 {
+                                UserPrefs().updateCurrentAchievementLevel()
+                                let levelUpAchievement = NewUserAchievementNotificationObject()
+                                levelUpAchievement.isLevelUpNotification = true
+                                GameVariables.newAchievementsToDisplay.append(levelUpAchievement)
+                            }
                         }
                     }
                 } else {
