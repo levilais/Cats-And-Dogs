@@ -167,6 +167,7 @@
                         <outlet property="tableView" destination="ipn-9j-OhX" id="PdT-FK-CNX"/>
                         <outlet property="tableViewBottomLayout" destination="Q20-VY-1xx" id="0TF-P4-wmE"/>
                         <segue destination="yhT-K3-zdZ" kind="presentation" identifier="settingsToScoreStatsSegue" modalTransitionStyle="flipHorizontal" id="fhn-Ih-ufT"/>
+                        <segue destination="2At-pB-242" kind="presentation" identifier="settingsToAchievements" modalTransitionStyle="flipHorizontal" id="c9G-u4-SyJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MY5-Yp-w9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -925,6 +926,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fhn-Ih-ufT"/>
-        <segue reference="c0f-F0-z8G"/>
+        <segue reference="c9G-u4-SyJ"/>
     </inferredMetricsTieBreakers>
 </document>

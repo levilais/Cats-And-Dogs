@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["SOUND OPTIONS","CONNECT","HIGH SCORES"]
+    let sectionHeaders = ["ACHIEVEMENTS","SOUND OPTIONS","CONNECT","HIGH SCORES"]
     let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
@@ -87,9 +87,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         var count = Int()
         if HighScoresClass.highScores.count > 0 {
-            count = 3
+            count = 4
         } else {
-            count = 2
+            count = 3
         }
         return count
     }
@@ -104,6 +104,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             if cell.isKind(of: DefaultTableViewCell.self) {
                 // perform segue if necessary
                 switch indexPath.row {
+                case 0:
+                    performSegue(withIdentifier: "settingsToAchievements", sender: self)
                 case 2:
                     SKStoreReviewController.requestReview()
                 case 3:
@@ -139,10 +141,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var rows = Int()
         switch section {
         case 0:
-            rows = 3
+            rows = 1
         case 1:
-            rows = 5
+            rows = 3
         case 2:
+            rows = 5
+        case 3:
             rows = HighScoresClass.highScores.count
         default:
             rows = 1
@@ -153,6 +157,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+            cell.isUserInteractionEnabled = true
+            cell.textLabel?.text = "View Achievements"
+            return cell
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
             cell.textLabel?.text = optionsTitles[indexPath.row]
             
@@ -185,7 +194,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 print("default called")
             }
             return cell
-        case 1:
+        case 2:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
@@ -215,7 +224,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 cell.isUserInteractionEnabled = true
                 return cell
             }
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
             let highScore = HighScoresClass.highScores[indexPath.row]
