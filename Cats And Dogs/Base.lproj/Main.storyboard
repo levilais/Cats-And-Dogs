@@ -221,7 +221,7 @@
                                             <constraint firstAttribute="width" constant="64" id="Z3K-xf-5f3"/>
                                             <constraint firstAttribute="height" constant="64" id="ckf-8J-SHE"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="silverLocked"/>
+                                        <state key="normal" backgroundImage="silverToggleLocked"/>
                                         <connections>
                                             <action selector="silverToggleDidPress:" destination="2At-pB-242" eventType="touchUpInside" id="c99-20-sp7"/>
                                         </connections>
@@ -232,7 +232,7 @@
                                             <constraint firstAttribute="height" constant="64" id="DzB-6s-zlA"/>
                                             <constraint firstAttribute="width" constant="64" id="ZHe-3J-AD6"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="goldLocked"/>
+                                        <state key="normal" backgroundImage="goldToggleLocked"/>
                                         <connections>
                                             <action selector="goldToggleDidPress:" destination="2At-pB-242" eventType="touchUpInside" id="FKG-Kd-eYG"/>
                                         </connections>
@@ -783,7 +783,7 @@
         <image name="background" width="828" height="1624"/>
         <image name="bronzeToggleSelected" width="128" height="128"/>
         <image name="dropGoal0" width="60" height="60"/>
-        <image name="goldLocked" width="128" height="128"/>
+        <image name="goldToggleLocked" width="128" height="128"/>
         <image name="hitsGoal0" width="60" height="60"/>
         <image name="inARowGoal0" width="60" height="60"/>
         <image name="millionInMinutesGoal0" width="60" height="60"/>
@@ -793,7 +793,7 @@
         <image name="pointGoal0" width="60" height="60"/>
         <image name="quitButton" width="128" height="128"/>
         <image name="quitIcon" width="120" height="120"/>
-        <image name="silverLocked" width="128" height="128"/>
+        <image name="silverToggleLocked" width="128" height="128"/>
         <image name="skipsGoal0" width="60" height="60"/>
         <image name="zeroToOneHundredGoal0" width="60" height="60"/>
     </resources>

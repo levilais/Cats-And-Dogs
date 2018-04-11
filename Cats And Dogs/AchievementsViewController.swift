@@ -79,6 +79,66 @@ class AchievementsViewController: UIViewController {
             }
              button.setBackgroundImage(UIImage(named: nameString), for: .normal)
         }
+        
+        updateToggleBackgrounds()
+    }
+    
+    func updateToggleBackgrounds() {
+        switch achievementLevelShowing {
+        case 0:
+            switch UserPrefs.currentAchievementLevel {
+            case 0:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleSelected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleLocked"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 1:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleSelected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleDeselected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 2:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleSelected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleDeselected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleDeselected"), for: .normal)
+            default:
+                print("error")
+            }
+        case 1:
+            switch UserPrefs.currentAchievementLevel {
+            case 0:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleLocked"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 1:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleSelected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 2:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleSelected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleDeselected"), for: .normal)
+            default:
+                print("error")
+            }
+        case 2:
+            switch UserPrefs.currentAchievementLevel {
+            case 0:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleLocked"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 1:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleDeselected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleLocked"), for: .normal)
+            case 2:
+                bronzeToggle.setBackgroundImage(UIImage(named: "bronzeToggleDeselected"), for: .normal)
+                silverToggle.setBackgroundImage(UIImage(named: "silverToggleDeselected"), for: .normal)
+                goldToggle.setBackgroundImage(UIImage(named: "goldToggleSelected"), for: .normal)
+            default:
+                print("error")
+            }
+        default:
+            print("error")
+        }
     }
     
     @IBAction func achievementButtonDidPress(_ sender: Any) {
