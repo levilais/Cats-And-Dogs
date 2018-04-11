@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     
     // Atmosphere
     var backgroundMusic = SKAudioNode()
+    var subviewsLaidOut = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,25 +23,26 @@ class GameViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(presentEnterNameViewController), name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentStatsViewController), name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentToAchievementController), name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentCustomPopup), name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
-        print("GameVariables.gameIsActive: \(GameVariables.gameIsActive)")
-        if !GameVariables.gameIsActive {
-            if let view = self.view as! SKView? {
-                print("viewWillLayoutSubviews called")
-                if let scene = SKScene(fileNamed: "HomeScene") {
-                    scene.scaleMode = .aspectFill
-                    view.presentScene(scene)
+        if !subviewsLaidOut {
+            if !GameVariables.gameIsActive {
+                if let view = self.view as! SKView? {
+                    if let scene = SKScene(fileNamed: "HomeScene") {
+                        scene.scaleMode = .aspectFill
+                        view.presentScene(scene)
+                    }
+                    view.ignoresSiblingOrder = true
                 }
-                view.ignoresSiblingOrder = true
             }
+            subviewsLaidOut = true
         }
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("prepare for segue called")
         if segue.identifier == "gameViewToScoreStatsSegue" {
             if let destinationVC = segue.destination as? ScoreStatsViewController {
                 destinationVC.isComingFromGameOverScene = true
@@ -57,7 +59,6 @@ class GameViewController: UIViewController {
     }
     
     @objc func presentView() {
-        print("called")
         self.performSegue(withIdentifier: "toMyController", sender: self)
     }
     
@@ -73,6 +74,15 @@ class GameViewController: UIViewController {
         self.performSegue(withIdentifier: "toAchievementController", sender: self)
     }
     
+    @objc func presentCustomPopup() {        
+        let newUserAchievementObject = NewUserAchievementNotificationObject()
+        newUserAchievementObject.achievementTitle = "25M Points"
+        newUserAchievementObject.image = UIImage(named: "pointGoal3")
+        newUserAchievementObject.textColor = UIColor.StyleFile.goldColor
+        
+        NewUserAchievementNotificationObject().showNewAchievementPopup(newUserAchievementNotification: newUserAchievementObject, presentingVC: self)
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }
@@ -83,11 +93,6 @@ class GameViewController: UIViewController {
         } else {
             return .all
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     override var prefersStatusBarHidden: Bool {

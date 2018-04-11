@@ -111,51 +111,6 @@ class Utilities {
         })
     }
     
-//    func showCustomPopup(achievementLevelShowing: Int, buttonTag: Int, presentingVC: UIViewController) {
-//        let popupVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popupViewControllerID") as! PopUpViewController
-//        presentingVC.addChildViewController(popupVC)
-//        let frame = CGRect(x: presentingVC.view.frame.minX, y: presentingVC.view.frame.minY, width: presentingVC.view.frame.width, height: (presentingVC.view.frame.height + presentingVC.view.safeAreaInsets.bottom))
-//        popupVC.view.frame = frame
-//        presentingVC.view.addSubview(popupVC.view)
-//        popupVC.didMove(toParentViewController: presentingVC)
-//
-//        let achievementName = Achievement().achievementNameFromInt(tag: buttonTag)
-//        let achievement = Achievement().achievementObjectFromString(achievementName: achievementName)
-//
-//        var achievementLevel = Double()
-//        switch achievementLevelShowing {
-//        case 0:
-//            achievementLevel = achievement.bronzeGoal
-//        case 1:
-//            achievementLevel = achievement.silverGoal
-//        case 2:
-//            achievementLevel = achievement.goldGoal
-//        default:
-//            print("error")
-//        }
-//
-//        if buttonTag != 7 {
-//            popupVC.titleLabel.text = "\(achievementLevel.kmFormatted)" + " " + achievement.textTag
-//
-//            if let number = achievementLevel as? NSNumber {
-//                let numberFormatter = NumberFormatter()
-//                numberFormatter.numberStyle = .decimal
-//                if let numberString = numberFormatter.string(from: number) {
-//                    popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + numberString + " " +  achievement.detailDescriptionEnd
-//                }
-//            }
-//        } else {
-//            popupVC.titleLabel.text = "\((Int(achievementLevel / 60)))" + " " + achievement.textTag
-//            popupVC.howToLabel.text = achievement.detailDescriptionBeginning + " " + "\((Int(achievementLevel / 60)))" + " " +  achievement.detailDescriptionEnd
-//        }
-//
-//        popupVC.popupBackground.alpha = 1.0
-//        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseIn], animations: {
-//            popupVC.displayView.alpha = 1.0
-//            popupVC.displayView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-//        })
-//    }
-    
     func dismissViewController(viewController: UIViewController) {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseIn], animations: {
             viewController.view.alpha = 0
