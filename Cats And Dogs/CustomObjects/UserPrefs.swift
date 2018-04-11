@@ -15,7 +15,7 @@ class UserPrefs {
     static var soundFxAllowed = true
     
     static var currentAchievementLevel = 0
-    static var achievementLevelUpTriggered = false
+//    static var achievementLevelUpTriggered = false
     
     func updateLoadCount() {
         let defaults = UserDefaults.standard

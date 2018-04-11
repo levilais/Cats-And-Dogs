@@ -102,7 +102,7 @@ class UserAchievementsHelper {
                         
                         if accomplishedGoalCount == 10 {
                             UserPrefs().updateCurrentAchievementLevel()
-                            UserPrefs.achievementLevelUpTriggered = true
+//                            UserPrefs.achievementLevelUpTriggered = true
                         }
                     }
                 } else {
