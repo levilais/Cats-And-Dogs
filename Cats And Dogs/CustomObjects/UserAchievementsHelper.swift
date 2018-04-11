@@ -106,6 +106,9 @@ class UserAchievementsHelper {
                                 let levelUpAchievement = NewUserAchievementNotificationObject()
                                 levelUpAchievement.isLevelUpNotification = true
                                 GameVariables.newAchievementsToDisplay.append(levelUpAchievement)
+                            } else {
+                                // YOU BEAT THE GAME!!!!
+                                print("You beat the game!!!!")
                             }
                         }
                     }

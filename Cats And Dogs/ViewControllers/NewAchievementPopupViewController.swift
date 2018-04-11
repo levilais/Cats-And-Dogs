@@ -27,6 +27,7 @@ class NewAchievementPopupViewController: UIViewController {
     
     @IBAction func achievementButtonDidPress(_ sender: Any) {
         print("achievement button did press")
+        performSegue(withIdentifier: "newAchievementPopupToAchievements", sender: self)
     }
 
     @IBAction func dismissDidPress(_ sender: Any) {

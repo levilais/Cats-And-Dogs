@@ -896,6 +896,7 @@
                         <outlet property="titleLabel1" destination="TYV-hy-IeZ" id="Cm2-2G-cNW"/>
                         <outlet property="titleLabel2" destination="oKE-iC-dKa" id="Ndy-RN-ZPj"/>
                         <outlet property="topContraint" destination="AKC-NZ-5LJ" id="R3C-ix-ciY"/>
+                        <segue destination="2At-pB-242" kind="presentation" identifier="newAchievementPopupToAchievements" modalTransitionStyle="flipHorizontal" id="c0f-F0-z8G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YG5-G9-HF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -924,5 +925,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fhn-Ih-ufT"/>
+        <segue reference="c0f-F0-z8G"/>
     </inferredMetricsTieBreakers>
 </document>
