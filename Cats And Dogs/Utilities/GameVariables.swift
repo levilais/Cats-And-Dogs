@@ -65,7 +65,9 @@ class GameVariables {
         }
     }
     
-    static var newAchievementsToDisplay = [String]()
+    static var newAchievementsToDisplay = [NewUserAchievementNotificationObject]()
+    static var achievementLevelUpTriggered = false
+    
     static var gameOverHighScore: HighScore?
     static var streak: String = ""
     static var streakCount: Int = 0
@@ -142,6 +144,7 @@ class GameVariables {
     }
     
     func resetGameVariables() {
+        GameVariables.achievementLevelUpTriggered = false
         GameVariables.newAchievementsToDisplay = []
         GameVariables.dropSpeed = GameControls.dropSpeed
         GameVariables.dropFrequency = GameControls.dropFrequency

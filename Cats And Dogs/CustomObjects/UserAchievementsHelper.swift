@@ -102,7 +102,10 @@ class UserAchievementsHelper {
                         
                         if accomplishedGoalCount == 10 {
                             UserPrefs().updateCurrentAchievementLevel()
-//                            UserPrefs.achievementLevelUpTriggered = true
+                            
+                            let levelUpAchievement = NewUserAchievementNotificationObject()
+                            levelUpAchievement.isLevelUpNotification = true
+                            GameVariables.newAchievementsToDisplay.append(levelUpAchievement)
                         }
                     }
                 } else {

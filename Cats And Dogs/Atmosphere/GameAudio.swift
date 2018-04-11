@@ -65,14 +65,14 @@ class GameAudio {
                     print(error.localizedDescription)
                 }
             }
-        }
-        if let thunderAudio = Bundle.main.url(forResource: "thunder", withExtension: "wav") {
-            do {
-                GameAudio.thunderAudioPlayer = try AVAudioPlayer(contentsOf: thunderAudio)
-                GameAudio.thunderAudioPlayer?.numberOfLoops = -1
-                GameAudio.thunderAudioPlayer?.volume = 0.4
-            } catch let error {
-                print(error.localizedDescription)
+            if let thunderAudio = Bundle.main.url(forResource: "thunder", withExtension: "wav") {
+                do {
+                    GameAudio.thunderAudioPlayer = try AVAudioPlayer(contentsOf: thunderAudio)
+                    GameAudio.thunderAudioPlayer?.numberOfLoops = -1
+                    GameAudio.thunderAudioPlayer?.volume = 0.4
+                } catch let error {
+                    print(error.localizedDescription)
+                }
             }
         }
     }

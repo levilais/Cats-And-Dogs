@@ -75,12 +75,11 @@ class GameViewController: UIViewController {
     }
     
     @objc func presentCustomPopup() {        
-        let newUserAchievementObject = NewUserAchievementNotificationObject()
-        newUserAchievementObject.achievementTitle = "25M Points"
-        newUserAchievementObject.image = UIImage(named: "pointGoal3")
-        newUserAchievementObject.textColor = UIColor.StyleFile.goldColor
-        
-        NewUserAchievementNotificationObject().showNewAchievementPopup(newUserAchievementNotification: newUserAchievementObject, presentingVC: self)
+//        let newUserAchievementObject = NewUserAchievementNotificationObject()
+//        newUserAchievementObject.achievementTitle = "25M Points"
+//        newUserAchievementObject.image = UIImage(named: "pointGoal3")
+//        newUserAchievementObject.textColor = UIColor.StyleFile.goldColor
+        NewUserAchievementNotificationObject().showNewAchievementPopup(presentingVC: self)
     }
     
     override var shouldAutorotate: Bool {

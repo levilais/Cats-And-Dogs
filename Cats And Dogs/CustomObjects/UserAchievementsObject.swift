@@ -105,7 +105,7 @@ class UserAchievementsObject {
         
         switch currentAchievementLevel {
         case 0:
-           currentAchievementLevelString = "bronzeGoal"
+            currentAchievementLevelString = "bronzeGoal"
         case 1:
             currentAchievementLevelString = "silverGoal"
         case 2:
@@ -122,7 +122,8 @@ class UserAchievementsObject {
             if let pointGoal = AchievementDataHelper.achievements["pointGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.score) >= pointGoal {
                     newUserAchievementsObject.pointGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("pointGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "pointGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -132,7 +133,8 @@ class UserAchievementsObject {
             if let missesGoal = AchievementDataHelper.achievements["missesGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.missedDrops) >= missesGoal {
                     newUserAchievementsObject.missesGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("missesGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "missesGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -142,7 +144,8 @@ class UserAchievementsObject {
             if let zeroToOneHundredGoal = AchievementDataHelper.achievements["zeroToOneHundredGoal"]![currentAchievementLevelString] as? Double {
                 if GameVariables.mostMissesWithOneHundredHit <= zeroToOneHundredGoal {
                     newUserAchievementsObject.zeroToOneHundredGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("zeroToOneHundredGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "zeroToOneHundredGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -152,7 +155,8 @@ class UserAchievementsObject {
             if let skipsGoal = AchievementDataHelper.achievements["skipsGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.skippedLevelUps) >= skipsGoal {
                     newUserAchievementsObject.skipsGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("skipsGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "skipsGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -162,7 +166,8 @@ class UserAchievementsObject {
             if let inARowGoal = AchievementDataHelper.achievements["inARowGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.longestStreak) >= inARowGoal {
                     newUserAchievementsObject.inARowGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("inARowGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "inARowGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -172,7 +177,8 @@ class UserAchievementsObject {
             if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.score) >= millionInMinutesGoal && Double(GameVariables.time) < 600 {
                     newUserAchievementsObject.millionInMinutesGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("millionInMinutesGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "millionInMinutesGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -182,7 +188,8 @@ class UserAchievementsObject {
             if let dropGoal = AchievementDataHelper.achievements["dropGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.bestDrop) >= dropGoal {
                     newUserAchievementsObject.dropGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("dropGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "dropGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -192,7 +199,8 @@ class UserAchievementsObject {
             if let minutesOfTimeGoal = AchievementDataHelper.achievements["minutesOfTimeGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.time) >= minutesOfTimeGoal {
                     newUserAchievementsObject.minutesOfTimeGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("minutesOfTimeGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "minutesOfTimeGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -202,7 +210,8 @@ class UserAchievementsObject {
             if let noComboGoal = AchievementDataHelper.achievements["noComboGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.score) >= noComboGoal && Double(GameVariables.combos) == 0 {
                     newUserAchievementsObject.noComboGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("noComboGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "noComboGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
@@ -212,11 +221,133 @@ class UserAchievementsObject {
             if let hitsGoal = AchievementDataHelper.achievements["hitsGoal"]![currentAchievementLevelString] as? Double {
                 if Double(GameVariables.poppedDrops) >= hitsGoal {
                     newUserAchievementsObject.hitsGoal = currentAchievementLevel + 1
-                    GameVariables.newAchievementsToDisplay.append("hitsGoal")
+                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "hitsGoal")
+                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
             }
         }
         
         return newUserAchievementsObject
     }
+    
+//    func determineNewUserAchievements(score: HighScore) -> UserAchievementsObject {
+//        let currentAchievementLevel = UserPrefs.currentAchievementLevel
+//        var currentAchievementLevelString = String()
+//
+//        switch currentAchievementLevel {
+//        case 0:
+//           currentAchievementLevelString = "bronzeGoal"
+//        case 1:
+//            currentAchievementLevelString = "silverGoal"
+//        case 2:
+//            currentAchievementLevelString = "goldGoal"
+//        default:
+//            print("something went wrong determining the currentAchievementLevel")
+//        }
+//
+//        let oldUserAchievementsObject = UserAchievementsObject().currentUserAchievementsObject()
+//        let newUserAchievementsObject = UserAchievementsObject()
+//
+//        newUserAchievementsObject.pointGoal = oldUserAchievementsObject.pointGoal
+//        if oldUserAchievementsObject.pointGoal == currentAchievementLevel {
+//            if let pointGoal = AchievementDataHelper.achievements["pointGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.score) >= pointGoal {
+//                    newUserAchievementsObject.pointGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("pointGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.missesGoal = oldUserAchievementsObject.missesGoal
+//        if oldUserAchievementsObject.missesGoal == currentAchievementLevel {
+//            if let missesGoal = AchievementDataHelper.achievements["missesGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.missedDrops) >= missesGoal {
+//                    newUserAchievementsObject.missesGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("missesGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.zeroToOneHundredGoal = oldUserAchievementsObject.zeroToOneHundredGoal
+//        if oldUserAchievementsObject.zeroToOneHundredGoal == currentAchievementLevel {
+//            if let zeroToOneHundredGoal = AchievementDataHelper.achievements["zeroToOneHundredGoal"]![currentAchievementLevelString] as? Double {
+//                if GameVariables.mostMissesWithOneHundredHit <= zeroToOneHundredGoal {
+//                    newUserAchievementsObject.zeroToOneHundredGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("zeroToOneHundredGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.skipsGoal = oldUserAchievementsObject.skipsGoal
+//        if oldUserAchievementsObject.skipsGoal == currentAchievementLevel {
+//            if let skipsGoal = AchievementDataHelper.achievements["skipsGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.skippedLevelUps) >= skipsGoal {
+//                    newUserAchievementsObject.skipsGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("skipsGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.inARowGoal = oldUserAchievementsObject.inARowGoal
+//        if oldUserAchievementsObject.inARowGoal == currentAchievementLevel {
+//            if let inARowGoal = AchievementDataHelper.achievements["inARowGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.longestStreak) >= inARowGoal {
+//                    newUserAchievementsObject.inARowGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("inARowGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.millionInMinutesGoal = oldUserAchievementsObject.millionInMinutesGoal
+//        if oldUserAchievementsObject.millionInMinutesGoal == currentAchievementLevel {
+//            if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.score) >= millionInMinutesGoal && Double(GameVariables.time) < 600 {
+//                    newUserAchievementsObject.millionInMinutesGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("millionInMinutesGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.dropGoal = oldUserAchievementsObject.dropGoal
+//        if oldUserAchievementsObject.dropGoal == currentAchievementLevel {
+//            if let dropGoal = AchievementDataHelper.achievements["dropGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.bestDrop) >= dropGoal {
+//                    newUserAchievementsObject.dropGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("dropGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.minutesOfTimeGoal = oldUserAchievementsObject.minutesOfTimeGoal
+//        if oldUserAchievementsObject.minutesOfTimeGoal == currentAchievementLevel {
+//            if let minutesOfTimeGoal = AchievementDataHelper.achievements["minutesOfTimeGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.time) >= minutesOfTimeGoal {
+//                    newUserAchievementsObject.minutesOfTimeGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("minutesOfTimeGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.noComboGoal = oldUserAchievementsObject.noComboGoal
+//        if oldUserAchievementsObject.noComboGoal == currentAchievementLevel {
+//            if let noComboGoal = AchievementDataHelper.achievements["noComboGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.score) >= noComboGoal && Double(GameVariables.combos) == 0 {
+//                    newUserAchievementsObject.noComboGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("noComboGoal")
+//                }
+//            }
+//        }
+//
+//        newUserAchievementsObject.hitsGoal = oldUserAchievementsObject.hitsGoal
+//        if oldUserAchievementsObject.hitsGoal == currentAchievementLevel {
+//            if let hitsGoal = AchievementDataHelper.achievements["hitsGoal"]![currentAchievementLevelString] as? Double {
+//                if Double(GameVariables.poppedDrops) >= hitsGoal {
+//                    newUserAchievementsObject.hitsGoal = currentAchievementLevel + 1
+//                    GameVariables.newAchievementsToDisplay.append("hitsGoal")
+//                }
+//            }
+//        }
+//
+//        return newUserAchievementsObject
+//    }
 }

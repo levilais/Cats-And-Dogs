@@ -129,7 +129,7 @@ class AchievementDataHelper {
 //        ],
 //        "zeroToOneHundredGoal": [
 //            "detailDescriptionBeginning": "To earn this achievement, you will need see your miss meter drop to",
-//            "detailDescriptionEnd": "and then bring it all the way back to full (100)",
+//            "detailDescriptionEnd": "and then fill it all the way back to 100",
 //            "bronzeGoal": 60.0,
 //            "silverGoal": 30.0,
 //            "goldGoal": 10.0,

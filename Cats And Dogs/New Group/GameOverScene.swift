@@ -51,8 +51,7 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         }
         getScoreRank()
         saveScore()
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
+        print("did move to called")
     }
     
     func getScoreRank() {
@@ -133,12 +132,10 @@ class GameOverScene: SKScene, UITextFieldDelegate {
         
         // NOTICE - figure out how to add "Silver Level Unlocked" and "Gold Level Unlocked" achievement notificaitons when doing the notifications.
         
-        
-//        if UserPrefs.achievementLevelUpTriggered {
-//            UserPrefs.achievementLevelUpTriggered = false
-//            let newAchievementsRoundTwo = UserAchievementsObject().determineNewUserAchievements(score: score)
-//            UserAchievementsHelper().updateUserAchievements(newUserAchievements: newAchievementsRoundTwo)
-//        }
+        print("GameVariables.newUserAchievemensToDisplay.count: \(GameVariables.newAchievementsToDisplay.count)")
+        if GameVariables.newAchievementsToDisplay.count > 0 {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
+        }
     }
     
     @objc func lastNameChangedSetLabel() {

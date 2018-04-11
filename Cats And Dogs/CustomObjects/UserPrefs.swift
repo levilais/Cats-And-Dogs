@@ -15,7 +15,7 @@ class UserPrefs {
     static var soundFxAllowed = true
     
     static var currentAchievementLevel = 0
-//    static var achievementLevelUpTriggered = false
+    static var achievementLevelUpTriggered = false
     
     func updateLoadCount() {
         let defaults = UserDefaults.standard
@@ -40,6 +40,7 @@ class UserPrefs {
             let defaults = UserDefaults.standard
             let newLevel = UserPrefs.currentAchievementLevel + 1
             UserPrefs.currentAchievementLevel = newLevel
+            GameVariables.achievementLevelUpTriggered = true
             defaults.set(newLevel, forKey: "currentAchievementLevel")
         } else {
             print("Earned every achievement!")

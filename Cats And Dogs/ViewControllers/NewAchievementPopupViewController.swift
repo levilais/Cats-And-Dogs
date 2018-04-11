@@ -10,6 +10,7 @@ import UIKit
 
 class NewAchievementPopupViewController: UIViewController {
 
+    @IBOutlet weak var buttonImageView: UIImageView!
     @IBOutlet weak var titleLabel1: UILabel!
     @IBOutlet weak var titleLabel2: UILabel!
     @IBOutlet weak var achievementTitleLabel: UILabel!

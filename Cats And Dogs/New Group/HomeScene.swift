@@ -21,11 +21,13 @@ class HomeScene: SKScene {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        if let rainAudioPlayer = GameAudio.rainAudioPlayer {
-            rainAudioPlayer.play()
-        }
-        if let thunderAudioPlayer = GameAudio.thunderAudioPlayer {
-            thunderAudioPlayer.play()
+        if UserPrefs.rainAllowed {
+            if let rainAudioPlayer = GameAudio.rainAudioPlayer {
+                rainAudioPlayer.play()
+            }
+            if let thunderAudioPlayer = GameAudio.thunderAudioPlayer {
+                thunderAudioPlayer.play()
+            }
         }
     
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode

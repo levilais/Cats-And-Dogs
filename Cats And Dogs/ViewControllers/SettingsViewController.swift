@@ -267,6 +267,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 if let rainPlayer = GameAudio.rainAudioPlayer {
                     rainPlayer.stop()
                 }
+                if let thunderPlayer = GameAudio.thunderAudioPlayer {
+                    thunderPlayer.stop()
+                }
             } else {
                 UserPrefs.rainAllowed = true
                 if let rainPlayer = GameAudio.rainAudioPlayer {
