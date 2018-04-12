@@ -258,4 +258,32 @@ class DropFunctions {
         
         return drop
     }
+    
+    func computeScore(drop: Drop) -> Drop {
+        var newPoints = Int()
+        
+        if drop.type != "levelDrop" {
+            if drop.isComboDrop {
+                newPoints = GameVariables.comboPoints * GameVariables.multiplier
+            } else {
+                newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
+            }
+        } else {
+            newPoints = GameVariables.singleLetterPoints * 10
+        }
+        
+        drop.scorePoints = newPoints
+        GameVariables.score += newPoints
+        if newPoints > GameVariables.bestDrop {
+            GameVariables.bestDrop = newPoints
+        }
+        
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+//        if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
+//            scoreLabel?.text = formattedNumber
+//        }
+        
+        return drop
+    }
 }

@@ -43,9 +43,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let introLabelTextures = [SKTexture(imageNamed: "popThoseDrops0"), SKTexture(imageNamed: "popThoseDrops1"), SKTexture(imageNamed: "popThoseDrops2")]
     
     // Game Variables
-//    var isCombo = false
-//    var lastDropXValue: CGFloat?
-//    var lastDropYValue: CGFloat?
     var startGameCalled = false
     
     // Physics World Categories
@@ -226,9 +223,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             GameAudio().soundChime()
                         }
                         GameAudio().soundPop()
-                        drop = computeScore(drop: drop)
+                        drop = DropFunctions().computeScore(drop: drop)
+                        updateScoreLabel()
                         DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                         DropFunctions().animateDropScore(dropToScore: drop, scene: self)
+                        
+                        
                     }
                 case "pauseButton":
                     pauseGame()
@@ -282,34 +282,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         return determinedDrop
     }
-
-    func computeScore(drop: Drop) -> Drop {
-        var newPoints = Int()
-        
-        if drop.type != "levelDrop" {
-            if drop.isComboDrop {
-                newPoints = GameVariables.comboPoints * GameVariables.multiplier
-            } else {
-                newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
-            }
-        } else {
-            newPoints = GameVariables.singleLetterPoints * 10
-        }
-        
-        drop.scorePoints = newPoints
-        GameVariables.score += newPoints
-        if newPoints > GameVariables.bestDrop {
-            GameVariables.bestDrop = newPoints
-        }
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
-            scoreLabel?.text = formattedNumber
-        }
-        
-        return drop
-    }
     
     func createDrop() {
         var drop = Drop()
@@ -329,6 +301,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(drop)
         DropFunctions().moveDrop(drop: drop, scene: self, view: self.view!)
+    }
+    
+    func updateScoreLabel() {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
+            scoreLabel?.text = formattedNumber
+        }
     }
     
     func updateMissMeter(changeValue: Int) {
@@ -523,7 +503,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 drop.missPoints = -2
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
-//                animateDropScore(dropToScore: drop)
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
