@@ -17,6 +17,8 @@ class Drop: SKSpriteNode {
     var type: String!
     var scorePoints: Int?
     var missPoints: Int?
+    var isComboDrop = false
+    var streakString: String?
     var moveAnimation: SKAction!
     
     init() {
@@ -102,5 +104,158 @@ class DropFunctions {
             splash.removeFromParent()
         }
     }
-
+    
+    func animateDropScore(dropToScore: Drop, scene: SKScene) {
+        var missPointsExist = false
+        if let missPoints = dropToScore.missPoints {
+            if missPoints != 0 {
+                missPointsExist = true
+                let missMeterPointChangeLabel = SKLabelNode()
+                missMeterPointChangeLabel.name = "missMeterPointChangeLabel"
+                
+                missMeterPointChangeLabel.fontColor = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
+                missMeterPointChangeLabel.fontName = "Righteous-Regular"
+                missMeterPointChangeLabel.fontSize = 48
+                if let missPointsAmount = dropToScore.missPoints {
+                    if missPointsAmount == 5 {
+                        missMeterPointChangeLabel.text = "+\(missPointsAmount)"
+                    } else {
+                        missMeterPointChangeLabel.text = "\(missPointsAmount)"
+                    }
+                }
+                let y = dropToScore.position.y + 30
+                missMeterPointChangeLabel.position = CGPoint(x: dropToScore.position.x, y: y)
+                let fadeAction = SKAction.fadeOut(withDuration: 1)
+                let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
+                scene.addChild(missMeterPointChangeLabel)
+                missMeterPointChangeLabel.run(moveAction)
+                missMeterPointChangeLabel.run(fadeAction) {
+                    missMeterPointChangeLabel.removeFromParent()
+                }
+            }
+        }
+        
+        
+        let dropScoreLabel = SKLabelNode()
+        dropScoreLabel.name = "dropScoreLabel"
+        dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
+        dropScoreLabel.fontName = "Righteous-Regular"
+        dropScoreLabel.fontSize = 48
+        
+        var y = dropToScore.position.y + 30
+        if missPointsExist == true {
+            y += 50
+        }
+        
+        if let dropScore = dropToScore.scorePoints {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
+                dropScoreLabel.text = "+\(formattedNumber)"
+                
+                if dropToScore.type == "levelDrop" {
+                    let levelLabel = SKLabelNode()
+                    levelLabel.name = "levelLabel"
+                    levelLabel.fontColor = UIColor.StyleFile.Orange
+                    levelLabel.fontName = "Righteous-Regular"
+                    levelLabel.fontSize = 48
+                    levelLabel.text = "Level \(GameVariables.currentLevel)"
+                    let levelLabely = y + 60
+                    
+                    levelLabel.position = CGPoint(x: dropToScore.position.x, y: levelLabely)
+                    let fadeAction = SKAction.fadeOut(withDuration: 1)
+                    let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
+                    scene.addChild(levelLabel)
+                    levelLabel.run(moveAction)
+                    levelLabel.run(fadeAction) {
+                        levelLabel.removeFromParent()
+                    }
+                }
+            }
+        }
+        
+        dropScoreLabel.position = CGPoint(x: dropToScore.position.x, y: y)
+        let fadeAction = SKAction.fadeOut(withDuration: 1)
+        let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
+        scene.addChild(dropScoreLabel)
+        dropScoreLabel.run(moveAction)
+        dropScoreLabel.run(fadeAction) {
+            dropScoreLabel.removeFromParent()
+        }
+    }
+    
+    func determineStreak(drop: Drop, scene: SKScene) -> Drop {
+        var missMeterValueToChange = Int()
+        if let dropLetter = drop.type {
+            switch dropLetter {
+            case Drop.DropType.C.rawValue:
+                if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
+                    GameVariables.multiplier = 1
+                } else {
+                    GameVariables.multiplier += 1
+                }
+                GameVariables.streak = "C"
+            case Drop.DropType.A.rawValue:
+                if GameVariables.streak == "C" {
+                    GameVariables.streak = "CA"
+                } else {
+                    GameVariables.streak = ""
+                    GameVariables.multiplier = 1
+                    missMeterValueToChange = -1
+                }
+            case Drop.DropType.T.rawValue:
+                if GameVariables.streak == "CA" {
+                    GameVariables.streak = "CAT"
+                    drop.isComboDrop = true
+                    missMeterValueToChange = 5
+                    GameVariables.combos += 1
+                } else {
+                    GameVariables.streak = ""
+                    GameVariables.multiplier = 1
+                    missMeterValueToChange = -1
+                }
+            case Drop.DropType.D.rawValue:
+                if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
+                    GameVariables.multiplier = 1
+                } else {
+                    GameVariables.multiplier += 1
+                }
+                GameVariables.streak = "D"
+            case Drop.DropType.O.rawValue:
+                if GameVariables.streak == "D" {
+                    GameVariables.streak = "DO"
+                } else {
+                    GameVariables.streak = ""
+                    GameVariables.multiplier = 1
+                    missMeterValueToChange = -1
+                }
+            case Drop.DropType.G.rawValue:
+                if GameVariables.streak == "DO" {
+                    GameVariables.streak = "DOG"
+                    drop.isComboDrop = true
+                    missMeterValueToChange = 5
+                    GameVariables.combos += 1
+                } else {
+                    GameVariables.streak = ""
+                    GameVariables.multiplier = 1
+                    missMeterValueToChange = -1
+                }
+            default:
+                print("default called")
+            }
+            if drop.isComboDrop {
+                GameAudio().soundShake()
+            }
+            
+            drop.missPoints = missMeterValueToChange
+        }
+        
+        if GameVariables.multiplier > 1 {
+            drop.streakString = String(GameVariables.multiplier) + "x \(GameVariables.streak)"
+        } else {
+            drop.streakString = GameVariables.streak
+        }
+        
+        return drop
+    }
 }

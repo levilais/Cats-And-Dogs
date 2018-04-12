@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let introLabelTextures = [SKTexture(imageNamed: "popThoseDrops0"), SKTexture(imageNamed: "popThoseDrops1"), SKTexture(imageNamed: "popThoseDrops2")]
     
     // Game Variables
-    var isCombo = false
+//    var isCombo = false
 //    var lastDropXValue: CGFloat?
 //    var lastDropYValue: CGFloat?
     var startGameCalled = false
@@ -228,8 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         GameAudio().soundPop()
                         drop = computeScore(drop: drop)
                         DropFunctions().animateSplash(dropToSplash: drop, scene: self)
-                        
-                        animateDropScore(dropToScore: drop)
+                        DropFunctions().animateDropScore(dropToScore: drop, scene: self)
                     }
                 case "pauseButton":
                     pauseGame()
@@ -265,90 +264,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func determineStreak(drop: Drop) -> Drop {
-        self.isCombo = false
-        var missMeterValueToChange = Int()
-        if let dropLetter = drop.type {
-            switch dropLetter {
-            case Drop.DropType.C.rawValue:
-                if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
-                    GameVariables.multiplier = 1
-                } else {
-                     GameVariables.multiplier += 1
-                }
-                GameVariables.streak = "C"
-            case Drop.DropType.A.rawValue:
-                if GameVariables.streak == "C" {
-                    GameVariables.streak = "CA"
-                } else {
-                    GameVariables.streak = ""
-                    GameVariables.multiplier = 1
-                    missMeterValueToChange = -1
-                }
-            case Drop.DropType.T.rawValue:
-                if GameVariables.streak == "CA" {
-                    GameVariables.streak = "CAT"
-                    isCombo = true
-                    missMeterValueToChange = 5
-                    GameVariables.combos += 1
-                } else {
-                    GameVariables.streak = ""
-                    GameVariables.multiplier = 1
-                    missMeterValueToChange = -1
-                }
-            case Drop.DropType.D.rawValue:
-                if GameVariables.streak != "CAT" && GameVariables.streak != "DOG" {
-                    GameVariables.multiplier = 1
-                } else {
-                    GameVariables.multiplier += 1
-                }
-                GameVariables.streak = "D"
-            case Drop.DropType.O.rawValue:
-                if GameVariables.streak == "D" {
-                    GameVariables.streak = "DO"
-                } else {
-                    GameVariables.streak = ""
-                    GameVariables.multiplier = 1
-                    missMeterValueToChange = -1
-                }
-            case Drop.DropType.G.rawValue:
-                if GameVariables.streak == "DO" {
-                    GameVariables.streak = "DOG"
-                    isCombo = true
-                    missMeterValueToChange = 5
-                    GameVariables.combos += 1
-                } else {
-                    GameVariables.streak = ""
-                    GameVariables.multiplier = 1
-                    missMeterValueToChange = -1
-                }
-            default:
-                print("default called")
-            }
-            if isCombo {
-                GameAudio().soundShake()
-            }
-            
-            updateMissMeter(changeValue: missMeterValueToChange)
-            drop.missPoints = missMeterValueToChange
+        let determinedDrop = DropFunctions().determineStreak(drop: drop, scene: self)
+        
+        if let missPoints = drop.missPoints {
+            updateMissMeter(changeValue: missPoints)
         }
         
-        if GameVariables.multiplier > 1 {
-            streakLabel?.text = String(GameVariables.multiplier) + "x \(GameVariables.streak)"
-        } else {
-            streakLabel?.text = GameVariables.streak
+        if let string = drop.streakString {
+            streakLabel?.text = string
         }
+        
         self.multipleTrackerLabel?.text = "\(GameVariables.multiplier)x"
+        
         if GameVariables.firstDrop == true {
             GameVariables.firstDrop = false
         }
-        return drop
+        
+        return determinedDrop
     }
-    
+
     func computeScore(drop: Drop) -> Drop {
         var newPoints = Int()
         
         if drop.type != "levelDrop" {
-            if isCombo {
+            if drop.isComboDrop {
                 newPoints = GameVariables.comboPoints * GameVariables.multiplier
             } else {
                 newPoints = GameVariables.singleLetterPoints * GameVariables.multiplier
@@ -368,6 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
             scoreLabel?.text = formattedNumber
         }
+        
         return drop
     }
     
@@ -462,85 +402,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 gameOverScene.scaleMode = .aspectFill
                 view.presentScene(gameOverScene)
             }
-        }
-    }
-    
-    func animateDropScore(dropToScore: Drop) {
-        var missPointsExist = false
-        if let missPoints = dropToScore.missPoints {
-            if missPoints != 0 {
-                missPointsExist = true
-                let missMeterPointChangeLabel = SKLabelNode()
-                missMeterPointChangeLabel.name = "missMeterPointChangeLabel"
-                
-                missMeterPointChangeLabel.fontColor = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
-                missMeterPointChangeLabel.fontName = "Righteous-Regular"
-                missMeterPointChangeLabel.fontSize = 48
-                if let missPointsAmount = dropToScore.missPoints {
-                    if missPointsAmount == 5 {
-                        missMeterPointChangeLabel.text = "+\(missPointsAmount)"
-                    } else {
-                        missMeterPointChangeLabel.text = "\(missPointsAmount)"
-                    }
-                }
-                let y = dropToScore.position.y + 30
-                missMeterPointChangeLabel.position = CGPoint(x: dropToScore.position.x, y: y)
-                let fadeAction = SKAction.fadeOut(withDuration: 1)
-                let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
-                self.addChild(missMeterPointChangeLabel)
-                missMeterPointChangeLabel.run(moveAction)
-                missMeterPointChangeLabel.run(fadeAction) {
-                    missMeterPointChangeLabel.removeFromParent()
-                }
-            }
-        }
-        
-        
-        let dropScoreLabel = SKLabelNode()
-        dropScoreLabel.name = "dropScoreLabel"
-        dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
-        dropScoreLabel.fontName = "Righteous-Regular"
-        dropScoreLabel.fontSize = 48
-        
-        var y = dropToScore.position.y + 30
-        if missPointsExist == true {
-            y += 50
-        }
-        
-        if let dropScore = dropToScore.scorePoints {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
-            if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
-                dropScoreLabel.text = "+\(formattedNumber)"
-                
-                if dropToScore.type == "levelDrop" {
-                    let levelLabel = SKLabelNode()
-                    levelLabel.name = "levelLabel"
-                    levelLabel.fontColor = UIColor.StyleFile.Orange
-                    levelLabel.fontName = "Righteous-Regular"
-                    levelLabel.fontSize = 48
-                    levelLabel.text = "Level \(GameVariables.currentLevel)"
-                    let levelLabely = y + 60
-                    
-                    levelLabel.position = CGPoint(x: dropToScore.position.x, y: levelLabely)
-                    let fadeAction = SKAction.fadeOut(withDuration: 1)
-                    let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
-                    self.addChild(levelLabel)
-                    levelLabel.run(moveAction)
-                    levelLabel.run(fadeAction) {
-                        levelLabel.removeFromParent()
-                    }
-                }
-            }
-        }
-        
-        dropScoreLabel.position = CGPoint(x: dropToScore.position.x, y: y)
-        let fadeAction = SKAction.fadeOut(withDuration: 1)
-        let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
-        self.addChild(dropScoreLabel)
-        dropScoreLabel.run(moveAction)
-        dropScoreLabel.run(fadeAction) {
-            dropScoreLabel.removeFromParent()
         }
     }
     
@@ -661,7 +522,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 updateMissMeter(changeValue: -2)
                 drop.missPoints = -2
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
-                animateDropScore(dropToScore: drop)
+                DropFunctions().animateDropScore(dropToScore: drop, scene: self)
+//                animateDropScore(dropToScore: drop)
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
@@ -676,7 +538,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     GameVariables.missedDrops += 1
                 }
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
-                animateDropScore(dropToScore: drop)
+                DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
 //                gameOver()
             }
