@@ -227,7 +227,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                         GameAudio().soundPop()
                         drop = computeScore(drop: drop)
-                        animateSplash(dropToSplash: drop)
+                        DropFunctions().animateSplash(dropToSplash: drop, scene: self)
+                        
                         animateDropScore(dropToScore: drop)
                     }
                 case "pauseButton":
@@ -455,30 +456,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         GameVariables.time = elapsedTime
         
-        if let view = self.view as! SKView? {
+        if let view = self.view {
             if let gameOverScene = SKScene(fileNamed: "GameOverScene") {
                 GameVariables.gameIsActive = false
                 gameOverScene.scaleMode = .aspectFill
                 view.presentScene(gameOverScene)
             }
-        }
-    }
-    
-    func animateSplash(dropToSplash: Drop) {
-        let splash = SKSpriteNode(texture: SKTexture(imageNamed: "0splash.pdf"))
-        
-        let splashArray = [SKTexture(imageNamed: "0splash.pdf"), SKTexture(imageNamed: "1splash.pdf"),SKTexture(imageNamed: "2splash.pdf")]
-        
-        splash.size = CGSize(width: 75, height: 34)
-        
-        let dropPosition = dropToSplash.position
-        splash.position = dropPosition
-        
-        dropToSplash.removeFromParent()
-        self.addChild(splash)
-        let animateSplash = SKAction.repeat(SKAction.animate(with: splashArray, timePerFrame: 0.08), count: 1)
-        splash.run(animateSplash) {
-            splash.removeFromParent()
         }
     }
     
@@ -677,7 +660,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let drop = contact.bodyB.node as? Drop {
                 updateMissMeter(changeValue: -2)
                 drop.missPoints = -2
-                animateSplash(dropToSplash: drop)
+                DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 animateDropScore(dropToScore: drop)
             }
         }
@@ -692,7 +675,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     drop.missPoints = -2
                     GameVariables.missedDrops += 1
                 }
-                animateSplash(dropToSplash: drop)
+                DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 animateDropScore(dropToScore: drop)
 
 //                gameOver()

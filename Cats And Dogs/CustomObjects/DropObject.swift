@@ -83,4 +83,24 @@ class DropFunctions {
         drop.speed = GameVariables.dropSpeed
         drop.run(moveDown)
     }
+    
+    func animateSplash(dropToSplash: Drop, scene: SKScene) {
+        let splash = SKSpriteNode(texture: SKTexture(imageNamed: "0splash.pdf"))
+        
+        let splashArray = [SKTexture(imageNamed: "0splash.pdf"), SKTexture(imageNamed: "1splash.pdf"),SKTexture(imageNamed: "2splash.pdf")]
+        
+        splash.size = CGSize(width: 75, height: 34)
+        
+        let dropPosition = dropToSplash.position
+        splash.position = dropPosition
+        
+        dropToSplash.removeFromParent()
+        scene.addChild(splash)
+        
+        let animateSplash = SKAction.repeat(SKAction.animate(with: splashArray, timePerFrame: 0.08), count: 1)
+        splash.run(animateSplash) {
+            splash.removeFromParent()
+        }
+    }
+
 }
