@@ -41,8 +41,28 @@ class Drop: SKSpriteNode {
     func createLevelDrop(drop: Drop) -> Drop {
         let levelDrop = drop
         levelDrop.texture = SKTexture(imageNamed: "\(-GameVariables.levelMissPoints)Drop.pdf")
-        self.type = "levelDrop"
+        levelDrop.type = "levelDrop"
         return levelDrop
+    }
+    
+    func createHomeScreenDrop(drop: Drop, type: Int) -> Drop {
+        let homeScreenDrop = drop
+        
+        switch type {
+        case 0:
+            homeScreenDrop.texture = SKTexture(imageNamed: "playDrop")
+            homeScreenDrop.name = "playDrop"
+        case 1:
+            homeScreenDrop.texture = SKTexture(imageNamed: "achievementsDrop")
+            homeScreenDrop.name = "achievementsDrop"
+        case 2:
+            homeScreenDrop.texture = SKTexture(imageNamed: "settingsDrop")
+            homeScreenDrop.name = "settingsDrop"
+        default:
+            print("error")
+        }
+        
+        return homeScreenDrop
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -277,12 +297,6 @@ class DropFunctions {
         if newPoints > GameVariables.bestDrop {
             GameVariables.bestDrop = newPoints
         }
-        
-//        let numberFormatter = NumberFormatter()
-//        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-//        if let formattedNumber = numberFormatter.string(from: NSNumber(value:GameVariables.score)) {
-//            scoreLabel?.text = formattedNumber
-//        }
         
         return drop
     }

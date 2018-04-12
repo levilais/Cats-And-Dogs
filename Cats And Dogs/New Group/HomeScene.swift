@@ -12,9 +12,18 @@ import SpriteKit
 class HomeScene: SKScene {
     
     var bgImage: SKSpriteNode?
-    var homePlaybutton: SKSpriteNode?
-    var settingsButton: SKSpriteNode?
-    var achievementsButton: SKSpriteNode?
+    var timeToDrop: Double = 0
+    var timeToRain: Double = 0
+    var elapsedTime: TimeInterval = 0.0
+    var lastTimeStamp: TimeInterval = 0.0
+    var dropToCreate = 0
+    
+    var ground: SKSpriteNode?
+    var water: SKSpriteNode?
+    
+    // Physics World Categories
+    let dropCategory: UInt32 = 0x1 << 1
+    let groundCategory: UInt32 = 0x1 << 2
     
     override func didMove(to view: SKView) {
         
@@ -34,23 +43,16 @@ class HomeScene: SKScene {
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
         
-        homePlaybutton = childNode(withName: "homePlayButton") as? SKSpriteNode
-        homePlaybutton?.size = Utilities().resizeDropSpaceSize(view: view, currentSize: (homePlaybutton?.size)!)
-        let pulseUp = SKAction.scale(to: 1.02, duration: 1.5)
-        let pulseDown = SKAction.scale(to: 0.988, duration: 1.5)
-        let pulse = SKAction.sequence([pulseUp, pulseDown])
-        let repeatPulse = SKAction.repeatForever(pulse)
-        self.homePlaybutton?.run(repeatPulse)
+        ground = childNode(withName: "ground") as? SKSpriteNode
+        ground?.physicsBody?.categoryBitMask = groundCategory
+        ground?.physicsBody?.contactTestBitMask = dropCategory
         
-        settingsButton = childNode(withName: "settingsButton") as? SKSpriteNode
-        settingsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (settingsButton?.position)!)
-        settingsButton?.position = Utilities().shiftDown(view: view, currentPosition: (settingsButton?.position)!)
-        Utilities().resizespriteNode(spriteNode: settingsButton!, view: view)
-        
-        achievementsButton = childNode(withName: "achievementsButton") as? SKSpriteNode
-        achievementsButton?.position = Utilities().shiftHorizontal(view: view, currentPosition: (achievementsButton?.position)!)
-        achievementsButton?.position = Utilities().shiftDown(view: view, currentPosition: (achievementsButton?.position)!)
-        Utilities().resizespriteNode(spriteNode: achievementsButton!, view: view)
+        if super.view?.safeAreaInsets.bottom != 0 {
+            water = childNode(withName: "water") as? SKSpriteNode
+            water?.zPosition = 100
+            water?.position.y += ((water?.size.height)! + (super.view?.safeAreaInsets.bottom)!)
+            ground?.position.y += ((water?.size.height)! - 20)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,20 +62,79 @@ class HomeScene: SKScene {
             
             if let name = touchedNode.name {
                 switch name {
-                case "homePlayButton":
+                case "playDrop":
                     if let view = self.view {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill
                             view.presentScene(gameScene)
                         }
                     }
-                case "achievementsButton":
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
-                case "settingsButton":
+                case "settingsDrop":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
+                case "achievementsDrop":
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
                 default:
                     print("no button touched")
                 }
+            }
+        }
+    }
+    
+    func createDrop() {
+        var drop = Drop()
+        drop = Drop().createHomeScreenDrop(drop: drop, type: dropToCreate)
+        
+        drop.physicsBody?.categoryBitMask = dropCategory
+        drop.physicsBody?.contactTestBitMask = groundCategory
+        drop.physicsBody?.collisionBitMask = 0
+        
+        if let view = self.view {
+            Utilities().resizespriteNode(spriteNode: drop, view: view)
+        }
+        
+        addChild(drop)
+        DropFunctions().moveDrop(drop: drop, scene: self, view: self.view!)
+        
+        if dropToCreate < 2 {
+            dropToCreate += 1
+        } else {
+            dropToCreate = 0
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        var difference = TimeInterval()
+        if lastTimeStamp != 0.0 {
+            difference = currentTime - lastTimeStamp
+        }
+        
+        elapsedTime += difference
+        lastTimeStamp = currentTime
+        
+        if timeToDrop == 0 {
+            timeToDrop = currentTime
+        } else if currentTime - timeToDrop > 3 {
+            createDrop()
+            timeToDrop = currentTime
+        }
+        
+        if timeToRain == 0 {
+            timeToRain = currentTime
+        } else if currentTime - timeToRain > GameControls.rainFrequency {
+            GameEnvironment().createSmallDrop(scene: self, view: view!)
+            timeToRain = currentTime
+        }
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == dropCategory {
+            if let drop = contact.bodyB.node as? Drop {
+                DropFunctions().animateSplash(dropToSplash: drop, scene: self)
+            }
+        }
+        if contact.bodyB.categoryBitMask == dropCategory {
+            if var drop = contact.bodyB.node as? Drop {
+                DropFunctions().animateSplash(dropToSplash: drop, scene: self)
             }
         }
     }
