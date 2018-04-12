@@ -44,8 +44,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Game Variables
     var isCombo = false
-    var lastDropXValue: CGFloat?
-    var lastDropYValue: CGFloat?
+//    var lastDropXValue: CGFloat?
+//    var lastDropYValue: CGFloat?
     var startGameCalled = false
     
     // Physics World Categories
@@ -378,10 +378,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.timeToCreateLevelDrop = false
         }
         
-        drop.physicsBody = SKPhysicsBody(rectangleOf: drop.size)
-        drop.physicsBody?.affectedByGravity = false
-        drop.zPosition = 10
-        
         drop.physicsBody?.categoryBitMask = dropCategory
         drop.physicsBody?.contactTestBitMask = groundCategory
         drop.physicsBody?.collisionBitMask = 0
@@ -391,37 +387,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         addChild(drop)
-        
-        let currentSceneSize = scene?.size
-        let newSize = Utilities().resizeDropSpaceSize(view: view!, currentSize: currentSceneSize!)
-        
-        let maxStartingX = newSize.width / 2 - drop.size.width / 2 - 30
-        let minStartingX = -newSize.width / 2 + drop.size.width / 2
-        let startingXRange = maxStartingX - minStartingX
-        
-        var startingX = CGFloat()
-        if let lastX = self.lastDropXValue {
-            var startingXFound = false
-            while !startingXFound {
-                startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
-                if (startingX - (drop.size.width + 20))...(startingX + (drop.size.width + 20)) ~= lastX {
-                    print("too close")
-                } else {
-                    startingXFound = true
-                }
-            }
-        } else {
-            startingX = maxStartingX - CGFloat(arc4random_uniform(UInt32(startingXRange)))
-        }
-
-        let startingY: CGFloat = size.height / 2 + drop.size.height / 2 
-        drop.position = CGPoint(x: startingX, y: startingY)
-        
-        self.lastDropXValue = startingX
-        
-        let moveDown = SKAction.moveBy(x: 0, y: -size.height - drop.size.height, duration: GameControls.initialDropDuration)
-        drop.speed = GameVariables.dropSpeed
-        drop.run(moveDown)
+        DropFunctions().moveDrop(drop: drop, scene: self, view: self.view!)
     }
     
     func updateMissMeter(changeValue: Int) {
