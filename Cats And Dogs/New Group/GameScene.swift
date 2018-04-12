@@ -371,13 +371,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createDrop() {
-        var drop = Drop(isLevelDrop: false)
+        var drop = Drop()
+        drop = drop.createLetterDrop(drop: drop)
         if timeToCreateLevelDrop {
-            drop = Drop(isLevelDrop: true)
+            drop = Drop().createLevelDrop(drop: drop)
             self.timeToCreateLevelDrop = false
         }
         
-        drop.name = "drop"
         drop.physicsBody = SKPhysicsBody(rectangleOf: drop.size)
         drop.physicsBody?.affectedByGravity = false
         drop.zPosition = 10
