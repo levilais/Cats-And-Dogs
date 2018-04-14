@@ -22,6 +22,32 @@ class UserAchievementsObject {
     var noComboGoal = 0
     var hitsGoal = 0
     
+    func checkForMillionInMinutes(elapsedTime: TimeInterval) {
+        let currentAchievementLevel = UserPrefs.currentAchievementLevel
+        var currentAchievementLevelString = String()
+        
+        switch currentAchievementLevel {
+        case 0:
+            currentAchievementLevelString = "bronzeGoal"
+        case 1:
+            currentAchievementLevelString = "silverGoal"
+        case 2:
+            currentAchievementLevelString = "goldGoal"
+        default:
+            print("something went wrong determining the currentAchievementLevel")
+        }
+        
+        if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
+            if Double(GameVariables.score) >= millionInMinutesGoal {
+                if elapsedTime < TimeInterval(10.0) {
+                    print("time: \(Double(elapsedTime))")
+                    print("millionInMinutesGoal: \(millionInMinutesGoal)")
+                    GameVariables.millionInMinutesAchieved = true
+                }
+            }
+        }
+    }
+    
     func currentUserAchievementsObject() -> UserAchievementsObject {
         let currentUserAchievements = UserAchievementsObject()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -174,13 +200,23 @@ class UserAchievementsObject {
         
         newUserAchievementsObject.millionInMinutesGoal = oldUserAchievementsObject.millionInMinutesGoal
         if oldUserAchievementsObject.millionInMinutesGoal == currentAchievementLevel {
-            if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
-                if Double(GameVariables.score) >= millionInMinutesGoal && Double(GameVariables.time) < 600 {
+//            if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
+            
+                
+                // NOTICE!  When score is set, need to 1) check for Million In Minutes Goal number, if score > that number, get timestamp.  If timestamp is less than 10 minutes, trigger boolean to true and check here for that boolean.
+                if GameVariables.millionInMinutesAchieved == true {
+                    print("GameVariables.millionInMinutesAcheived: \(GameVariables.millionInMinutesAchieved)")
                     newUserAchievementsObject.millionInMinutesGoal = currentAchievementLevel + 1
                     let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "millionInMinutesGoal")
                     GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
                 }
-            }
+                
+//                if Double(GameVariables.score) >= millionInMinutesGoal && Double(GameVariables.time) < 600 {
+//                    newUserAchievementsObject.millionInMinutesGoal = currentAchievementLevel + 1
+//                    let newAchievementNotification = NewUserAchievementNotificationObject().newAchievementNotificationObjectFromAchievementString(achievement: "millionInMinutesGoal")
+//                    GameVariables.newAchievementsToDisplay.append(newAchievementNotification)
+//                }
+//            }
         }
         
         newUserAchievementsObject.dropGoal = oldUserAchievementsObject.dropGoal

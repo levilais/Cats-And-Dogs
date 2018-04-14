@@ -43,11 +43,11 @@ class GameControls {
 }
 
 
-
 class GameVariables {
     static var mostMissesTracker: Double = 100
     static var waitingForOneHundred = false
     static var mostMissesWithOneHundredHit: Double = 100
+    static var millionInMinutesAchieved = false
     
     func determineZeroToOneHundred() {
         if Double(GameVariables.missesLeft) < GameVariables.mostMissesTracker {
@@ -98,6 +98,9 @@ class GameVariables {
     static var skippedLevelUps: Int = 0
     static var longestStreak: Int = 0
     static var bestDrop: Int = 0
+    static var accuracy: Double = 0
+    static var time: TimeInterval = 0
+    static var combos: Int = 0
     static var poppedDrops: Double = 0 {
         didSet {
             let totalDrops = GameVariables.poppedDrops + GameVariables.missedDrops
@@ -110,9 +113,6 @@ class GameVariables {
             GameVariables.accuracy = (GameVariables.poppedDrops / totalDrops)
         }
     }
-    static var accuracy: Double = 0
-    static var time: TimeInterval = 0
-    static var combos: Int = 0
     
     func levelUp(scene: SKScene) {
         GameVariables.dropSpeed = GameVariables.dropSpeed * 1.1
@@ -166,6 +166,8 @@ class GameVariables {
         GameVariables.mostMissesTracker = GameControls.mostMissesTracker
         GameVariables.mostMissesWithOneHundredHit = GameControls.mostMissesWithOneHundredHit
         GameVariables.waitingForOneHundred = GameControls.waitingForOneHundred
+        GameVariables.millionInMinutesAchieved = false
+        GameVariables.streak = ""
     }
 }
 

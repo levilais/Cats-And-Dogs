@@ -175,16 +175,13 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == dropCategory {
             if let drop = contact.bodyB.node as? Drop {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
-                print("body A contacted Body B")
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
-            if var drop = contact.bodyB.node as? Drop {
+            if let drop = contact.bodyB.node as? Drop {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
-                print("body B contacted Body A")
             }
         }
-        print("contact made")
     }
     
     @objc func appDidEnterForeground() {

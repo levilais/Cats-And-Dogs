@@ -209,7 +209,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameVariables.gameIsActive = true
     }
     
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let positionInScene = touch.location(in: self)
@@ -229,6 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                         GameAudio().soundPop()
                         drop = DropFunctions().computeScore(drop: drop)
+                        UserAchievementsObject().checkForMillionInMinutes(elapsedTime: elapsedTime)
                         updateScoreLabel()
                         DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                         DropFunctions().animateDropScore(dropToScore: drop, scene: self)
@@ -582,7 +582,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
-//                gameOver()
+                gameOver()
             }
         }
     }
