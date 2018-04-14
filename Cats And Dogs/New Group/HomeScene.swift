@@ -18,8 +18,14 @@ class HomeScene: SKScene {
     var lastTimeStamp: TimeInterval = 0.0
     var dropToCreate = 0
     
+    var introElapsedTime: TimeInterval = 0.0
+    var introLastTimeStamp: TimeInterval = 0.0
+    var timeToStartDrums = 0.0
+    var introTimerRunning = true
+    
     var ground: SKSpriteNode?
     var water: SKSpriteNode?
+    var introLabel: SKLabelNode?
     
     // Physics World Categories
     let dropCategory: UInt32 = 0x1 << 1
@@ -55,6 +61,33 @@ class HomeScene: SKScene {
         }
     }
     
+//    func introAnimation() {
+//        self.introLabel?.position = CGPoint(x: 0, y: frame.height / 4)
+//        self.introLabel?.alpha = 0
+//        scene?.addChild(self.introLabel!)
+//
+//        let wait = SKAction.wait(forDuration: 1)
+//        let show = SKAction.fadeIn(withDuration: 0.1)
+//        let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
+//        let sequence = SKAction.sequence([wait, show, animateImageChange])
+//        self.introLabel?.run(sequence) {
+//            self.introLabel?.alpha = 0
+//            self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
+//            self.gauge?.alpha = 1
+//            self.gaugeFill?.alpha = 1
+//            self.scoreLabel?.alpha = 1
+//            self.missLabel?.alpha = 1
+//            self.levelTrackerBackground?.alpha = 1
+//            self.multipleTrackerBackground?.alpha = 1
+//            self.missMeterTrackerBackground?.alpha = 1
+//
+//            self.levelTrackerLabel?.alpha = 1
+//            self.multipleTrackerLabel?.alpha = 1
+//            self.startGame()
+//            self.startGameCalled = true
+//        }
+//    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let positionInScene = touch.location(in: self)
@@ -63,6 +96,11 @@ class HomeScene: SKScene {
             if let name = touchedNode.name {
                 switch name {
                 case "playDrop":
+                    if let drums = GameAudio.drumsAudioPlayer {
+                        drums.setVolume(0.0, fadeDuration: 0.1)
+                    }
+                    
+                    GameAudio().soundThunderStrike(scene: self)
                     if let view = self.view {
                         if let gameScene = SKScene(fileNamed: "GameScene") {
                             gameScene.scaleMode = .aspectFill
@@ -103,6 +141,31 @@ class HomeScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if UserPrefs.musicAllowed {
+            if introTimerRunning == true {
+                var difference = TimeInterval()
+                if introLastTimeStamp != 0.0 {
+                    difference = currentTime - introLastTimeStamp
+                }
+                
+                introElapsedTime += difference
+                introLastTimeStamp = currentTime
+                print("introElapsedTime: \(introElapsedTime)")
+                
+                if timeToStartDrums == 0 {
+                    timeToStartDrums = currentTime
+                } else if currentTime - timeToStartDrums > 5.0 {
+                    if let drums = GameAudio.drumsAudioPlayer {
+                        if !drums.isPlaying {
+                            drums.play()
+                        }
+                    }
+                    introTimerRunning = false
+                }
+            }
+        }
+        
+        
         var difference = TimeInterval()
         if lastTimeStamp != 0.0 {
             difference = currentTime - lastTimeStamp

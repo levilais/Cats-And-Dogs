@@ -262,6 +262,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 if let musicPlayer = GameAudio.backgroundMusicPlayer {
                     musicPlayer.stop()
                 }
+                if GameAudio.drumsAudioPlayer != nil {
+                    GameAudio().stopAndResetDrums()
+                }
                 GameAudio().setupMusicPlayer()
             } else {
                 UserPrefs.musicAllowed = true

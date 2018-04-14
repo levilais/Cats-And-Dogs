@@ -17,6 +17,7 @@ class GameAudio {
     static var backgroundMusicPlayer: AVAudioPlayer?
     static var rainAudioPlayer: AVAudioPlayer?
     static var thunderAudioPlayer: AVAudioPlayer?
+    static var drumsAudioPlayer: AVAudioPlayer?
     static var pops = [AVAudioPlayer]()
     static var shakes = [AVAudioPlayer]()
     static var chimes = [AVAudioPlayer]()
@@ -44,6 +45,15 @@ class GameAudio {
                     print(error.localizedDescription)
                 }
             }
+            if let drumsAudio = Bundle.main.url(forResource: "shortDrumsLoop", withExtension: "mp3") {
+                do {
+                    GameAudio.drumsAudioPlayer = try AVAudioPlayer(contentsOf: drumsAudio)
+                    GameAudio.drumsAudioPlayer?.numberOfLoops = -1
+                    GameAudio.drumsAudioPlayer?.volume = 0.9
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
         } else {
             do {
                 try audioSession.setCategory(AVAudioSessionCategoryAmbient)
@@ -60,7 +70,7 @@ class GameAudio {
                 do {
                     GameAudio.rainAudioPlayer = try AVAudioPlayer(contentsOf: rainAudio)
                     GameAudio.rainAudioPlayer?.numberOfLoops = -1
-                    GameAudio.rainAudioPlayer?.volume = 0.5
+                    GameAudio.rainAudioPlayer?.volume = 0.3
                 } catch let error {
                     print(error.localizedDescription)
                 }
@@ -74,6 +84,14 @@ class GameAudio {
                     print(error.localizedDescription)
                 }
             }
+        }
+    }
+    
+    func stopAndResetDrums() {
+        if let drumsPlayer = GameAudio.drumsAudioPlayer {
+            drumsPlayer.stop()
+            drumsPlayer.currentTime = 0.0
+            drumsPlayer.volume = 0.7
         }
     }
     
@@ -189,5 +207,14 @@ class GameAudio {
             let thunder = SKAction.playSoundFileNamed("thunder3.mp3", waitForCompletion: true)
             scene.run(thunder)
         }
+    }
+    
+    func drumStrike() -> SKAction {
+        var strike = SKAction()
+        if UserPrefs.musicAllowed {
+            strike = SKAction.playSoundFileNamed("singleDrumStrike.mp3", waitForCompletion: true)
+//            scene.run(drum)
+        }
+        return strike
     }
 }

@@ -34,6 +34,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var elapsedTime: TimeInterval = 0.0
     var lastTimeStamp: TimeInterval = 0.0
     
+    var introElapsedTime: TimeInterval = 0.0
+    var introLastTimeStamp: TimeInterval = 0.0
+    var timeToSoundDrum = 0.0
+    var drumSoundCount = 0
+    var introTimerRunning = true
+    
     var ground: SKSpriteNode?
     var bgImage: SKSpriteNode?
     var gauge: SKSpriteNode?
@@ -157,16 +163,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scene?.childNode(withName: "pauseLabel")?.isHidden = true
 
             if let rainAudioPlayer = GameAudio.rainAudioPlayer {
-                rainAudioPlayer.setVolume(1.0, fadeDuration: 2.0)
+                rainAudioPlayer.setVolume(0.6, fadeDuration: 2.0)
             }
-            
             introAnimation()
-            
-            if GameAudio.backgroundMusicPlayer == nil {
-                GameAudio().playBackgroundMusic()
-            } else {
-                GameAudio().resetBackgroundMusic()
-            }
         }
     }
     
@@ -177,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scene?.addChild(self.introLabel!)
 
         let wait = SKAction.wait(forDuration: 1)
-        let show = SKAction.fadeIn(withDuration: 0.1)
+        let show = SKAction.fadeIn(withDuration: 0.0)
         let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
         let sequence = SKAction.sequence([wait, show, animateImageChange])
         self.introLabel?.run(sequence) {
@@ -199,6 +198,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
+        if GameAudio.backgroundMusicPlayer == nil {
+            GameAudio().playBackgroundMusic()
+        } else {
+            GameAudio().resetBackgroundMusic()
+        }
         GameVariables().resetGameVariables()
         setGameState()
         GameVariables.gameIsActive = true
@@ -237,6 +241,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "quitButton":
                     if let backgroundMusic = GameAudio.backgroundMusicPlayer {
                         backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
+                    }
+                    if UserPrefs.musicAllowed {
+                        if let drums = GameAudio.drumsAudioPlayer {
+                            drums.play()
+                        }
                     }
                     if let view = self.view {
                         if let gameScene = SKScene(fileNamed: "HomeScene") {
@@ -460,6 +469,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if UserPrefs.musicAllowed {
+            if introTimerRunning == true {
+                var difference = TimeInterval()
+                if introLastTimeStamp != 0.0 {
+                    difference = currentTime - introLastTimeStamp
+                }
+                
+                introElapsedTime += difference
+                introLastTimeStamp = currentTime
+                print("introElapsedTime: \(introElapsedTime)")
+                
+                if timeToSoundDrum == 0 {
+                    timeToSoundDrum = currentTime
+                } else if currentTime - timeToSoundDrum > 1.0 {
+                    if drumSoundCount < 4 {
+                        let drumStrike = GameAudio().drumStrike()
+                        run(drumStrike)
+                        timeToSoundDrum = currentTime
+                        drumSoundCount += 1
+                        if GameAudio.drumsAudioPlayer != nil {
+                            GameAudio().stopAndResetDrums()
+                        }
+                    } else {
+                        introTimerRunning = false
+                    }
+                }
+            }
+        }
+        
+        if introTimerRunning == true {
+            var difference = TimeInterval()
+            if introLastTimeStamp != 0.0 {
+                difference = currentTime - introLastTimeStamp
+            }
+            
+            introElapsedTime += difference
+            introLastTimeStamp = currentTime
+            print("introElapsedTime: \(introElapsedTime)")
+            
+            if timeToSoundDrum == 0 {
+                timeToSoundDrum = currentTime
+            } else if currentTime - timeToSoundDrum > 1.0 {
+                if drumSoundCount < 3 {
+                    let drumStrike = GameAudio().drumStrike()
+                    run(drumStrike)
+                    timeToSoundDrum = currentTime
+                    drumSoundCount += 1
+                } else {
+                    introTimerRunning = false
+                }
+            }
+        }
+        
         if startGameCalled {
             var difference = TimeInterval()
             if lastTimeStamp != 0.0 {
@@ -519,7 +581,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
-//                gameOver()
+                gameOver()
             }
         }
     }

@@ -21,6 +21,11 @@ class GameOverScene: SKScene, UITextFieldDelegate {
     var nameLabel: SKLabelNode?
     var scoreRankText: String?
     var scoreRank = Int()
+    
+    var introElapsedTime: TimeInterval = 0.0
+    var introLastTimeStamp: TimeInterval = 0.0
+    var timeToStartDrums = 0.0
+    var introTimerRunning = true
 
     let submitScoreText = SKLabelNode(fontNamed: "arial")
     let submitScoreTextShadow = SKLabelNode(fontNamed: "arial")
@@ -164,6 +169,30 @@ class GameOverScene: SKScene, UITextFieldDelegate {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showEnterNameViewController"), object: nil)
                 default:
                     print("no button touched")
+                }
+            }
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if UserPrefs.musicAllowed {
+            if introTimerRunning == true {
+                var difference = TimeInterval()
+                if introLastTimeStamp != 0.0 {
+                    difference = currentTime - introLastTimeStamp
+                }
+                
+                introElapsedTime += difference
+                introLastTimeStamp = currentTime
+                print("introElapsedTime: \(introElapsedTime)")
+                
+                if timeToStartDrums == 0 {
+                    timeToStartDrums = currentTime
+                } else if currentTime - timeToStartDrums > 5.0 {
+                    if let drums = GameAudio.drumsAudioPlayer {
+                        drums.play()
+                    }
+                    introTimerRunning = false
                 }
             }
         }
