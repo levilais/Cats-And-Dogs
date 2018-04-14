@@ -61,6 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
         physicsWorld.contactDelegate = self
         
         if !(scene?.isPaused)! {

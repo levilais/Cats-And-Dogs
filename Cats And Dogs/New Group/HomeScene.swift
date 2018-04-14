@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class HomeScene: SKScene {
+class HomeScene: SKScene, SKPhysicsContactDelegate {
     
     var bgImage: SKSpriteNode?
     var timeToDrop: Double = 0
@@ -33,6 +33,8 @@ class HomeScene: SKScene {
     let groundCategory: UInt32 = 0x1 << 2
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -65,34 +67,8 @@ class HomeScene: SKScene {
             water?.position.y += ((water?.size.height)! + (super.view?.safeAreaInsets.bottom)!)
             ground?.position.y += ((water?.size.height)! - 20)
         }
+        
     }
-    
-//    func introAnimation() {
-//        self.introLabel?.position = CGPoint(x: 0, y: frame.height / 4)
-//        self.introLabel?.alpha = 0
-//        scene?.addChild(self.introLabel!)
-//
-//        let wait = SKAction.wait(forDuration: 1)
-//        let show = SKAction.fadeIn(withDuration: 0.1)
-//        let animateImageChange = SKAction.animate(with: self.introLabelTextures, timePerFrame: 1)
-//        let sequence = SKAction.sequence([wait, show, animateImageChange])
-//        self.introLabel?.run(sequence) {
-//            self.introLabel?.alpha = 0
-//            self.introLabel = SKSpriteNode(texture: self.introLabelTextures[0])
-//            self.gauge?.alpha = 1
-//            self.gaugeFill?.alpha = 1
-//            self.scoreLabel?.alpha = 1
-//            self.missLabel?.alpha = 1
-//            self.levelTrackerBackground?.alpha = 1
-//            self.multipleTrackerBackground?.alpha = 1
-//            self.missMeterTrackerBackground?.alpha = 1
-//
-//            self.levelTrackerLabel?.alpha = 1
-//            self.multipleTrackerLabel?.alpha = 1
-//            self.startGame()
-//            self.startGameCalled = true
-//        }
-//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -199,13 +175,16 @@ class HomeScene: SKScene {
         if contact.bodyA.categoryBitMask == dropCategory {
             if let drop = contact.bodyB.node as? Drop {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
+                print("body A contacted Body B")
             }
         }
         if contact.bodyB.categoryBitMask == dropCategory {
             if var drop = contact.bodyB.node as? Drop {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
+                print("body B contacted Body A")
             }
         }
+        print("contact made")
     }
     
     @objc func appDidEnterForeground() {
