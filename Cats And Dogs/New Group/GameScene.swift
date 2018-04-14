@@ -581,7 +581,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
-                gameOver()
+//                gameOver()
             }
         }
     }

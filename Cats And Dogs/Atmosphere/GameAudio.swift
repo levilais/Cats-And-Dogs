@@ -49,7 +49,7 @@ class GameAudio {
                 do {
                     GameAudio.drumsAudioPlayer = try AVAudioPlayer(contentsOf: drumsAudio)
                     GameAudio.drumsAudioPlayer?.numberOfLoops = -1
-                    GameAudio.drumsAudioPlayer?.volume = 0.9
+                    GameAudio.drumsAudioPlayer?.volume = 0.5
                 } catch let error {
                     print(error.localizedDescription)
                 }

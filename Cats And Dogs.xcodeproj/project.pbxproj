@@ -49,7 +49,7 @@
 		0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0466458B204DD3AF0090055C /* Lato-Hairline.ttf */; };
 		0491EB23205711A7004994C4 /* EnterNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491EB22205711A7004994C4 /* EnterNameViewController.swift */; };
 		0494E15920816D21006D0887 /* singleDrumStrike.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0494E15820816D21006D0887 /* singleDrumStrike.mp3 */; };
-		0494E15F208264DE006D0887 /* shortDrumsLoop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0494E15E208264DE006D0887 /* shortDrumsLoop.mp3 */; };
+		0494E16320827AB7006D0887 /* shortDrumsLoop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0494E16220827AB7006D0887 /* shortDrumsLoop.mp3 */; };
 		04989522204DE8BE005B494D /* HighScoreObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04989521204DE8BE005B494D /* HighScoreObject.swift */; };
 		049895272050A1C2005B494D /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049895262050A1C2005B494D /* MailViewController.swift */; };
 		04A012DB207E6C3500ADFBAA /* NewAchievementPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A012DA207E6C3500ADFBAA /* NewAchievementPopupViewController.swift */; };
@@ -110,7 +110,7 @@
 		0466458B204DD3AF0090055C /* Lato-Hairline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Hairline.ttf"; sourceTree = "<group>"; };
 		0491EB22205711A7004994C4 /* EnterNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNameViewController.swift; sourceTree = "<group>"; };
 		0494E15820816D21006D0887 /* singleDrumStrike.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = singleDrumStrike.mp3; sourceTree = "<group>"; };
-		0494E15E208264DE006D0887 /* shortDrumsLoop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortDrumsLoop.mp3; sourceTree = "<group>"; };
+		0494E16220827AB7006D0887 /* shortDrumsLoop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortDrumsLoop.mp3; sourceTree = "<group>"; };
 		04989521204DE8BE005B494D /* HighScoreObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreObject.swift; sourceTree = "<group>"; };
 		049895262050A1C2005B494D /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		04A012DA207E6C3500ADFBAA /* NewAchievementPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAchievementPopupViewController.swift; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 				04226AC6206DC2B500E5CF15 /* pop.mp3 */,
 				04226AD0206DD21E00E5CF15 /* chime.mp3 */,
 				0437D7FF207C3D15000900C4 /* thunder3.mp3 */,
-				0494E15E208264DE006D0887 /* shortDrumsLoop.mp3 */,
 				0494E15820816D21006D0887 /* singleDrumStrike.mp3 */,
+				0494E16220827AB7006D0887 /* shortDrumsLoop.mp3 */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -359,7 +359,7 @@
 				0456C1F720432DD000647657 /* LaunchScreen.storyboard in Resources */,
 				040A3C7F20476A3700FCCDD4 /* Righteous-Regular.ttf in Resources */,
 				0437D800207C3D15000900C4 /* thunder3.mp3 in Resources */,
-				0494E15F208264DE006D0887 /* shortDrumsLoop.mp3 in Resources */,
+				0494E16320827AB7006D0887 /* shortDrumsLoop.mp3 in Resources */,
 				040A3C8620477C4800FCCDD4 /* HomeScene.sks in Resources */,
 				0466458F204DD3AF0090055C /* Lato-Hairline.ttf in Resources */,
 				040A3C8A2047813D00FCCDD4 /* GameOverScene.sks in Resources */,

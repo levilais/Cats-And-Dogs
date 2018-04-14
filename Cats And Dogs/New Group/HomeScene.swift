@@ -26,6 +26,7 @@ class HomeScene: SKScene {
     var ground: SKSpriteNode?
     var water: SKSpriteNode?
     var introLabel: SKLabelNode?
+    var catsAndDogsLable: SKLabelNode?
     
     // Physics World Categories
     let dropCategory: UInt32 = 0x1 << 1
@@ -52,6 +53,11 @@ class HomeScene: SKScene {
         ground = childNode(withName: "ground") as? SKSpriteNode
         ground?.physicsBody?.categoryBitMask = groundCategory
         ground?.physicsBody?.contactTestBitMask = dropCategory
+        
+        catsAndDogsLable = childNode(withName: "catsAndDogsLabel") as? SKLabelNode
+        catsAndDogsLable?.alpha = 0
+        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
+        catsAndDogsLable?.run(fadeIn)
         
         if super.view?.safeAreaInsets.bottom != 0 {
             water = childNode(withName: "water") as? SKSpriteNode
