@@ -55,19 +55,15 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
         ground = childNode(withName: "ground") as? SKSpriteNode
         ground?.physicsBody?.categoryBitMask = groundCategory
         ground?.physicsBody?.contactTestBitMask = dropCategory
+        ground?.position = Utilities().shiftUp(view: view, currentPosition: (ground?.position)!)
+        
+        water = childNode(withName: "water") as? SKSpriteNode
+        water?.position = Utilities().shiftUp(view: view, currentPosition: (water?.position)!)
         
         catsAndDogsLable = childNode(withName: "catsAndDogsLabel") as? SKLabelNode
         catsAndDogsLable?.alpha = 0
         let fadeIn = SKAction.fadeIn(withDuration: 1.0)
         catsAndDogsLable?.run(fadeIn)
-        
-        if super.view?.safeAreaInsets.bottom != 0 {
-            water = childNode(withName: "water") as? SKSpriteNode
-            water?.zPosition = 100
-            water?.position.y += ((water?.size.height)! + (super.view?.safeAreaInsets.bottom)!)
-            ground?.position.y += ((water?.size.height)! - 20)
-        }
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

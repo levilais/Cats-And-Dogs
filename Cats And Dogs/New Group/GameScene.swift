@@ -143,13 +143,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ground = childNode(withName: "ground") as? SKSpriteNode
             ground?.physicsBody?.categoryBitMask = groundCategory
             ground?.physicsBody?.contactTestBitMask = dropCategory
+            ground?.position = Utilities().shiftUp(view: view, currentPosition: (ground?.position)!)
             
-            if super.view?.safeAreaInsets.bottom != 0 {
-                water = childNode(withName: "water") as? SKSpriteNode
-                water?.zPosition = 100
-                water?.position.y += ((water?.size.height)! + (super.view?.safeAreaInsets.bottom)!)
-                ground?.position.y += ((water?.size.height)! - 20)
-            }
+            water = childNode(withName: "water") as? SKSpriteNode
+            water?.position = Utilities().shiftUp(view: view, currentPosition: (water?.position)!)
             
             pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
             pauseButton?.name = "pauseButton"
@@ -545,7 +542,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 timeToCreateLevelDrop = true
             }
             
+            print("elapsed time: \(elapsedTime)")
+            
             if self.elapsedTime > GameEnvironment.timeForLightning && !GameEnvironment.timeForLightningTriggered {
+                print("lightning fired")
                 GameEnvironment.timeForLightningTriggered = true
                 GameEnvironment().createLightningAnimation(backgroundImage: bgImage!, scene: self)
             }
@@ -582,7 +582,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
-                gameOver()
+//                gameOver()
             }
         }
     }
