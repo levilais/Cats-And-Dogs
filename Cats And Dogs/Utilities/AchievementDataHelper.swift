@@ -164,7 +164,7 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "points.",
             "bronzeGoal": 30000.0,
             "silverGoal": 50000.0,
-            "goldGoal": 75000.0,
+            "goldGoal": 100000.0,
             "textTag": "Drop"
         ],
         "minutesOfTimeGoal": [
