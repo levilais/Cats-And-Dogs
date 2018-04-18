@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["GO TO...","SOUND OPTIONS","CONNECT","HIGH SCORES"]
+    let sectionHeaders = ["GO TO...","SOUND OPTIONS","FEEDBACK","HIGH SCORES"]
     let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
@@ -102,34 +102,43 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             if cell.isKind(of: DefaultTableViewCell.self) {
-                // perform segue if necessary
-                switch indexPath.row {
+                switch indexPath.section {
                 case 0:
-                    performSegue(withIdentifier: "settingsToAchievements", sender: self)
-                case 1:
-                    performSegue(withIdentifier: "settingsToTutorial", sender: self)
-                case 2:
-                    SKStoreReviewController.requestReview()
-                case 3:
-                    tableView.deselectRow(at: indexPath, animated: true)
-                    if MFMailComposeViewController.canSendMail() {
-                        let composeVC = MFMailComposeViewController()
-                        composeVC.mailComposeDelegate = self
-                        composeVC.setToRecipients(["levilais@gmail.com"])
-                        composeVC.setSubject("Cats & Dogs Feedback")
-                        composeVC.setMessageBody("A note from Cats & Dogs: We are always committed to making Cats & Dogs the best experience possible.  Please let us know what you think!", isHTML: false)
-                    self.present(composeVC, animated: true, completion: nil)
-                    } else {
-                        let alert = UIAlertController(title: "Bummer!", message: "It looks like you are not able to send email at this time!  Please check your connection and/or settings and try again.", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(action)
-                        present(alert, animated: true)
+                    switch indexPath.row {
+                    case 0:
+                        performSegue(withIdentifier: "settingsToAchievements", sender: self)
+                    case 1:
+                        performSegue(withIdentifier: "settingsToTutorial", sender: self)
+                    default:
+                        print("should never fire")
                     }
-                case 4:
-                    print("about")
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        print("review pressed")
+                        SKStoreReviewController.requestReview()
+                    case 1:
+                        print("mail pressed")
+                        if MFMailComposeViewController.canSendMail() {
+                            let composeVC = MFMailComposeViewController()
+                            composeVC.mailComposeDelegate = self
+                            composeVC.setToRecipients(["levilais@gmail.com"])
+                            composeVC.setSubject("Cats & Dogs Feedback")
+                            composeVC.setMessageBody("A note from Cats & Dogs: We are always committed to making Cats & Dogs the best experience possible.  Please let us know what you think!", isHTML: false)
+                            self.present(composeVC, animated: true, completion: nil)
+                        } else {
+                            let alert = UIAlertController(title: "Bummer!", message: "It looks like you are not able to send email at this time!  Please check your connection and/or settings and try again.", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(action)
+                            present(alert, animated: true)
+                        }
+                    default:
+                        print("should never fire")
+                    }
                 default:
-                    print("should never fire")
+                    print("error")
                 }
+                // perform segue if necessary
                 tableView.deselectRow(at: indexPath, animated: true)
             } else if cell.isKind(of: HighScoreTableViewCell.self) {
                 print("selected high score")
@@ -147,7 +156,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 1:
             rows = 3
         case 2:
-            rows = 5
+            rows = 2
         case 3:
             rows = HighScoresClass.highScores.count
         default:
@@ -173,7 +182,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
             cell.textLabel?.text = optionsTitles[indexPath.row]
-            
             switch indexPath.row {
             case 0:
                 // music
@@ -206,27 +214,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 2:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
-                cell.textLabel?.text = "Facebook"
-                return cell
-            case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
-                cell.textLabel?.text = "GameCenter"
-                return cell
-            case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Review"
                 return cell
-            case 3:
+            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Give Feedback"
-                return cell
-            case 4:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
-                cell.isUserInteractionEnabled = true
-                cell.textLabel?.text = "About"
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell

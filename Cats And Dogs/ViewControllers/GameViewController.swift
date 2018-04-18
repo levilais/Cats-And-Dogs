@@ -44,8 +44,6 @@ class GameViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear called")
-        print("play was pressed: \(playWasPressed)")
         if UserPrefs.tutorialHasBeenShown {
             if playWasPressed {
                 if let view = self.view as! SKView? {
