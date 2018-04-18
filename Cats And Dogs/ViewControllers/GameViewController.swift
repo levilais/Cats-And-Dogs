@@ -46,6 +46,7 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if UserPrefs.tutorialHasBeenShown {
             if playWasPressed {
+                playWasPressed = false
                 if let view = self.view as! SKView? {
                     if let scene = SKScene(fileNamed: "GameScene") {
                         scene.scaleMode = .aspectFill

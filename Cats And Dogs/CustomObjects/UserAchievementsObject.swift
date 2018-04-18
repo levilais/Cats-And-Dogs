@@ -39,9 +39,7 @@ class UserAchievementsObject {
         
         if let millionInMinutesGoal = AchievementDataHelper.achievements["millionInMinutesGoal"]![currentAchievementLevelString] as? Double {
             if Double(GameVariables.score) >= millionInMinutesGoal {
-                if elapsedTime < TimeInterval(10.0) {
-                    print("time: \(Double(elapsedTime))")
-                    print("millionInMinutesGoal: \(millionInMinutesGoal)")
+                if elapsedTime < TimeInterval(600.0) {
                     GameVariables.millionInMinutesAchieved = true
                 }
             }

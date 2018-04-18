@@ -115,21 +115,21 @@ class AchievementDataHelper {
             "detailDescriptionBeginning": "To earn this achievement, score",
             "detailDescriptionEnd": "points in a single game.",
             "bronzeGoal": 5000000.0,
-            "silverGoal": 7500000.0,
+            "silverGoal": 10000000.0,
             "goldGoal": 15000000.0,
             "textTag": "Points"
         ],
         "missesGoal": [
             "detailDescriptionBeginning": "To earn this achievement, let",
             "detailDescriptionEnd": "drops hit the ground in a single game.",
-            "bronzeGoal": 150.0,
-            "silverGoal": 250.0,
-            "goldGoal": 500.0,
+            "bronzeGoal": 250.0,
+            "silverGoal": 500.0,
+            "goldGoal": 750.0,
             "textTag": "Misses"
         ],
         "zeroToOneHundredGoal": [
-            "detailDescriptionBeginning": "To earn this achievement, your miss meter needs to drop to",
-            "detailDescriptionEnd": "and then fill all the way back to 100 in a single game.",
+            "detailDescriptionBeginning": "To earn this achievement, your miss meter needs to hit",
+            "detailDescriptionEnd": "and then return to 100 in a single game.",
             "bronzeGoal": 50.0,
             "silverGoal": 25.0,
             "goldGoal": 1.0,
@@ -156,7 +156,7 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "points in a single game in under 10 minutes.",
             "bronzeGoal": 2500000.0,
             "silverGoal": 5000000.0,
-            "goldGoal": 10000000.0,
+            "goldGoal": 1000000.0,
             "textTag": "In 10M"
         ],
         "dropGoal": [
@@ -179,8 +179,8 @@ class AchievementDataHelper {
             "detailDescriptionBeginning": "To earn this achievement, earn",
             "detailDescriptionEnd": "points in a single game without getting a single combo.",
             "bronzeGoal": 25000.0,
-            "silverGoal": 50000.0,
-            "goldGoal": 75000.0,
+            "silverGoal": 35000.0,
+            "goldGoal": 50000.0,
             "textTag": "No Combo"
         ],
         "hitsGoal": [
