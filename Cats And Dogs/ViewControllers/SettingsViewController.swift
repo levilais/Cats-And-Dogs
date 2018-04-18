@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["ACHIEVEMENTS","SOUND OPTIONS","CONNECT","HIGH SCORES"]
+    let sectionHeaders = ["GO TO...","SOUND OPTIONS","CONNECT","HIGH SCORES"]
     let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
@@ -106,6 +106,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 switch indexPath.row {
                 case 0:
                     performSegue(withIdentifier: "settingsToAchievements", sender: self)
+                case 1:
+                    performSegue(withIdentifier: "settingsToTutorial", sender: self)
                 case 2:
                     SKStoreReviewController.requestReview()
                 case 3:
@@ -141,7 +143,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var rows = Int()
         switch section {
         case 0:
-            rows = 1
+            rows = 2
         case 1:
             rows = 3
         case 2:
@@ -157,10 +159,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
-            cell.isUserInteractionEnabled = true
-            cell.textLabel?.text = "View Achievements"
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                cell.textLabel?.text = "Achievements"
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                cell.textLabel?.text = "Tutorial"
+                return cell
+            }
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell
             cell.textLabel?.text = optionsTitles[indexPath.row]

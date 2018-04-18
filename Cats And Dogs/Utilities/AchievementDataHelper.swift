@@ -178,7 +178,7 @@ class AchievementDataHelper {
         "noComboGoal": [
             "detailDescriptionBeginning": "To earn this achievement, earn",
             "detailDescriptionEnd": "points in a single game without getting a single combo.",
-            "bronzeGoal": 25000,
+            "bronzeGoal": 25000.0,
             "silverGoal": 50000.0,
             "goldGoal": 75000.0,
             "textTag": "No Combo"

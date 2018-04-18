@@ -24,6 +24,7 @@ class AchievementsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         achievementLevelShowing = UserPrefs.currentAchievementLevel
+        print("current achievement level: \(UserPrefs.currentAchievementLevel)")
         setupAchievementsForLevelShowing()
     }
     
@@ -35,6 +36,7 @@ class AchievementsViewController: UIViewController {
     }
     
     func setupAchievementsForLevelShowing() {
+        print("achievement labels count: \(self.achievementLabels.count)")
         for label in self.achievementLabels {
             let achievementString = Achievement().achievementNameFromInt(tag: label.tag)
             let achievement = Achievement().achievementObjectFromString(achievementName: achievementString)

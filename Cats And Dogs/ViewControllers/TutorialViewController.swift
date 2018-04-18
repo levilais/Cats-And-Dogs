@@ -12,7 +12,6 @@ class TutorialViewController: UIViewController {
     
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var image: UIImageView!
-    @IBOutlet var tutorialCounterImages: [UIImageView]!
     
     @IBOutlet weak var backgroundLayoutConstraint: NSLayoutConstraint!
     
@@ -43,15 +42,6 @@ class TutorialViewController: UIViewController {
     func updateDisplay() {
         instructionLabel.text = TutorialHelper.instructions[slideShowing]
         image.image = UIImage(named: "tutorial\(slideShowing)")
-        var i = 0
-        for image in tutorialCounterImages {
-            if i != slideShowing {
-                image.alpha = 0.5
-            } else {
-                image.alpha = 1.0
-            }
-            i += 1
-        }
     }
     
     @IBAction func submitButtonDidPress(_ sender: Any) {
@@ -60,7 +50,7 @@ class TutorialViewController: UIViewController {
     
     @IBAction func skipTutorialButtonDidPress(_ sender: Any) {
         print("skip tutorial pressed")
-//        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     override var prefersStatusBarHidden: Bool {
         return true

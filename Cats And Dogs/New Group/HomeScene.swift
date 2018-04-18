@@ -59,6 +59,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
         
         water = childNode(withName: "water") as? SKSpriteNode
         water?.position = Utilities().shiftUp(view: view, currentPosition: (water?.position)!)
+        water?.zPosition = 25
         
         catsAndDogsLable = childNode(withName: "catsAndDogsLabel") as? SKLabelNode
         catsAndDogsLable?.alpha = 0
