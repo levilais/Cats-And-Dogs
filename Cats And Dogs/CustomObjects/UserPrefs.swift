@@ -13,6 +13,7 @@ class UserPrefs {
     static var musicAllowed = true
     static var rainAllowed = true
     static var soundFxAllowed = true
+    static var tutorialHasBeenShown = false
     
     static var currentAchievementLevel = 0
     static var achievementLevelUpTriggered = false
@@ -47,6 +48,12 @@ class UserPrefs {
         }
     }
     
+    func saveTutorialAsShown() {
+        UserPrefs.tutorialHasBeenShown = true
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "tutorialHasBeenShown")
+    }
+    
     func getUserPrefs() {
         if UserPrefs.loadCount > 1 {
             let defaults = UserDefaults.standard
@@ -54,10 +61,12 @@ class UserPrefs {
             UserPrefs.rainAllowed = defaults.bool(forKey: "rainAllowed")
             UserPrefs.soundFxAllowed = defaults.bool(forKey: "soundFxAllowed")
             UserPrefs.currentAchievementLevel = defaults.integer(forKey: "currentAchievementLevel")
+            UserPrefs.tutorialHasBeenShown = defaults.bool(forKey: "tutorialHasBeenShown")
         } else {
             UserPrefs.musicAllowed = true
             UserPrefs.rainAllowed = true
             UserPrefs.soundFxAllowed = true
+            UserPrefs.tutorialHasBeenShown = false
             saveUserPrefs()
         }
     }

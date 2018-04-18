@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class TutorialViewController: UIViewController {
     
@@ -21,6 +22,9 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateDisplay()
+        if !UserPrefs.tutorialHasBeenShown {
+            UserPrefs().saveTutorialAsShown()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -35,8 +39,12 @@ class TutorialViewController: UIViewController {
             slideShowing += 1
             updateDisplay()
         } else {
-            print("done with tutorial")
+            dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func exitTutorial() {
+        dismiss(animated: true, completion: nil)
     }
     
     func updateDisplay() {
@@ -49,8 +57,7 @@ class TutorialViewController: UIViewController {
     }
     
     @IBAction func skipTutorialButtonDidPress(_ sender: Any) {
-        print("skip tutorial pressed")
-        dismiss(animated: true, completion: nil)
+       dismiss(animated: true, completion: nil)
     }
     override var prefersStatusBarHidden: Bool {
         return true

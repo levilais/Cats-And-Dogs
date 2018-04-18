@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
     // Atmosphere
     var backgroundMusic = SKAudioNode()
     var subviewsLaidOut = false
+    var playWasPressed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class GameViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(presentStatsViewController), name: NSNotification.Name(rawValue: "presentStatsViewController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentToAchievementController), name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentCustomPopup), name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentTutorialViewController), name: NSNotification.Name(rawValue: "presentTutorialViewController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -38,6 +40,22 @@ class GameViewController: UIViewController {
                 }
             }
             subviewsLaidOut = true
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("view will appear called")
+        print("play was pressed: \(playWasPressed)")
+        if UserPrefs.tutorialHasBeenShown {
+            if playWasPressed {
+                if let view = self.view as! SKView? {
+                    if let scene = SKScene(fileNamed: "GameScene") {
+                        scene.scaleMode = .aspectFill
+                        view.presentScene(scene)
+                    }
+                    view.ignoresSiblingOrder = true
+                }
+            }
         }
     }
     
@@ -74,11 +92,13 @@ class GameViewController: UIViewController {
         self.performSegue(withIdentifier: "toAchievementController", sender: self)
     }
     
-    @objc func presentCustomPopup() {        
-//        let newUserAchievementObject = NewUserAchievementNotificationObject()
-//        newUserAchievementObject.achievementTitle = "25M Points"
-//        newUserAchievementObject.image = UIImage(named: "pointGoal3")
-//        newUserAchievementObject.textColor = UIColor.StyleFile.goldColor
+    @objc func presentTutorialViewController() {
+        playWasPressed = true
+        self.performSegue(withIdentifier: "homeToTutorial", sender: self)
+    }
+    
+    
+    @objc func presentCustomPopup() {
         NewUserAchievementNotificationObject().showNewAchievementPopup(presentingVC: self)
     }
     

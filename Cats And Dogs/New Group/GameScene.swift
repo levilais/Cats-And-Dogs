@@ -56,7 +56,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let groundCategory: UInt32 = 0x1 << 2
     
     override func didMove(to view: SKView) {
-        
+        if let drums = GameAudio.drumsAudioPlayer {
+            drums.setVolume(0.0, fadeDuration: 0.1)
+        }
+    
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         

@@ -33,7 +33,6 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
     let groundCategory: UInt32 = 0x1 << 2
     
     override func didMove(to view: SKView) {
-        
         physicsWorld.contactDelegate = self
         
         let notificationCenter = NotificationCenter.default
@@ -47,7 +46,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
                 thunderAudioPlayer.play()
             }
         }
-    
+        
         bgImage = childNode(withName: "bgImage") as? SKSpriteNode
         bgImage?.texture = SKTexture(imageNamed: "background.pdf")
         bgImage?.zPosition = -1
@@ -75,16 +74,17 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
             if let name = touchedNode.name {
                 switch name {
                 case "playDrop":
-                    if let drums = GameAudio.drumsAudioPlayer {
-                        drums.setVolume(0.0, fadeDuration: 0.1)
-                    }
-                    
-                    GameAudio().soundThunderStrike(scene: self)
-                    if let view = self.view {
-                        if let gameScene = SKScene(fileNamed: "GameScene") {
-                            gameScene.scaleMode = .aspectFill
-                            view.presentScene(gameScene)
+                    if UserPrefs.tutorialHasBeenShown {
+                        GameAudio().soundThunderStrike(scene: self)
+                        
+                        if let view = self.view {
+                            if let gameScene = SKScene(fileNamed: "GameScene") {
+                                gameScene.scaleMode = .aspectFill
+                                view.presentScene(gameScene)
+                            }
                         }
+                    } else {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentTutorialViewController"), object: nil)
                     }
                 case "settingsDrop":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)

@@ -44,6 +44,7 @@
                         <segue destination="RsO-WJ-230" kind="presentation" identifier="showEnterNameVC" modalTransitionStyle="flipHorizontal" id="UI8-0T-ghc"/>
                         <segue destination="yhT-K3-zdZ" kind="presentation" identifier="gameViewToScoreStatsSegue" modalTransitionStyle="flipHorizontal" id="xFy-IK-DqM"/>
                         <segue destination="2At-pB-242" kind="presentation" identifier="toAchievementController" modalTransitionStyle="flipHorizontal" id="uDA-X4-YUc"/>
+                        <segue destination="Jtm-qO-rBT" kind="presentation" identifier="homeToTutorial" modalTransitionStyle="flipHorizontal" id="emE-jX-Wr0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -1030,7 +1031,8 @@
         <image name="zeroToOneHundredGoal0" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fhn-Ih-ufT"/>
-        <segue reference="c9G-u4-SyJ"/>
+        <segue reference="xFy-IK-DqM"/>
+        <segue reference="emE-jX-Wr0"/>
+        <segue reference="uDA-X4-YUc"/>
     </inferredMetricsTieBreakers>
 </document>
