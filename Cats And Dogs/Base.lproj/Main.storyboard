@@ -178,7 +178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MY5-Yp-w9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="34"/>
+            <point key="canvasLocation" x="1113.75" y="33.75"/>
         </scene>
         <!--Achievements View Controller-->
         <scene sceneID="QVH-4h-f6l">
@@ -898,7 +898,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKt-S1-Hg7">
-                                        <rect key="frame" x="60" y="-8" width="200" height="456.5"/>
+                                        <rect key="frame" x="60" y="23.5" width="200" height="393.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYV-hy-IeZ">
                                                 <rect key="frame" x="75.5" y="10" width="50.5" height="30"/>
@@ -906,33 +906,33 @@
                                                 <color key="textColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Achievement!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKE-iC-dKa">
-                                                <rect key="frame" x="15" y="30" width="170" height="126.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Achievement!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oKE-iC-dKa">
+                                                <rect key="frame" x="15" y="30" width="170" height="63.5"/>
                                                 <fontDescription key="fontDescription" name="AmaticSC-Bold" family="Amatic SC" pointSize="50"/>
                                                 <color key="textColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25M Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhs-zn-KXe">
-                                                <rect key="frame" x="27" y="176.5" width="146.5" height="35"/>
+                                                <rect key="frame" x="27" y="113.5" width="146.5" height="35"/>
                                                 <fontDescription key="fontDescription" name="Righteous-Regular" family="Righteous" pointSize="28"/>
                                                 <color key="textColor" red="0.95294117647058818" green="0.71372549019607845" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="submitButton" translatesAutoresizingMaskIntoConstraints="NO" id="WS5-CZ-fSy">
-                                                <rect key="frame" x="68" y="377.5" width="64" height="64"/>
+                                                <rect key="frame" x="68" y="314.5" width="64" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="64" id="VcA-OZ-eEg"/>
                                                     <constraint firstAttribute="width" constant="64" id="t71-EC-qQI"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jno-nl-wZB">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="456.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="393.5"/>
                                                 <connections>
                                                     <action selector="dismissDidPress:" destination="MWc-3W-2Dv" eventType="touchUpInside" id="6ab-t3-v7r"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XqH-4Y-Y8e">
-                                                <rect key="frame" x="34.5" y="216.5" width="131" height="131"/>
+                                                <rect key="frame" x="34.5" y="153.5" width="131" height="131"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="131" id="Pt6-7P-bu4"/>
                                                     <constraint firstAttribute="width" constant="131" id="gHV-xl-L4h"/>
@@ -942,7 +942,7 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LKn-tt-D3c">
-                                                <rect key="frame" x="70" y="252" width="60" height="60"/>
+                                                <rect key="frame" x="70" y="189" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="ECO-Od-ICE"/>
                                                     <constraint firstAttribute="height" constant="60" id="fHF-i4-ntG"/>

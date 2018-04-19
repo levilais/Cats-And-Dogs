@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(presentToAchievementController), name: NSNotification.Name(rawValue: "presentToAchievementController"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentCustomPopup), name: NSNotification.Name(rawValue: "presentCustomPopup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentTutorialViewController), name: NSNotification.Name(rawValue: "presentTutorialViewController"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentConfirmationViewController), name: NSNotification.Name(rawValue: "presentConfirmationViewController"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -94,6 +95,10 @@ class GameViewController: UIViewController {
     @objc func presentTutorialViewController() {
         playWasPressed = true
         self.performSegue(withIdentifier: "homeToTutorial", sender: self)
+    }
+    
+    @objc func presentConfirmationViewController() {
+        Utilities().showCustomPopup(title: "Are you sure?", body: "By exiting, you will lose your progress", presentingVC: self)
     }
     
     

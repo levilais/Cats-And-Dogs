@@ -199,6 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
+        GameVariables.gameIsActive = true
         if GameAudio.backgroundMusicPlayer == nil {
             GameAudio().playBackgroundMusic()
         } else {
@@ -206,7 +207,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         GameVariables().resetGameVariables()
         setGameState()
-        GameVariables.gameIsActive = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -232,28 +232,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         updateScoreLabel()
                         DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                         DropFunctions().animateDropScore(dropToScore: drop, scene: self)
-                        
-                        
                     }
                 case "pauseButton":
                     pauseGame()
                 case "playButton":
                     resumeGame()
                 case "quitButton":
-                    if let backgroundMusic = GameAudio.backgroundMusicPlayer {
-                        backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
-                    }
-                    if UserPrefs.musicAllowed {
-                        if let drums = GameAudio.drumsAudioPlayer {
-                            drums.play()
-                        }
-                    }
-                    if let view = self.view {
-                        if let gameScene = SKScene(fileNamed: "HomeScene") {
-                            gameScene.scaleMode = .aspectFill
-                            view.presentScene(gameScene)
-                        }
-                    }
+                    print("show notification")
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentConfirmationViewController"), object: nil)
+//                    if let backgroundMusic = GameAudio.backgroundMusicPlayer {
+//                        backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
+//                    }
+//                    if UserPrefs.musicAllowed {
+//                        if let drums = GameAudio.drumsAudioPlayer {
+//                            drums.play()
+//                        }
+//                    }
+//                    if let view = self.view {
+//                        if let gameScene = SKScene(fileNamed: "HomeScene") {
+//                            gameScene.scaleMode = .aspectFill
+//                            view.presentScene(gameScene)
+//                        }
+//                    }
                 case "settingsButton":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:

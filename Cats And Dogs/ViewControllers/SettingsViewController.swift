@@ -11,14 +11,14 @@ import StoreKit
 import MessageUI
 import CoreData
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, SKStoreProductViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var backgroundBottomLayout: NSLayoutConstraint!
     @IBOutlet weak var tableViewBottomLayout: NSLayoutConstraint!
     
-    let sectionHeaders = ["GO TO...","SOUND OPTIONS","FEEDBACK","HIGH SCORES"]
+    let sectionHeaders = ["GO TO...","SOUND OPTIONS","FEEDBACK","MORE APPS","HIGH SCORES"]
     let optionsTitles = ["Music","Rain","Sound FX"]
     
     var highScoreToDisplay: HighScore?
@@ -87,9 +87,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         var count = Int()
         if HighScoresClass.highScores.count > 0 {
-            count = 4
+            count = 5
         } else {
-            count = 3
+            count = 4
         }
         return count
     }
@@ -135,6 +135,27 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     default:
                         print("should never fire")
                     }
+                case 3:
+                    switch indexPath.row {
+                    case 0:
+                        let urlStr = "itms://itunes.apple.com/us/app/random-ruby/id1296326011?ls=1&mt=8"
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                            
+                        } else {
+                            UIApplication.shared.openURL(URL(string: urlStr)!)
+                        }
+                    case 1:
+                        let urlStr = "itms://itunes.apple.com/us/app/prayer-swipe-to-send/id1303817456?ls=1&mt=8"
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                            
+                        } else {
+                            UIApplication.shared.openURL(URL(string: urlStr)!)
+                        }
+                    default:
+                        print("should never fire")
+                    }
                 default:
                     print("error")
                 }
@@ -148,6 +169,22 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func openStoreProductWithiTunesItemIdentifier(identifier: String) {
+        let storeViewController = SKStoreProductViewController()
+        storeViewController.delegate = self
+        
+        let parameters = [ SKStoreProductParameterITunesItemIdentifier : identifier]
+        storeViewController.loadProduct(withParameters: parameters) { [weak self] (loaded, error) -> Void in
+            if loaded {
+                self?.present(storeViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows = Int()
         switch section {
@@ -158,6 +195,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 2:
             rows = 2
         case 3:
+            rows = 2
+        case 4:
             rows = HighScoresClass.highScores.count
         default:
             rows = 1
@@ -229,6 +268,23 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 return cell
             }
         case 3:
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                cell.textLabel?.text = "Random Ruby"
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                cell.textLabel?.text = "Prayer"
+                return cell
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                return cell
+            }
+        case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "highScoreTableViewCell", for: indexPath) as! HighScoreTableViewCell
             cell.detailTextLabel?.textColor = UIColor.StyleFile.LightBlueGray
             let highScore = HighScoresClass.highScores[indexPath.row]
