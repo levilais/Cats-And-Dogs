@@ -240,21 +240,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "quitButton":
                     print("show notification")
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentConfirmationViewController"), object: nil)
-                    
-//                    if let backgroundMusic = GameAudio.backgroundMusicPlayer {
-//                        backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
-//                    }
-//                    if UserPrefs.musicAllowed {
-//                        if let drums = GameAudio.drumsAudioPlayer {
-//                            drums.play()
-//                        }
-//                    }
-//                    if let view = self.view {
-//                        if let gameScene = SKScene(fileNamed: "HomeScene") {
-//                            gameScene.scaleMode = .aspectFill
-//                            view.presentScene(gameScene)
-//                        }
-//                    }
                 case "settingsButton":
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:

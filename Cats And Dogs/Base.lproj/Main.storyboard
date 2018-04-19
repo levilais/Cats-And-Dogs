@@ -806,6 +806,12 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nnl-ie-l7Y">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9A-iH-Pc4">
+                                        <rect key="frame" x="0.0" y="10" width="320" height="480"/>
+                                        <connections>
+                                            <action selector="cancelDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="PXQ-yS-j7R"/>
+                                        </connections>
+                                    </button>
                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33D-Pg-vVP">
                                         <rect key="frame" x="60" y="142" width="200" height="156"/>
                                         <subviews>
@@ -874,10 +880,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="s9A-iH-Pc4" firstAttribute="height" secondItem="Nnl-ie-l7Y" secondAttribute="height" id="2wp-VG-Xe3"/>
                                     <constraint firstItem="33D-Pg-vVP" firstAttribute="leading" secondItem="rYH-Rx-u63" secondAttribute="leading" constant="60" id="8Tj-01-cB6"/>
                                     <constraint firstItem="33D-Pg-vVP" firstAttribute="centerX" secondItem="rYH-Rx-u63" secondAttribute="centerX" id="AHl-zV-IBZ"/>
                                     <constraint firstItem="33D-Pg-vVP" firstAttribute="centerY" secondItem="Nnl-ie-l7Y" secondAttribute="centerY" constant="-20" id="Jz2-Zb-OV4"/>
+                                    <constraint firstItem="s9A-iH-Pc4" firstAttribute="width" secondItem="Nnl-ie-l7Y" secondAttribute="width" id="a4H-yI-qeo"/>
+                                    <constraint firstItem="s9A-iH-Pc4" firstAttribute="centerY" secondItem="rYH-Rx-u63" secondAttribute="centerY" id="cWy-20-n0x"/>
                                     <constraint firstItem="rYH-Rx-u63" firstAttribute="right" secondItem="33D-Pg-vVP" secondAttribute="right" constant="60" id="iS7-ZN-xQB"/>
+                                    <constraint firstItem="s9A-iH-Pc4" firstAttribute="centerX" secondItem="rYH-Rx-u63" secondAttribute="centerX" id="ifc-Va-Vro"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="rYH-Rx-u63"/>
                             </view>
