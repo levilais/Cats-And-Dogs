@@ -17,6 +17,7 @@ class NewUserAchievementNotificationObject {
     var title1: String?
     var title2: String?
     var isLevelUpNotification = false
+    var isAllAchievementsNotification = false
     
     func newAchievementNotificationObjectFromAchievementString(achievement: String) -> NewUserAchievementNotificationObject {
         let goalObject = Achievement().achievementObjectFromString(achievementName: achievement)
@@ -79,7 +80,13 @@ class NewUserAchievementNotificationObject {
             default:
                 print("error")
             }
-            
+        } else if newUserAchievementNotification.isAllAchievementsNotification {
+            popupVC.titleLabel1.text = "You Have Every"
+            popupVC.titleLabel2.text = "Achievement!"
+            popupVC.achievementButton.setBackgroundImage(UIImage(named: "newAchievementBackground2"), for: .normal)
+            popupVC.achievementTitleLabel.text = "Congrats!"
+            popupVC.achievementTitleLabel.textColor = UIColor.StyleFile.goldColor
+            popupVC.buttonImageView.image = UIImage(named: "allAchievements")
         } else {
             popupVC.titleLabel1.text = "New"
             popupVC.titleLabel2.text = "Achievement!"

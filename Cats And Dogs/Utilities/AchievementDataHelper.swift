@@ -46,7 +46,7 @@ class AchievementDataHelper {
 //            "detailDescriptionBeginning": "To earn this achievement, you will need see your miss meter drop to",
 //            "detailDescriptionEnd": "and then bring it all the way back to full (100)",
 //            "bronzeGoal": 99.0,
-//            "silverGoal": 95.0,
+//            "silverGoal": 99.0,
 //            "goldGoal": 99.0,
 //            "textTag": "To 100"
 //        ],
@@ -62,8 +62,8 @@ class AchievementDataHelper {
 //            "detailDescriptionBeginning": "To earn this achievement, you will need to get",
 //            "detailDescriptionEnd": "combos in a row.",
 //            "bronzeGoal": 1.0,
-//            "silverGoal": 2.0,
-//            "goldGoal": 3.0,
+//            "silverGoal": 1.0,
+//            "goldGoal": 1.0,
 //            "textTag": "In-A-Row"
 //        ],
 //        "millionInMinutesGoal": [

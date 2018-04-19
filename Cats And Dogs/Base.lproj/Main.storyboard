@@ -1023,6 +1023,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45N-nr-iec">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cET-cO-hlR">
+                                        <rect key="frame" x="0.0" y="10" width="320" height="480"/>
+                                        <connections>
+                                            <action selector="dismissDidPress:" destination="MWc-3W-2Dv" eventType="touchUpInside" id="cH0-dE-Lyc"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKt-S1-Hg7">
                                         <rect key="frame" x="60" y="23.5" width="200" height="393.5"/>
                                         <subviews>
@@ -1100,8 +1106,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="cET-cO-hlR" firstAttribute="centerY" secondItem="UDG-bs-105" secondAttribute="centerY" id="PHS-PR-lAL"/>
+                                    <constraint firstItem="cET-cO-hlR" firstAttribute="centerX" secondItem="UDG-bs-105" secondAttribute="centerX" id="aQ1-FS-QLX"/>
                                     <constraint firstItem="dKt-S1-Hg7" firstAttribute="centerX" secondItem="UDG-bs-105" secondAttribute="centerX" id="fCR-fw-POe"/>
                                     <constraint firstItem="dKt-S1-Hg7" firstAttribute="centerY" secondItem="45N-nr-iec" secondAttribute="centerY" constant="-20" id="pJp-kR-SO9"/>
+                                    <constraint firstItem="cET-cO-hlR" firstAttribute="height" secondItem="45N-nr-iec" secondAttribute="height" id="ugX-Sy-JeX"/>
+                                    <constraint firstItem="cET-cO-hlR" firstAttribute="width" secondItem="45N-nr-iec" secondAttribute="width" id="w9D-pr-RpG"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="UDG-bs-105"/>
                             </view>
@@ -1159,6 +1169,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="xFy-IK-DqM"/>
         <segue reference="emE-jX-Wr0"/>
-        <segue reference="uDA-X4-YUc"/>
+        <segue reference="c0f-F0-z8G"/>
     </inferredMetricsTieBreakers>
 </document>

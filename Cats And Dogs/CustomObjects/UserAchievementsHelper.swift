@@ -109,6 +109,14 @@ class UserAchievementsHelper {
                             } else {
                                 // YOU BEAT THE GAME!!!!
                                 print("You beat the game!!!!")
+                                if !UserPrefs.finalCongratsHasBeenShown {
+                                    let allAchievementsNotificationObject = NewUserAchievementNotificationObject()
+                                    allAchievementsNotificationObject.isAllAchievementsNotification = true
+                                    GameVariables.newAchievementsToDisplay.append(allAchievementsNotificationObject)
+                                    let defaults = UserDefaults.standard
+                                    defaults.set(true, forKey: "finalCongratsHasBeenShown")
+                                    UserPrefs.finalCongratsHasBeenShown = true
+                                }
                             }
                         }
                     }

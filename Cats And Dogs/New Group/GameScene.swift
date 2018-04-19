@@ -61,8 +61,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
         physicsWorld.contactDelegate = self
@@ -150,6 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             water = childNode(withName: "water") as? SKSpriteNode
             water?.position = Utilities().shiftUp(view: view, currentPosition: (water?.position)!)
+            water?.zPosition = 25
             
             pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode
             pauseButton?.name = "pauseButton"
@@ -571,14 +570,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                 DropFunctions().animateDropScore(dropToScore: drop, scene: self)
 
-//                gameOver()
+                // FOR TESTING: gameOver()
             }
         }
-    }
-    
-    @objc func appMovedToBackground() {
-        print("app moved to background")
-        // Save Game State
     }
     
     @objc func appDidEnterForeground() {

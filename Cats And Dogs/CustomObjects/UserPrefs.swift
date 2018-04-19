@@ -14,6 +14,7 @@ class UserPrefs {
     static var rainAllowed = true
     static var soundFxAllowed = true
     static var tutorialHasBeenShown = false
+    static var finalCongratsHasBeenShown = false
     
     static var currentAchievementLevel = 0
     static var achievementLevelUpTriggered = false
@@ -62,11 +63,13 @@ class UserPrefs {
             UserPrefs.soundFxAllowed = defaults.bool(forKey: "soundFxAllowed")
             UserPrefs.currentAchievementLevel = defaults.integer(forKey: "currentAchievementLevel")
             UserPrefs.tutorialHasBeenShown = defaults.bool(forKey: "tutorialHasBeenShown")
+            UserPrefs.finalCongratsHasBeenShown = defaults.bool(forKey: "finalCongratsHasBeenShown")
         } else {
             UserPrefs.musicAllowed = true
             UserPrefs.rainAllowed = true
             UserPrefs.soundFxAllowed = true
             UserPrefs.tutorialHasBeenShown = false
+            UserPrefs.finalCongratsHasBeenShown = false
             saveUserPrefs()
         }
     }
