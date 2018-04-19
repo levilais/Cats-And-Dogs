@@ -576,8 +576,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func appDidEnterForeground() {
-        if GameVariables.gameIsActive {
-            pauseGame()
-        }
+        pauseGame()
     }
 }
