@@ -240,6 +240,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 case "quitButton":
                     print("show notification")
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentConfirmationViewController"), object: nil)
+                    
 //                    if let backgroundMusic = GameAudio.backgroundMusicPlayer {
 //                        backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
 //                    }

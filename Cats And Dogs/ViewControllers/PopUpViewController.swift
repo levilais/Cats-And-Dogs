@@ -24,6 +24,7 @@ class PopUpViewController: UIViewController {
     
     @IBAction func displayViewButtonDidPress(_ sender: Any) {
     }
+    
     @IBAction func dismissDidPress(_ sender: Any) {
         print("dismiss did press")
         Utilities().dismissViewController(viewController: self)

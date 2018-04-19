@@ -61,6 +61,7 @@
 		04C7CC262077EB8200104555 /* UserAchievementsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC252077EB8200104555 /* UserAchievementsObject.swift */; };
 		04C7CC2820799B8600104555 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC2720799B8600104555 /* AchievementsViewController.swift */; };
 		04D098F72083A58A00C39195 /* TutorialHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D098F62083A58A00C39195 /* TutorialHelper.swift */; };
+		04EAC55320881F1900452AD2 /* QuitConfirmationPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAC55220881F1900452AD2 /* QuitConfirmationPopupViewController.swift */; };
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
 		04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF0204377EB002C57F6 /* DropObject.swift */; };
 		04F01BF320449254002C57F6 /* GameVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF220449254002C57F6 /* GameVariables.swift */; };
@@ -124,6 +125,7 @@
 		04C7CC252077EB8200104555 /* UserAchievementsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAchievementsObject.swift; sourceTree = "<group>"; };
 		04C7CC2720799B8600104555 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
 		04D098F62083A58A00C39195 /* TutorialHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialHelper.swift; sourceTree = "<group>"; };
+		04EAC55220881F1900452AD2 /* QuitConfirmationPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitConfirmationPopupViewController.swift; sourceTree = "<group>"; };
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04F01BF0204377EB002C57F6 /* DropObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropObject.swift; sourceTree = "<group>"; };
 		04F01BF220449254002C57F6 /* GameVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariables.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				049895262050A1C2005B494D /* MailViewController.swift */,
 				0449862F207AD2C90047F46E /* PopUpViewController.swift */,
 				04A012DA207E6C3500ADFBAA /* NewAchievementPopupViewController.swift */,
+				04EAC55220881F1900452AD2 /* QuitConfirmationPopupViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				04A012DF207E73CD00ADFBAA /* NewUserAchievementNotificationObject.swift in Sources */,
 				0437E173205DAE6300BC3BEC /* CoreDataHelper.swift in Sources */,
 				0491EB23205711A7004994C4 /* EnterNameViewController.swift in Sources */,
+				04EAC55320881F1900452AD2 /* QuitConfirmationPopupViewController.swift in Sources */,
 				04664583204DC7BA0090055C /* DefaultTableViewCell.swift in Sources */,
 				040A3C8820477C8E00FCCDD4 /* HomeScene.swift in Sources */,
 				0428225420617F4600097D34 /* ScoreStatsViewController.swift in Sources */,

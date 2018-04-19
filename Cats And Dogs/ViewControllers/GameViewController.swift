@@ -17,6 +17,28 @@ class GameViewController: UIViewController {
     var backgroundMusic = SKAudioNode()
     var subviewsLaidOut = false
     var playWasPressed = false
+    var quitWasConfirmed = false {
+        didSet {
+            if quitWasConfirmed {
+                quitWasConfirmed = false
+                if let backgroundMusic = GameAudio.backgroundMusicPlayer {
+                    backgroundMusic.setVolume(0.0, fadeDuration: 2.0)
+                }
+                if UserPrefs.musicAllowed {
+                    if let drums = GameAudio.drumsAudioPlayer {
+                        drums.play()
+                    }
+                }
+                if let view = self.view as! SKView? {
+                    if let scene = SKScene(fileNamed: "HomeScene") {
+                        scene.scaleMode = .aspectFill
+                        view.presentScene(scene)
+                    }
+                    view.ignoresSiblingOrder = true
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +120,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func presentConfirmationViewController() {
-        Utilities().showCustomPopup(title: "Are you sure?", body: "By exiting, you will lose your progress", presentingVC: self)
+        Utilities().showQuitConfirmPopup(presentingVC: self)
     }
     
     

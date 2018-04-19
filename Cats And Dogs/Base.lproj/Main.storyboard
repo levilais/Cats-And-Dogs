@@ -795,6 +795,111 @@
             </objects>
             <point key="canvasLocation" x="1078" y="878"/>
         </scene>
+        <!--Quit Confirmation Popup View Controller-->
+        <scene sceneID="t9n-IS-77T">
+            <objects>
+                <viewController storyboardIdentifier="quitConfirmPopupID" id="zPQ-lh-kEx" customClass="QuitConfirmationPopupViewController" customModule="Cats_And_Dogs" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mkR-mf-nab">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nnl-ie-l7Y">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <subviews>
+                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33D-Pg-vVP">
+                                        <rect key="frame" x="60" y="142" width="200" height="156"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are You Sure?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiO-Mn-GFs">
+                                                <rect key="frame" x="40" y="10" width="121.5" height="40.5"/>
+                                                <fontDescription key="fontDescription" name="AmaticSC-Bold" family="Amatic SC" pointSize="32"/>
+                                                <color key="textColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="By exiting, you will lose your progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqG-iy-2we">
+                                                <rect key="frame" x="15" y="55.5" width="170" height="38.5"/>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="16"/>
+                                                <color key="textColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BG-bC-tqy">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="156"/>
+                                                <connections>
+                                                    <action selector="cancelDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="Q1s-P5-5qL"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="P7g-e4-Bmg">
+                                                <rect key="frame" x="58" y="109" width="84" height="32"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XW0-Au-f70">
+                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="M6o-tw-vN0"/>
+                                                            <constraint firstAttribute="width" constant="32" id="izs-fn-Zpw"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="quitButton"/>
+                                                        <connections>
+                                                            <action selector="cancelDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="Jbr-4D-sjJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xa1-6o-Ijx">
+                                                        <rect key="frame" x="52" y="0.0" width="32" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="32" id="ALq-uH-mjl"/>
+                                                            <constraint firstAttribute="height" constant="32" id="OnA-EY-NEz"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="submitButton"/>
+                                                        <connections>
+                                                            <action selector="continueButtonDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="aSB-hq-hoD"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.25490196079999999" green="0.28627450980000002" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="2BG-bC-tqy" firstAttribute="width" secondItem="33D-Pg-vVP" secondAttribute="width" id="0bF-PG-k3B"/>
+                                            <constraint firstItem="qqG-iy-2we" firstAttribute="top" secondItem="MiO-Mn-GFs" secondAttribute="bottom" constant="5" id="2SE-Fd-SSf"/>
+                                            <constraint firstItem="P7g-e4-Bmg" firstAttribute="top" secondItem="qqG-iy-2we" secondAttribute="bottom" constant="15" id="5fK-I9-CIP"/>
+                                            <constraint firstItem="MiO-Mn-GFs" firstAttribute="centerX" secondItem="33D-Pg-vVP" secondAttribute="centerX" id="8s1-6b-TaM"/>
+                                            <constraint firstItem="qqG-iy-2we" firstAttribute="leading" secondItem="33D-Pg-vVP" secondAttribute="leading" constant="15" id="EOh-8Y-FVd"/>
+                                            <constraint firstItem="2BG-bC-tqy" firstAttribute="centerY" secondItem="33D-Pg-vVP" secondAttribute="centerY" id="Ggd-OR-oKu"/>
+                                            <constraint firstItem="MiO-Mn-GFs" firstAttribute="top" secondItem="33D-Pg-vVP" secondAttribute="top" constant="10" id="H6H-Jn-51M"/>
+                                            <constraint firstItem="P7g-e4-Bmg" firstAttribute="centerX" secondItem="33D-Pg-vVP" secondAttribute="centerX" id="NZc-wg-7Gm"/>
+                                            <constraint firstAttribute="bottom" secondItem="P7g-e4-Bmg" secondAttribute="bottom" constant="15" id="c8O-V7-tM0"/>
+                                            <constraint firstItem="2BG-bC-tqy" firstAttribute="centerX" secondItem="33D-Pg-vVP" secondAttribute="centerX" id="fc0-Q5-Qns"/>
+                                            <constraint firstAttribute="trailing" secondItem="qqG-iy-2we" secondAttribute="trailing" constant="15" id="rYM-ea-NKM"/>
+                                            <constraint firstItem="2BG-bC-tqy" firstAttribute="height" secondItem="33D-Pg-vVP" secondAttribute="height" id="ssD-cK-2U3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="33D-Pg-vVP" firstAttribute="leading" secondItem="rYH-Rx-u63" secondAttribute="leading" constant="60" id="8Tj-01-cB6"/>
+                                    <constraint firstItem="33D-Pg-vVP" firstAttribute="centerX" secondItem="rYH-Rx-u63" secondAttribute="centerX" id="AHl-zV-IBZ"/>
+                                    <constraint firstItem="33D-Pg-vVP" firstAttribute="centerY" secondItem="Nnl-ie-l7Y" secondAttribute="centerY" constant="-20" id="Jz2-Zb-OV4"/>
+                                    <constraint firstItem="rYH-Rx-u63" firstAttribute="right" secondItem="33D-Pg-vVP" secondAttribute="right" constant="60" id="iS7-ZN-xQB"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="rYH-Rx-u63"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="qxB-Kg-Y5a" firstAttribute="trailing" secondItem="Nnl-ie-l7Y" secondAttribute="trailing" id="4jm-CO-Iqn"/>
+                            <constraint firstItem="Nnl-ie-l7Y" firstAttribute="leading" secondItem="qxB-Kg-Y5a" secondAttribute="leading" id="GzY-nb-YFC"/>
+                            <constraint firstAttribute="bottom" secondItem="Nnl-ie-l7Y" secondAttribute="bottom" id="NXP-w6-RPI"/>
+                            <constraint firstAttribute="top" secondItem="Nnl-ie-l7Y" secondAttribute="top" id="lTU-a6-PqJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qxB-Kg-Y5a"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="NXP-w6-RPI" id="ySr-C4-xfL"/>
+                        <outlet property="displayView" destination="33D-Pg-vVP" id="NyR-G3-h7L"/>
+                        <outlet property="popupBackground" destination="Nnl-ie-l7Y" id="wZS-DD-iwA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NyI-eD-fWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="-1479"/>
+        </scene>
         <!--Pop Up View Controller-->
         <scene sceneID="Wkk-28-3Bl">
             <objects>
