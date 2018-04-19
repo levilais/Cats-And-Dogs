@@ -803,7 +803,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nnl-ie-l7Y">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nnl-ie-l7Y">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9A-iH-Pc4">
@@ -812,7 +812,7 @@
                                             <action selector="cancelDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="PXQ-yS-j7R"/>
                                         </connections>
                                     </button>
-                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33D-Pg-vVP">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33D-Pg-vVP">
                                         <rect key="frame" x="60" y="142" width="200" height="156"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are You Sure?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiO-Mn-GFs">
@@ -834,31 +834,40 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="P7g-e4-Bmg">
-                                                <rect key="frame" x="58" y="109" width="84" height="32"/>
+                                                <rect key="frame" x="20" y="109" width="160" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XW0-Au-f70">
-                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="M6o-tw-vN0"/>
-                                                            <constraint firstAttribute="width" constant="32" id="izs-fn-Zpw"/>
+                                                            <constraint firstAttribute="width" constant="70" id="nJm-LH-5ST"/>
                                                         </constraints>
-                                                        <state key="normal" backgroundImage="quitButton"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="cancelDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="Jbr-4D-sjJ"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xa1-6o-Ijx">
-                                                        <rect key="frame" x="52" y="0.0" width="32" height="32"/>
+                                                        <rect key="frame" x="90" y="0.0" width="70" height="32"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="32" id="ALq-uH-mjl"/>
+                                                            <constraint firstAttribute="width" constant="70" id="FmF-v4-OSk"/>
                                                             <constraint firstAttribute="height" constant="32" id="OnA-EY-NEz"/>
                                                         </constraints>
-                                                        <state key="normal" backgroundImage="submitButton"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                                                        <state key="normal" title="Confirm">
+                                                            <color key="titleColor" red="0.8156862855" green="0.75294119120000003" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="continueButtonDidPress:" destination="zPQ-lh-kEx" eventType="touchUpInside" id="aSB-hq-hoD"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="XW0-Au-f70" firstAttribute="width" secondItem="xa1-6o-Ijx" secondAttribute="width" id="UZJ-7H-clI"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.25490196079999999" green="0.28627450980000002" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -902,6 +911,8 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="NXP-w6-RPI" id="ySr-C4-xfL"/>
+                        <outlet property="cancelButton" destination="XW0-Au-f70" id="e3C-FO-9ho"/>
+                        <outlet property="confirmButton" destination="xa1-6o-Ijx" id="GVq-SX-Tha"/>
                         <outlet property="displayView" destination="33D-Pg-vVP" id="NyR-G3-h7L"/>
                         <outlet property="popupBackground" destination="Nnl-ie-l7Y" id="wZS-DD-iwA"/>
                     </connections>
