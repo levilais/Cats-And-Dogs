@@ -114,17 +114,17 @@ class AchievementDataHelper {
         "pointGoal": [
             "detailDescriptionBeginning": "To earn this achievement, score",
             "detailDescriptionEnd": "points in a single game.",
-            "bronzeGoal": 5000000.0,
-            "silverGoal": 10000000.0,
-            "goldGoal": 15000000.0,
+            "bronzeGoal": 7500000.0,
+            "silverGoal": 15000000.0,
+            "goldGoal": 25000000.0,
             "textTag": "Points"
         ],
         "missesGoal": [
             "detailDescriptionBeginning": "To earn this achievement, let",
             "detailDescriptionEnd": "drops hit the ground in a single game.",
-            "bronzeGoal": 250.0,
-            "silverGoal": 500.0,
-            "goldGoal": 750.0,
+            "bronzeGoal": 150.0,
+            "silverGoal": 250.0,
+            "goldGoal": 500.0,
             "textTag": "Misses"
         ],
         "zeroToOneHundredGoal": [
@@ -138,25 +138,25 @@ class AchievementDataHelper {
         "skipsGoal": [
             "detailDescriptionBeginning": "To earn this achievement, let",
             "detailDescriptionEnd": "level up drops hit the ground in a single game.",
-            "bronzeGoal": 10.0,
-            "silverGoal": 15.0,
+            "bronzeGoal": 15.0,
+            "silverGoal": 20.0,
             "goldGoal": 25.0,
             "textTag": "Skips"
         ],
         "inARowGoal": [
             "detailDescriptionBeginning": "To earn this achievement, get",
             "detailDescriptionEnd": "combos in a row in a single game.",
-            "bronzeGoal": 75.0,
-            "silverGoal": 125.0,
+            "bronzeGoal": 100.0,
+            "silverGoal": 150.0,
             "goldGoal": 200.0,
             "textTag": "In-A-Row"
         ],
         "millionInMinutesGoal": [
             "detailDescriptionBeginning": "To earn this achievement, get",
             "detailDescriptionEnd": "points in a single game in under 10 minutes.",
-            "bronzeGoal": 2500000.0,
-            "silverGoal": 5000000.0,
-            "goldGoal": 1000000.0,
+            "bronzeGoal": 5000000.0,
+            "silverGoal": 10000000.0,
+            "goldGoal": 1500000.0,
             "textTag": "In 10M"
         ],
         "dropGoal": [

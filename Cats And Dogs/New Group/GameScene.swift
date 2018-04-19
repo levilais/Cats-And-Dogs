@@ -577,5 +577,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func appDidEnterForeground() {
         pauseGame()
+        if UserPrefs.rainAllowed {
+            if (GameAudio.rainAudioPlayer?.isPlaying) != nil {
+                
+            }
+        }
     }
 }
