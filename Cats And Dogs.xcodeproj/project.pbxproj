@@ -61,6 +61,7 @@
 		04C7CC262077EB8200104555 /* UserAchievementsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC252077EB8200104555 /* UserAchievementsObject.swift */; };
 		04C7CC2820799B8600104555 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7CC2720799B8600104555 /* AchievementsViewController.swift */; };
 		04D098F72083A58A00C39195 /* TutorialHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D098F62083A58A00C39195 /* TutorialHelper.swift */; };
+		04E645EC2089016A0059BC42 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E645EB2089016A0059BC42 /* CreditsViewController.swift */; };
 		04EAC55320881F1900452AD2 /* QuitConfirmationPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAC55220881F1900452AD2 /* QuitConfirmationPopupViewController.swift */; };
 		04F01BEF20433A7A002C57F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BEE20433A7A002C57F6 /* Utilities.swift */; };
 		04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F01BF0204377EB002C57F6 /* DropObject.swift */; };
@@ -125,6 +126,7 @@
 		04C7CC252077EB8200104555 /* UserAchievementsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAchievementsObject.swift; sourceTree = "<group>"; };
 		04C7CC2720799B8600104555 /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
 		04D098F62083A58A00C39195 /* TutorialHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialHelper.swift; sourceTree = "<group>"; };
+		04E645EB2089016A0059BC42 /* CreditsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		04EAC55220881F1900452AD2 /* QuitConfirmationPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitConfirmationPopupViewController.swift; sourceTree = "<group>"; };
 		04F01BEE20433A7A002C57F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04F01BF0204377EB002C57F6 /* DropObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropObject.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		04A012E1207E774A00ADFBAA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				04E645EB2089016A0059BC42 /* CreditsViewController.swift */,
 				047B2FA2208563C400128DA3 /* TutorialViewController.swift */,
 				0456C1EE20432DCE00647657 /* GameViewController.swift */,
 				040ECC9F204B33AE00EF5D7B /* SettingsViewController.swift */,
@@ -413,6 +416,7 @@
 				04F96974206FFBFB00DD5DC1 /* GameEnvironment.swift in Sources */,
 				0456C1E720432DCE00647657 /* AppDelegate.swift in Sources */,
 				04498630207AD2C90047F46E /* PopUpViewController.swift in Sources */,
+				04E645EC2089016A0059BC42 /* CreditsViewController.swift in Sources */,
 				0437E171205DAD4600BC3BEC /* CatsAndDogsModel.xcdatamodeld in Sources */,
 				0457A7DF206EB48900B4C418 /* UserPrefs.swift in Sources */,
 				04F01BF1204377EB002C57F6 /* DropObject.swift in Sources */,

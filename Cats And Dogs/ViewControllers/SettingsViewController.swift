@@ -109,6 +109,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                         performSegue(withIdentifier: "settingsToAchievements", sender: self)
                     case 1:
                         performSegue(withIdentifier: "settingsToTutorial", sender: self)
+                    case 2:
+                        performSegue(withIdentifier: "settingsToCreditsViewController", sender: self)
                     default:
                         print("should never fire")
                     }
@@ -189,7 +191,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var rows = Int()
         switch section {
         case 0:
-            rows = 2
+            rows = 3
         case 1:
             rows = 3
         case 2:
@@ -207,16 +209,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if indexPath.row == 0 {
+            switch indexPath.row {
+            case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Achievements"
                 return cell
-            } else {
+            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
                 cell.isUserInteractionEnabled = true
                 cell.textLabel?.text = "Tutorial"
                 return cell
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableViewCell", for: indexPath) as! DefaultTableViewCell
+                cell.isUserInteractionEnabled = true
+                cell.textLabel?.text = "Credits"
+                return cell
+            default:
+                return UITableViewCell()
             }
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "toggleTableViewCell", for: indexPath) as! ToggleTableViewCell

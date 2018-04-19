@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDataHelper().setLastNameUsed()
         UserPrefs().getUserPrefs()
         GameAudio().setupAudioPlayers()
-        
+
         return true
     }
 
