@@ -311,7 +311,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var isGameOver = false
         
         if abs(changeValue) >= GameVariables.missesLeft {
-            isGameOver = true
+            if changeValue != 5 {
+                isGameOver = true
+            }
         } else {
             if changeValue >= GameVariables.missesLeft {
                 if valueToChange == 100 {
@@ -525,15 +527,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 timeToDrop = currentTime
             }
             
-            if self.timeToLevelUp > GameControls.levelUpFrequency {
-                timeToLevelUp = 0
-                timeToCreateLevelDrop = true
+            if GameVariables.currentLevel < 10 {
+                if self.timeToLevelUp > GameControls.levelUpFrequency {
+                    timeToLevelUp = 0
+                    timeToCreateLevelDrop = true
+                }
             }
             
-            print("elapsed time: \(elapsedTime)")
-            
             if self.elapsedTime > GameEnvironment.timeForLightning && !GameEnvironment.timeForLightningTriggered {
-                print("lightning fired")
                 GameEnvironment.timeForLightningTriggered = true
                 GameEnvironment().createLightningAnimation(backgroundImage: bgImage!, scene: self)
             }

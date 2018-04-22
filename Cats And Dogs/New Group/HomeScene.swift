@@ -35,6 +35,8 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         
+        GameVariables().resetGameVariables()
+        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appDidEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
@@ -129,7 +131,6 @@ class HomeScene: SKScene, SKPhysicsContactDelegate {
                 
                 introElapsedTime += difference
                 introLastTimeStamp = currentTime
-                print("introElapsedTime: \(introElapsedTime)")
                 
                 if timeToStartDrums == 0 {
                     timeToStartDrums = currentTime

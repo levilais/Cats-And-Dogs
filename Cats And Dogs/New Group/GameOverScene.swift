@@ -184,7 +184,6 @@ class GameOverScene: SKScene, UITextFieldDelegate {
                 
                 introElapsedTime += difference
                 introLastTimeStamp = currentTime
-                print("introElapsedTime: \(introElapsedTime)")
                 
                 if timeToStartDrums == 0 {
                     timeToStartDrums = currentTime
