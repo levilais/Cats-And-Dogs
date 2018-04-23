@@ -263,9 +263,17 @@ class DropFunctions {
             default:
                 print("default called")
             }
+            
             if drop.isComboDrop {
-                GameAudio().soundShake()
+                GameAudio().soundPopAndShake(scene: scene)
+                print("is sounding shake")
+            } else {
+                GameAudio().soundPop(scene: scene)
             }
+            
+//            if drop.isComboDrop {
+//                GameAudio().soundShake()
+//            }
             
             drop.missPoints = missMeterValueToChange
         }

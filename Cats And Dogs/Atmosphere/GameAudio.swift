@@ -139,49 +139,21 @@ class GameAudio {
         }
     }
     
-    func soundShake() {
-//        if UserPrefs.soundFxAllowed {
-//            let shakeSound = Bundle.main.url(forResource: "shake", withExtension: "mp3")
-//            do {
-//                let shakePlayer = try AVAudioPlayer(contentsOf: shakeSound!)
-//                shakePlayer.numberOfLoops = 0
-//                shakePlayer.volume = 0.2
-//                shakePlayer.play()
-//                GameAudio.pops.append(shakePlayer)
-//            } catch let error {
-//                print(error.localizedDescription)
-//            }
-//
-//            for player in GameAudio.shakes {
-//                if player.isPlaying { continue } else {
-//                    if let index = GameAudio.shakes.index(of: player) {
-//                        GameAudio.shakes.remove(at: index)
-//                    }
-//                }
-//            }
-//        }
+    func soundPopAndShake(scene: SKScene) {
+        if UserPrefs.soundFxAllowed {
+            if UserPrefs.soundFxAllowed {
+                let popSound = SKAction.playSoundFileNamed("popAndShake.mp3", waitForCompletion: true)
+                scene.run(popSound)
+            }
+        }
     }
     
-    func soundChime() {
+    func soundPopAndChime(scene: SKScene) {
         if UserPrefs.soundFxAllowed {
-//            let chimeSound = Bundle.main.url(forResource: "chime", withExtension: "mp3")
-//            do {
-//                let chimePlayer = try AVAudioPlayer(contentsOf: chimeSound!)
-//                chimePlayer.numberOfLoops = 0
-//                chimePlayer.volume = 0.2
-//                chimePlayer.play()
-//                GameAudio.chimes.append(chimePlayer)
-//            } catch let error {
-//                print(error.localizedDescription)
-//            }
-//
-//            for player in GameAudio.chimes {
-//                if player.isPlaying { continue } else {
-//                    if let index = GameAudio.chimes.index(of: player) {
-//                        GameAudio.chimes.remove(at: index)
-//                    }
-//                }
-//            }
+            if UserPrefs.soundFxAllowed {
+                let popAndChime = SKAction.playSoundFileNamed("popAndChime.mp3", waitForCompletion: true)
+                scene.run(popAndChime)
+            }
         }
     }
     

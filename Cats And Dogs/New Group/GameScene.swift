@@ -223,15 +223,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         } else {
                             GameVariables().levelUp(scene: self)
                             self.levelTrackerLabel?.text = String(GameVariables.currentLevel)
-                            GameAudio().soundChime()
+                            GameAudio().soundPopAndChime(scene: self)
                         }
                         
+                        
 //                        GameAudio().soundPop()
-                        GameAudio().soundPop(scene: self)
+                        
                         
                         drop = DropFunctions().computeScore(drop: drop)
                         UserAchievementsObject().checkForMillionInMinutes(elapsedTime: elapsedTime)
                         updateScoreLabel()
+                        
+//                        if drop.isComboDrop {
+//                            GameAudio().soundPopAndShake(scene: self)
+//                        } else {
+//                            GameAudio().soundPop(scene: self)
+//                        }
+                        
                         DropFunctions().animateSplash(dropToSplash: drop, scene: self)
                         DropFunctions().animateDropScore(dropToScore: drop, scene: self)
                     }
