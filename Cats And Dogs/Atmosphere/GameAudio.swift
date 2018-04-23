@@ -18,7 +18,6 @@ class GameAudio {
     static var rainAudioPlayer: AVAudioPlayer?
     static var thunderAudioPlayer: AVAudioPlayer?
     static var drumsAudioPlayer: AVAudioPlayer?
-    static var pops = [AVAudioPlayer]()
     static var shakes = [AVAudioPlayer]()
     static var chimes = [AVAudioPlayer]()
     
@@ -133,26 +132,10 @@ class GameAudio {
         GameAudio.thunderAudioPlayer?.setVolume(thunderVolume, fadeDuration: 1.0)
     }
     
-    func soundPop() {
+    func soundPop(scene: SKScene) {
         if UserPrefs.soundFxAllowed {
-            let popSound = Bundle.main.url(forResource: "pop", withExtension: "mp3")
-            do {
-                let popPlayer = try AVAudioPlayer(contentsOf: popSound!)
-                popPlayer.numberOfLoops = 0
-                popPlayer.volume = 0.5
-                popPlayer.play()
-                GameAudio.pops.append(popPlayer)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-            
-            for player in GameAudio.pops {
-                if player.isPlaying { continue } else {
-                    if let index = GameAudio.pops.index(of: player) {
-                        GameAudio.pops.remove(at: index)
-                    }
-                }
-            }
+            let popSound = SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: true)
+            scene.run(popSound)
         }
     }
     
@@ -213,7 +196,6 @@ class GameAudio {
         var strike = SKAction()
         if UserPrefs.musicAllowed {
             strike = SKAction.playSoundFileNamed("singleDrumStrike.mp3", waitForCompletion: true)
-//            scene.run(drum)
         }
         return strike
     }

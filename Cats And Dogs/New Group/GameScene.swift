@@ -163,7 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scene?.childNode(withName: "pauseLabel")?.isHidden = true
 
             if let rainAudioPlayer = GameAudio.rainAudioPlayer {
-                rainAudioPlayer.setVolume(0.6, fadeDuration: 2.0)
+                rainAudioPlayer.setVolume(0.5, fadeDuration: 2.0)
             }
             introAnimation()
         }
@@ -225,7 +225,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             self.levelTrackerLabel?.text = String(GameVariables.currentLevel)
                             GameAudio().soundChime()
                         }
-                        GameAudio().soundPop()
+                        
+//                        GameAudio().soundPop()
+                        GameAudio().soundPop(scene: self)
+                        
                         drop = DropFunctions().computeScore(drop: drop)
                         UserAchievementsObject().checkForMillionInMinutes(elapsedTime: elapsedTime)
                         updateScoreLabel()

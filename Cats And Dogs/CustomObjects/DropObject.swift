@@ -132,7 +132,7 @@ class DropFunctions {
                 missPointsExist = true
                 let missMeterPointChangeLabel = SKLabelNode()
                 missMeterPointChangeLabel.name = "missMeterPointChangeLabel"
-                
+
                 missMeterPointChangeLabel.fontColor = UIColor(red:0.67, green:0.77, blue:0.80, alpha:1.0)
                 missMeterPointChangeLabel.fontName = "Righteous-Regular"
                 missMeterPointChangeLabel.fontSize = 48
@@ -154,25 +154,25 @@ class DropFunctions {
                 }
             }
         }
-        
-        
+
+
         let dropScoreLabel = SKLabelNode()
         dropScoreLabel.name = "dropScoreLabel"
         dropScoreLabel.fontColor = UIColor(red:0.88, green:0.73, blue:0.84, alpha:1.0)
         dropScoreLabel.fontName = "Righteous-Regular"
         dropScoreLabel.fontSize = 48
-        
+
         var y = dropToScore.position.y + 30
         if missPointsExist == true {
             y += 50
         }
-        
+
         if let dropScore = dropToScore.scorePoints {
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = NumberFormatter.Style.decimal
             if let formattedNumber = numberFormatter.string(from: dropScore as! NSNumber) {
                 dropScoreLabel.text = "+\(formattedNumber)"
-                
+
                 if dropToScore.type == "levelDrop" {
                     let levelLabel = SKLabelNode()
                     levelLabel.name = "levelLabel"
@@ -181,7 +181,7 @@ class DropFunctions {
                     levelLabel.fontSize = 48
                     levelLabel.text = "Level \(GameVariables.currentLevel)"
                     let levelLabely = y + 60
-                    
+
                     levelLabel.position = CGPoint(x: dropToScore.position.x, y: levelLabely)
                     let fadeAction = SKAction.fadeOut(withDuration: 1)
                     let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)
@@ -193,7 +193,7 @@ class DropFunctions {
                 }
             }
         }
-        
+
         dropScoreLabel.position = CGPoint(x: dropToScore.position.x, y: y)
         let fadeAction = SKAction.fadeOut(withDuration: 1)
         let moveAction = SKAction.moveBy(x: 20, y: 20, duration: 1)

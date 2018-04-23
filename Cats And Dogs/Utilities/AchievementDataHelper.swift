@@ -115,8 +115,8 @@ class AchievementDataHelper {
             "detailDescriptionBeginning": "To earn this achievement, score",
             "detailDescriptionEnd": "points in a single game.",
             "bronzeGoal": 7500000.0,
-            "silverGoal": 15000000.0,
-            "goldGoal": 25000000.0,
+            "silverGoal": 20000000.0,
+            "goldGoal": 50000000.0,
             "textTag": "Points"
         ],
         "missesGoal": [
@@ -148,7 +148,7 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "combos in a row in a single game.",
             "bronzeGoal": 100.0,
             "silverGoal": 150.0,
-            "goldGoal": 200.0,
+            "goldGoal": 250.0,
             "textTag": "In-A-Row"
         ],
         "millionInMinutesGoal": [
@@ -156,15 +156,15 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "points in a single game in under 10 minutes.",
             "bronzeGoal": 5000000.0,
             "silverGoal": 10000000.0,
-            "goldGoal": 1500000.0,
+            "goldGoal": 15000000.0,
             "textTag": "In 10M"
         ],
         "dropGoal": [
             "detailDescriptionBeginning": "To earn this achievement, pop a single drop worth",
             "detailDescriptionEnd": "points.",
-            "bronzeGoal": 30000.0,
-            "silverGoal": 50000.0,
-            "goldGoal": 100000.0,
+            "bronzeGoal": 50000.0,
+            "silverGoal": 100000.0,
+            "goldGoal": 250000.0,
             "textTag": "Drop"
         ],
         "minutesOfTimeGoal": [
@@ -172,15 +172,15 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "minutes.",
             "bronzeGoal": 600.0,
             "silverGoal": 900.0,
-            "goldGoal": 1800.0,
+            "goldGoal": 1200.0,
             "textTag": "Minutes"
         ],
         "noComboGoal": [
             "detailDescriptionBeginning": "To earn this achievement, earn",
             "detailDescriptionEnd": "points in a single game without getting a single combo.",
-            "bronzeGoal": 25000.0,
-            "silverGoal": 35000.0,
-            "goldGoal": 50000.0,
+            "bronzeGoal": 15000.0,
+            "silverGoal": 25000.0,
+            "goldGoal": 40000.0,
             "textTag": "No Combo"
         ],
         "hitsGoal": [
@@ -188,7 +188,7 @@ class AchievementDataHelper {
             "detailDescriptionEnd": "drops in a single game.",
             "bronzeGoal": 1000.0,
             "silverGoal": 1500.0,
-            "goldGoal": 2500.0,
+            "goldGoal": 2000.0,
             "textTag": "Hits"
         ]
     ]
