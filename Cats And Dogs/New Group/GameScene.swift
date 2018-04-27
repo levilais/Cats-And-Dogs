@@ -251,6 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     print("show notification")
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "presentConfirmationViewController"), object: nil)
                 case "settingsButton":
+                    print("settings button pressed")
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showController"), object: nil)
                 default:
                     print("no button touched")

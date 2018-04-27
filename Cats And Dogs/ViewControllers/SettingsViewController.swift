@@ -28,11 +28,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         setupTableView()
 
         CoreDataHelper().getHighScores()
+        print("settings view loaded")
     }
     
     override func viewWillLayoutSubviews() {
         backgroundBottomLayout.constant += (self.view.safeAreaInsets.bottom)
         tableViewBottomLayout.constant += (self.view.safeAreaInsets.bottom)
+        print("settings view laid out")
     }
     
     func setupTableView() {

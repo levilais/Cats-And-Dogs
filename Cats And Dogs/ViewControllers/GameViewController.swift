@@ -99,6 +99,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func presentView() {
+        print("showController notification posted, presentView called")
         self.performSegue(withIdentifier: "toMyController", sender: self)
     }
     

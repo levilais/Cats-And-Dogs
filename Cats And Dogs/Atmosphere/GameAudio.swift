@@ -18,8 +18,30 @@ class GameAudio {
     static var rainAudioPlayer: AVAudioPlayer?
     static var thunderAudioPlayer: AVAudioPlayer?
     static var drumsAudioPlayer: AVAudioPlayer?
-    static var shakes = [AVAudioPlayer]()
-    static var chimes = [AVAudioPlayer]()
+    
+    static var testPopCount = 0 {
+        didSet {
+            GameAudio.testTotalCount += 1
+            print("testPopCount: \(GameAudio.testPopCount)")
+            print("testTotalCount: \(GameAudio.testTotalCount) \n")
+        }
+    }
+    static var testPopAndShakeCount = 0 {
+        didSet {
+            GameAudio.testTotalCount += 1
+            print("testPopAndShakeCount: \(GameAudio.testPopAndShakeCount)")
+            print("testTotalCount: \(GameAudio.testTotalCount) \n")
+        }
+    }
+    static var testPopAndChimeCount = 0 {
+        didSet {
+            GameAudio.testTotalCount += 1
+            print("testPopAndChime: \(GameAudio.testPopAndChimeCount)")
+            print("testTotalCount: \(GameAudio.testTotalCount) \n")
+        }
+    }
+    static var testTotalCount = 0
+    
     
     func setupAudioPlayers() {
         setupMusicPlayer()
@@ -133,28 +155,30 @@ class GameAudio {
     }
     
     func soundPop(scene: SKScene) {
-        if UserPrefs.soundFxAllowed {
-            let popSound = SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: true)
-            scene.run(popSound)
-        }
+//        print("pop sound")
+//        GameAudio.testPopCount += 1
+//        if UserPrefs.soundFxAllowed {
+//            let popSound = SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: true)
+//            scene.run(popSound)
+//        }
     }
     
     func soundPopAndShake(scene: SKScene) {
-        if UserPrefs.soundFxAllowed {
-            if UserPrefs.soundFxAllowed {
-                let popSound = SKAction.playSoundFileNamed("popAndShake.mp3", waitForCompletion: true)
-                scene.run(popSound)
-            }
-        }
+//        print("pop and shake sound")
+//        GameAudio.testPopAndShakeCount += 1
+//            if UserPrefs.soundFxAllowed {
+//                let popSound = SKAction.playSoundFileNamed("popAndShake.mp3", waitForCompletion: true)
+//                scene.run(popSound)
+//        }
     }
     
     func soundPopAndChime(scene: SKScene) {
-        if UserPrefs.soundFxAllowed {
-            if UserPrefs.soundFxAllowed {
-                let popAndChime = SKAction.playSoundFileNamed("popAndChime.mp3", waitForCompletion: true)
-                scene.run(popAndChime)
-            }
-        }
+//        print("pop and chime sound")
+//        GameAudio.testPopAndChimeCount += 1
+//        if UserPrefs.soundFxAllowed {
+//            let popAndChime = SKAction.playSoundFileNamed("popAndChime.mp3", waitForCompletion: true)
+//            scene.run(popAndChime)
+//        }
     }
     
     func soundThunderStrike(scene: SKScene) {

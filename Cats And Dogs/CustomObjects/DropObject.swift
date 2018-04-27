@@ -107,8 +107,20 @@ class DropFunctions {
     }
     
     func animateSplash(dropToSplash: Drop, scene: SKScene) {
-        let splash = SKSpriteNode(texture: SKTexture(imageNamed: "0splash.pdf"))
+//        // FOR MARKETING
+//        let thumb = SKSpriteNode(texture: SKTexture(imageNamed: "thumb.png"))
+//
+//        thumb.size = CGSize(width: 48, height: 60)
+//        thumb.position = dropToSplash.position
+//        thumb.alpha = 1
+//        scene.addChild(thumb)
+//
+//        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+//        let remove = SKAction.removeFromParent()
+//        let sequence = SKAction.sequence([fadeOut,remove])
+//        thumb.run(sequence)
         
+        let splash = SKSpriteNode(texture: SKTexture(imageNamed: "0splash.pdf"))
         let splashArray = [SKTexture(imageNamed: "0splash.pdf"), SKTexture(imageNamed: "1splash.pdf"),SKTexture(imageNamed: "2splash.pdf")]
         
         splash.size = CGSize(width: 75, height: 34)
